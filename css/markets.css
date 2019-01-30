@@ -1,0 +1,287 @@
+/*TODO: CLEAN THIS UP*/
+
+/*PC Display ONLY*/
+@media only screen and (min-width: 768px){
+    .main-content{        
+        padding-top: 5px !important;
+        padding-left:15px !important;
+        padding-right: 40px !important;
+        padding-bottom: 20px!important;
+    }
+}
+/*END PC Display ONLY*/
+
+.eth-fmt {
+    font-family: 'Courier New', Courier, monospace !important;
+    font-size: 12px !important;
+    color:#656565 !important;
+}
+
+/*MENU ITEMS*/
+.menu-items{
+    cursor: pointer;
+    
+}
+
+.menu-items li{
+    padding:10px !important;
+}
+
+.menu-item{
+    font-size: 20px;    
+}
+
+.menu-item .fas{
+    padding-right: 5px;
+}
+
+#bet-menu-icon{
+    color: white; 
+    display: none;
+}
+/*END MENU ITEMS*/
+
+/*MAIN LINES*/
+.ml-header{
+    background-color:#293039 !important;
+    border-bottom-width: 0px !important;
+    padding-top:3px !important;
+    padding-bottom:3px !important;
+}
+
+.ml-header .ml-header-txt{
+    color:white;
+    font-weight:bold;    
+}
+
+.ml-sub-header{
+    margin: 0;
+    line-height: 25px;
+    font-size: .8em;
+    font-weight: 700;
+    text-transform: capitalize;
+    background-color: #53565e;
+    width: 100%; /* or whatever */
+    overflow: hidden;
+    white-space: nowrap;
+    color:#cccccc;
+}
+
+.ml-sub-header-cols{
+    width:100%;
+}
+
+.ml-date{
+    color: #53565f;
+    background-color: #DDDDDD;
+    border-bottom: 1px solid #B8B8B8;
+    font-size: 11px;
+    padding: 1px 0 1px 15px;
+    font-weight:bold;
+}
+
+.ml-event{
+    padding-top:5px;
+    padding-bottom:5px;
+    cursor: pointer;
+}
+
+.btn-bet{    
+    float:right;
+    max-width: 50px;
+    margin-right: 50px;
+}
+
+.btn-ou{
+    float:right;
+    margin-right: 2px;
+}
+
+.column{
+    display: inline-block;
+}
+
+.column .team-line{
+    width:15%;
+    text-align:center;
+}
+
+.column .team-spread{
+    width:40%;
+    margin-left: 5px;
+}
+
+.column .team-spread-table table td{
+    font-size:12px !important;
+}
+  
+
+.column .team-title{
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: .05em;
+    margin: 0 0 0 0;
+    color: #53565f !important;
+    white-space: nowrap;
+}
+
+.team-spread-tbl {
+    border-collapse: collapse;
+    font-size:12px;
+    width: 100%;
+}
+
+.team-spread-tbl thead {
+    visibility: hidden;
+}
+  
+.team-spread-tbl td {
+    border: 1px solid #ddd;
+    padding: 2px;
+}
+  
+.team-spread-tbl tr:nth-child(even){background-color: #f2f2f2;}
+
+/*END MAIN LINES*/
+
+.card {
+    border-radius: 4px;
+    background-color: #3d3d3d;
+    color:white;
+    background-repeat: no-repeat;
+    background-position: center; 
+    background-size: 100%; 
+}
+
+.card-banner {
+    border-radius: 4px;
+    background-color: #3d3d3d;
+    background: rgb(0, 0, 0); /* Fallback */
+    background: rgba(0,0,0, 0.4);
+}
+
+.cards{
+    cursor: pointer;
+}
+
+/*https://www.flaticon.com/authors/darius-dan*/
+.cards .football{
+    background-image: url('../images/stock1_card.jpg');
+}
+
+.cards .baseball{
+    background-image: url('../images/stock2_card.jpg');
+}
+
+.cards .basketball{
+    background-image: url('../images/stock3_card.jpg');
+}
+
+.cards .hockey{
+    background-image: url('../images/stock4_card.jpg');
+}
+
+.cards .soccer{
+    background-image: url('../images/stock5_card.jpg');
+}
+
+.cards .owl-carousel .item {
+    height: 15rem;
+    /*padding: 1rem;*/
+}
+
+.cards .owl-carousel .item h4 {
+    font-size:30px !important;
+}
+
+.card-selected{
+    background-color: #495264;
+}
+
+.stat-card{
+    padding:6px;
+    cursor:pointer;
+}
+
+.stat-time{
+    background-color: #ffbd4a; 
+    color:white;
+    padding-left:5px;
+    padding-right:3px; 
+    font-size:12px;
+    border-radius: 4px 4px 0px 0px;
+}
+
+.stat-game{
+    color:white; 
+    background-color:#576076;
+    padding:5px;
+    font-size:16px;
+    border-radius: 0px 0px 4px 4px;
+    border-bottom: 4px solid #3d4556;
+}
+
+.stat-game-selected{
+    background-color:#7e8cac !important;
+    border-bottom: 4px solid #7e8cac !important;
+}
+
+.stat-spread {
+    font-weight: bold;
+}
+
+.spread-title {
+    font-weight: bold;    
+}
+
+/*LEFT-SIDE FORMS*/
+
+.dark .control-label{
+    color:#D5D6D8 !important;
+}
+
+.dark input{
+    background-color: #232323;
+    border: 2px solid #232323;
+    color: #D5D6D8;
+}
+
+.dark .input-group-addon{
+    background-color: #4B4F52!important;
+    border: 2px solid #232323!important;
+    color:#D5D6D8 !important;
+}
+
+.team-title{
+    color:#D5D6D8 !important;
+    font-size:18px;
+    padding-bottom: 3px;
+    font-weight: bold;
+}
+
+.slider{
+    width: 85%;
+}
+
+.slider .tooltip{
+    display:none!important;
+}
+
+.slider.slider-horizontal .slider-track{
+    height: 0px; 
+    margin-top: 0px; 
+}
+
+.slider.slider-horizontal .slider-handle {
+    margin-top: -10px; 
+}
+/*END LEFT-SIDE FORMS*/
+
+.p-b-5 { padding-bottom: 5px !important; }
+
+.input-group-addon {
+    min-width:45px !important;
+    text-align:left !important;
+}
+
+

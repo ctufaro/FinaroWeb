@@ -1,0 +1,477 @@
+﻿<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta name="description" content="">
+		<meta name="author" content="">
+		<link rel="icon" href="">
+		<title>BetrTrader</title>
+		<!-- Bootstrap core CSS -->
+		<link href="https://getbootstrap.com/docs/4.1/dist/css/bootstrap.min.css" rel="stylesheet">
+		<!-- Custom styles for this template -->
+		<link href="https://getbootstrap.com/docs/4.1/examples/carousel/carousel.css" rel="stylesheet">
+		<!-- Custom styles for this template -->
+		<link href="https://getbootstrap.com/docs/4.1/examples/album/album.css" rel="stylesheet">
+		<!-- Google Logo Font -->
+		<link href="https://fonts.googleapis.com/css?family=Racing+Sans+One" rel="stylesheet">
+		<!-- Font Awesome -->
+		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css">
+		<!-- Toastr -->
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+		<!-- Datatables -->
+		
+		<!-- Custom CSS -->
+		<link rel="stylesheet" href="css/gamestyle.css">
+		<link rel="stylesheet" href="css/cryptofont.min.css">
+		<link rel="stylesheet" href="css/orders.css">
+        <link rel="stylesheet" href="css/order-form.css">
+	</head>
+	<body>
+		<header>
+			<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+				<a class="navbar-brand logo" href="#">Betr<i class="cf cf-eth"></i>Trader</a>
+				<button class="btn btn-success ml-auto" style="visibility:hidden;">Always Show</button>
+				<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent">
+				<span class="navbar-toggler-icon"></span>
+				</button>
+				<div class="collapse navbar-collapse flex-grow-0" id="navbarSupportedContent">
+					<ul class="navbar-nav text-right">
+						<li class="nav-item">
+							<a class="nav-link" href="index.html">Home <span class="sr-only">(current)</span></a>
+						</li>
+						<!--<li class="nav-item dropdown">
+							<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+							About Us
+							</a>
+							<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+							    <a class="dropdown-item" href="#">Blank</a>
+							</div>
+							</li>-->
+						<li class="nav-item">
+							<a class="nav-link" href="mybets.html">My Bets <span class="sr-only">(current)</span></a>
+						</li>
+						<li class="nav-item active">
+							<a class="nav-link" href="exchange.html">Exchange</a>
+						</li>
+					</ul>
+				</div>
+			</nav>
+		</header>
+		<main role="main">
+			<div class="bottom25"></div>
+			<!-- Marketing messaging and featurettes
+				================================================== -->
+			<!-- Wrap the rest of the page in another container to center all the content. -->
+			<div class="container marketing">
+				<!-- Three columns of text below the carousel -->
+				<div>
+					<div class="container">
+						<!--<div class="game-heading">NFL Spreads</div>-->
+                        
+						<div class="active-orders top50">
+							<div class="row">
+								<div class="col-xs-12">
+									<div style="overflow-y: hidden;">
+										<table class="table table-bordered">
+											<!--<thead>
+												<tr>
+													<th>Date</th>
+													<th>Type</th>
+													<th>Amount <span class="symbol1">BTC</span></th>
+													<th>Price</th>
+													<th>Total</th>
+												</tr>
+												</thead>-->
+											<tbody>
+												<tr>
+													<td><button type="button" class="btn btn-success btn-sm btn-play" data-toggle="modalz" data-home="NEW ORLEANS SAINTS" data-away="DALLAS COWBOYS" data-target="#exampleModalCenter"><i class="fas fa-play-circle"></i></button></td>
+													<td>NEW ORLEANS SAINTS <i class="fas fa-football-ball"></i></td>
+													<td><span class="badge badge-pill badge-primary badge-fixed">-5.5</span></td>
+													<td>DALLAS COWBOYS <i class="fas fa-football-ball"></i></td>
+													<td><span class="badge badge-pill badge-primary badge-fixed">+6.5</span></td>
+												</tr>
+												<tr>
+													<td><button type="button" class="btn btn-success btn-sm btn-play" data-toggle="modalz" data-home="INDIANAPOLIS COLTS" data-away="JACKSONVILLE JAGUARS" data-target="#exampleModalCenter"><i class="fas fa-play-circle"></i></button></td>
+													<td>INDIANAPOLIS COLTS <i class="fas fa-football-ball"></i></td>
+													<td><span class="badge badge-pill badge-primary badge-fixed">-7</span></td>
+													<td>JACKSONVILLE JAGUARS <i class="fas fa-football-ball"></i></td>
+													<td><span class="badge badge-pill badge-primary badge-fixed">+8</span></td>
+												</tr>
+												<tr>
+													<td><button type="button" class="btn btn-success btn-sm btn-play" data-toggle="modalz" data-home="DENVER BRONCOS" data-away="CINCINNATI BENGALS" data-target="#exampleModalCenter"><i class="fas fa-play-circle"></i></button></td>
+													<td>DENVER BRONCOS <i class="fas fa-football-ball"></i></td>
+													<td><span class="badge badge-pill badge-primary badge-fixed" id="bdBroncos">-13</span></td>
+													<td>CINCINNATI BENGALS <i class="fas fa-football-ball"></i></td>
+													<td><span class="badge badge-pill badge-primary badge-fixed" id="bdBengals">+14</span></td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+									<br>
+								</div>
+							</div>
+						</div>
+						<!-------------->
+						<div class="buy-form">
+							<div id="trade-forms">
+								<div id="order-type-form-limit" class="buy-sell-block">
+									<div class="buy-sell">
+										<span class="or">or</span>
+										<div class="row">
+											<div class="col-xs-6">
+												<section id="limit-buy" class="panel">
+													<header class="panel-heading bg-white">
+														<span class="title t1">
+														DENVER BRONCOS
+														</span>
+														<span class="text-muted m-l-small pull-right">
+														<span id="limit-buy-balance-currency" data-symbol1="">ETH</span>
+														balance:
+														<span class="symbol1-available" id="limit-buy-balance-value" data-balance="">0.00</span>
+														</span>
+													</header>
+													<div class="block1">
+														<div class="form" id="buy">
+															<fieldset>
+																<div id="limit-buy-amount" class="control-group form-group" data-amount-error="">
+																	<label class="control-label" for="amount">Spread</label>
+																	<div class="controls">
+																		<div class="input-group">
+																			<input id="book1-spread" type="text" class="form-control input-small" name="amount" data-amount="" autocomplete="off">
+																			<span id="limit-buy-amount-currency" class="input-group-addon" data-symbol1="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+																		</div>
+																		<span id="limit-buy-amount-message" class="help-block" data-amount-error-message=""></span>
+																	</div>
+																</div>
+																<div id="limit-buy-price" class="control-group form-group" data-price-error="">
+																	<label class="control-label" for="price">Wager</label>
+																	<div class="controls">
+																		<div class="input-group">
+																			<input id="book1-amount" type="text" class="form-control input-small" name="price" data-price="" autocomplete="off">
+																			<span id="limit-buy-price-currency" class="input-group-addon" data-symbol2="">USD</span>
+																			<!--<input id="book1-date" type="text" style="margin-top:5px;" placeholder="enter date (testing)">-->
+																		</div>
+																		<span id="limit-buy-price-message" class="help-block" data-price-error-message=""></span>
+																	</div>
+																</div>
+																<div class="control-group mini form-group">
+																	<button id="place-bet-book1" class="btn btn-small btn-blue btn-sm" rel="tooltip">Place order</button>
+																</div>                                                                                          
+															</fieldset>
+															<div class="total">
+																<b>Total:</b> &nbsp; &nbsp;
+																<span id="limit-buy-total-value" data-total="">0.00</span>
+																<span id="limit-buy-total-currency" data-symbol2="">USD</span>
+																&nbsp; &nbsp; &nbsp;
+																<span class="fee">
+																(Fee:
+																<span id="limit-buy-fee-value" data-maker-fee="">0.00</span> -
+																<span id="limit-buy-fee-value" data-taker-fee="">0.00</span>
+																<span id="limit-buy-fee-currency" data-symbol2="">USD</span>)
+																</span>
+															</div>
+															<div class="total">
+																<b>Total:</b> &nbsp; &nbsp;
+																<span id="limit-buy-total-value-eth" data-total="">0.00</span>
+																<span>ETH</span>
+																&nbsp; &nbsp; &nbsp;
+															</div>                                                            
+														</div>
+													</div>
+												</section>
+											</div>
+											<div class="col-xs-6">
+												<section id="limit-sell" class="panel pull-right">
+													<header class="panel-heading bg-white">
+														<span class="title t2">
+														CINCINNATI BENGALS
+														</span>
+														<span class="text-muted m-l-small pull-right">
+														<span id="limit-sell-balance-currency" data-symbol1="">ETH</span>
+														balance:
+														<span class="symbol1-available" id="limit-sell-balance-value" data-balance="">0.00</span>
+														</span>
+													</header>
+													<div class="block1">
+														<div class="form" id="sell">
+															<fieldset>
+																<div id="limit-sell-amount" class="control-group form-group" data-amount-error="">
+																	<label class="control-label" for="amount">Spread</label>
+																	<div class="controls">
+																		<div class="input-group">
+																			<input id="book2-spread" type="text" class="form-control input-small" name="amount" data-amount="" autocomplete="off">
+																			<span id="limit-sell-amount-currency" class="input-group-addon" data-symbol1="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+																		</div>
+																		<span id="limit-sell-amount-message" class="help-block" data-amount-error-message=""></span>
+																	</div>
+																</div>
+																<div id="limit-sell-price" class="control-group form-group" data-price-error="">
+																	<label class="control-label" for="price">Wager</label>
+																	<div class="controls">
+																		<div class="input-group">
+																			<input id="book2-amount" type="text" class="form-control input-small" name="price" data-price="" autocomplete="off">
+																			<span id="limit-sell-price-currency" class="input-group-addon" data-symbol2="">USD</span>
+																			<!--<input id="book2-date" type="text" style="margin-top:5px;" placeholder="enter date (testing)">-->
+																		</div>
+																		<span id="limit-sell-price-message" class="help-block" data-price-error-message=""></span>																		
+																	</div>
+																</div>
+																<div class="control-group mini form-group">
+																	<button id="place-bet-book2" class="btn btn-small btn-blue btn-sm" rel="tooltip">Place order</button>
+																</div>
+															</fieldset>
+															<div class="total">
+																<b>Total:</b> &nbsp; &nbsp;
+																<span id="limit-sell-total-value" data-total="">0.00</span>
+																<span id="limit-sell-total-currency" data-symbol2="">USD</span>
+																&nbsp; &nbsp; &nbsp;
+																<span class="fee">
+																(Fee:
+																<span id="limit-sell-fee-value" data-maker-fee="">0.00</span> -
+																<span id="limit-sell-fee-value" data-taker-fee="">0.00</span>
+																<span id="limit-sell-fee-currency" data-symbol2="">USD</span>)
+																</span>
+															</div>
+															<div class="total">
+																<b>Total:</b> &nbsp; &nbsp;
+																<span id="limit-sell-total-value-eth" data-total="">0.00</span>
+																<span>ETH</span>
+																&nbsp; &nbsp; &nbsp;
+															</div>                                                               
+														</div>
+													</div>
+												</section>
+											</div>
+										</div>
+									</div>
+								</div>						
+                            </div>
+						</div>
+						<!-------------->
+						<div class="buy-sell-orders">
+							<div class="row justify-content-center">
+								<div class="col-xs-6">
+									<div style="width: 96%">
+										<header>
+											<span class="title t1">DENVER BRONCOS </span><i class="fas fa-caret-down" id="ctBook1"></i>
+											<span class="text-muted pull-right">
+											<i class="icn-time"></i> Total <span class="symbol1">ETH: </span><span id="md-sell-total">7.5</span>
+											</span>
+										</header>
+										<div style="overflow-y: auto;height: 250px;width: 106%;" class="tm1">
+											<table class="table table-bordered" id="book1">
+												<thead>
+													<tr>
+														<th>Spread</th>
+														<th>Wager</th>
+														<th>Time</th>
+														<th>Status</th>
+													</tr>
+												</thead>
+												<tbody>
+												</tbody>
+											</table>
+										</div>
+									</div>
+								</div>
+								<div class="col-xs-6">
+									<div style="width: 95%" class="pull-right">
+										<header>
+											<span class="title t2">CINCINNATI BENGALS </span><i class="fas fa-caret-down" id="ctBengals"></i>
+											<span class="text-muted pull-right">
+											<i class="icn-time"></i> Total <span class="symbol1">ETH: </span><span id="md-sell-total">2.892</span>
+											</span>
+										</header>
+										<div style="overflow-y: auto;height: 250px;width: 106%;" class="tm2">
+											<table class="table table-bordered" id="book2">
+												<thead>
+													<tr>
+														<tr>
+															<th>Spread</th>
+															<th>Wager</th>
+															<th>Time</th>
+															<th>Status</th>
+														</tr>
+												</thead>
+												<tbody>
+													                                                     
+													</tbody>
+											</table>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>						
+                        <!-------------->
+                        <div class="market-history">
+                        <div class="panel-heading" style="padding: 5px">
+                            <span><i class="fa fa-history panel-icon"></i> Market History</span>
+                        </div>
+							<div class="row">
+								<div class="col-xs-12">
+									<div style="overflow-y: hidden;">
+										<table id="market-history" class="table table-bordered">
+											<thead>
+												<tr>
+													<th>Timestamp</th>
+													<th>Team</th>
+													<th>Spread</th>
+													<th>Price (ETH)</th>
+													<th>Price (USD)</th>
+												</tr>
+												</thead>
+											<tbody>											                                               
+											</tbody>
+										</table>
+									</div>
+									<br>
+								</div>
+							</div>
+						</div>                        
+                        <!-------------->
+                        <div class="my-open-orders">
+                        <div class="panel-heading" style="padding: 5px">
+                            <span><i class="far fa-check-square"></i> My Open Orders</span>
+                        </div>
+							<div class="row">
+								<div class="col-xs-12">
+									<div style="overflow-y: hidden;">
+										<table id="my-open-orders-tb" class="table table-bordered">
+											<thead>
+												<tr>
+													<th>Timestamp</th>
+													<th>Team</th>
+													<th>Spread</th>
+													<th>Price (ETH)</th>
+                                                    <th>Remaining (ETH)</th>
+													<th>Price (USD)</th>
+                                                    <th><u>Cancel All</u></th>
+												</tr>
+												</thead>
+											<tbody>
+												<tr>													
+													<td colspan="7" align="center"><strong>You have no open orders.</strong></td>													
+												</tr>
+											</tbody>
+										</table>
+									</div>
+									<br>
+								</div>
+							</div>
+						</div>                         
+                        <!-------------->
+                        <div class="my-market-history">
+                        <div class="panel-heading" style="padding: 5px">
+                            <span><i class="fa fa-history panel-icon"></i> My Market History</span>
+                        </div>
+							<div class="row">
+								<div class="col-xs-12">
+									<div style="overflow-y: hidden;">
+										<table id="my-market-hist-tb" class="table table-bordered">
+											<thead>
+												<tr>
+													<th>Timestamp</th>
+													<th>Team</th>
+													<th>Spread</th>
+													<th>Price (USD)</th>
+													<th>Price (ETH)</th>
+												</tr>
+												</thead>
+											<tbody>
+												<!--<tr>
+													<td>12/07/2018 11:56:06 AM</td>
+													<td>CINCINNATI BENGALS</td>
+													<td>+14</td>
+													<td>0.5784</td>
+													<td>50</td>
+												</tr>-->
+											</tbody>
+										</table>
+									</div>
+									<br>
+								</div>
+							</div>
+						</div>                          
+                        <!-------------->
+                </div>
+				<!-- START THE FEATURETTES -->
+				<!-- /END THE FEATURETTES -->
+			</div>
+			<!-- /.container -->
+			<!-- FOOTER -->
+			<footer class="container">
+				<p class="float-right"><a href="#">Back to top</a></p>
+				<p>&copy; 2017-2018 BetrTrader, Inc. &middot; <a href="#">Privacy</a> &middot; <a href="#">Terms</a> &middot; <a id="restart" href="#">Restart</a>
+				</p>
+			</footer>
+			<nav class="navbar fixed-bottom navbar-expand-sm navbar-dark bg-dark">
+				<span id="lblconnection">disconnected</span>
+			</nav>			
+		</main>
+		<!-- Modal -->
+		<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+			<div class="modal-dialog modal-dialog-centered" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="exampleModalLongTitle">Scan the QR</h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						<form>
+						<div class="form-check form-check-inline">
+							<input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
+							<label class="form-check-label" for="inlineRadio1" id="lblHome"></label>
+						</div>
+						<div class="form-check form-check-inline bottom10">
+							<input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
+							<label class="form-check-label" for="inlineRadio2" id="lblAway"></label>
+						</div>
+						<div class="form-group">
+							<label for="spread" class="col-form-label">Spread:</label>
+							<input type="text" class="form-control" id="spread">
+						</div>
+						<div class="form-group">
+							<label for="wager" class="col-form-label">Wager Amount (<span id="ethConvert"></span>ETH)</label>
+							<div class="input-group mb-3">
+								<div class="input-group-prepend">
+									<span class="input-group-text">$</span>
+								</div>
+								<input type="text" class="form-control" id="wager" aria-label="Amount (to the nearest dollar)">
+							</div>
+						</div>
+						<div class="form-group" style="text-align:center;">
+							<div><strong>0x345ca3e014aaf5dca488057592ee47305d9b3e10</strong></div>
+							<div><img src="images/qr.png"/></div>
+						</div>
+						</form
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+						<button type="button" class="btn btn-primary">Place Bet</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- Bootstrap core JavaScript
+			================================================== -->
+		<!-- Placed at the end of the document so the pages load faster -->
+		<script src="https://code.jquery.com/jquery-3.3.1.min.js" crossorigin="anonymous"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+		<script>window.jQuery || document.write('<script src="https://getbootstrap.com/docs/4.1/assets/js/vendor/jquery-slim.min.js"><\/script>')</script>
+		<script src="https://getbootstrap.com/docs/4.1/assets/js/vendor/popper.min.js"></script>
+		<script src="https://getbootstrap.com/docs/4.1/dist/js/bootstrap.min.js"></script>
+		<script src="https://getbootstrap.com/docs/4.1/assets/js/vendor/holder.min.js"></script>
+		<script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js" crossorigin="anonymous"></script>
+		<script src="js/vendors/moment.js"></script>
+		<script src="js/vendors/web3.min.js"></script>
+		<script src="js/abis/holdABI.js"></script>
+        <!--<script src="js/contracts.js"></script>        
+		<script src="js/spreads.js"></script>-->
+		<script>var shit;</script>
+		<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@aspnet/signalr@1.0.0/dist/browser/signalr.min.js"></script>
+		<script src="js/exchange.js"></script>
+
+	</body>
+</html>

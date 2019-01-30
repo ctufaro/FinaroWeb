@@ -1,0 +1,50 @@
+.col-xs-12 {
+    width: 100%;
+}
+
+.table {
+    width: 100%;    
+    font-size:14px;
+}
+
+.table td, .table th{
+    padding: .5rem;
+}
+
+.buy-sell-orders .title {
+    z-index: 2;
+    font-weight: normal;
+    font-size: 19px;
+}
+
+.buy-sell-orders span.pull-right {
+    margin-top: 5px;
+    font-size: 12px;
+}
+
+.buy-sell-orders span.pull-right {
+    margin-top: 5px;
+    font-size: 12px;
+}
+
+.pull-right {
+    float: right;
+}
+
+.text-muted {
+    color: #919599;
+}
+
+.pull-right {
+    float: right!important;
+}
+
+.text-muted {
+    color: #999;
+}
+
+.col-xs-6 {
+    width: 50%;
+}
+
+

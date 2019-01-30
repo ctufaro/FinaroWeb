@@ -1,0 +1,128 @@
+.panel {
+    padding: 15px;
+    margin-bottom: 20px;
+    background-color: #ffffff;
+    border: 1px solid #e0e4e8;
+    -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
+}
+
+.panel-heading {
+    padding: 0px 15px;
+    margin: 0px -15px 5px;
+    font-size: 17.5px;
+    background-color: #f5f5f5;
+    /*border-bottom: 1px solid #dddddd;*/
+}
+
+.panel-heading .pull-right {
+    margin-top: 5px;
+    font-size: 12px;
+}
+
+.panel-heading:before,
+.panel-heading:after {
+    display: table;
+    content: " ";
+}
+
+.buy-sell {
+    border: 1px solid #e0e4e8;
+    margin: -1px 0 15px;
+    padding: 20px 25px 0 25px;
+    position: relative;
+}
+
+.buy-sell .panel {
+    width: 89%;
+}
+
+.trade-page .buy-sell .panel {
+    width: 95%;
+}
+
+.buy-sell .panel-heading .title {
+    background-color: #fff;
+    font-size: 20px;
+}
+
+/*.buy-sell form,*/
+.buy-sell .block {
+    margin: 0;
+}
+
+.buy-sell .control-group {
+    display: block;
+    float: left;
+    width: 40%;
+    margin-bottom: 10px;
+}
+
+.buy-sell .control-group.mini {
+    width: 20%;
+    padding-top: 23px;
+}
+
+.buy-sell .control-group.large {
+    width: 60%;
+}
+
+.buy-sell .control-group.w50 {
+    width: 50%;
+}
+
+.buy-sell .control-group .control-label {
+    font-weight: normal;
+    width: 100%;
+}
+
+.buy-sell .control-group .input-group {
+    margin-bottom: 10px;
+    padding-right: 47px;
+}
+
+.buy-sell .control-group .input-group .input-group-addon {
+    padding: 4px 5px;
+}
+
+.buy-sell .control-group .input-group .form-control {
+    padding: 4px 6px;
+}
+
+.buy-sell .control-group .controls .help-block {
+    margin: 0;
+    padding-left: 5px;
+}
+
+.buy-sell .btn-blue {
+    width: 100%;
+}
+
+.buy-sell .row-alert {
+    margin: 0;
+}
+
+.buy-sell .or {
+    width: 36px;
+    height: 36px;
+    text-align: center;
+    background: #fff;
+    line-height: 36px;
+    position: absolute;
+    left: 50%;
+    top: 115px;
+    margin-left: -18px;
+    color: #e9eef1;
+    display: none;
+}
+
+.buy-sell .total {
+    font-size: 12px;
+    position: relative;
+}
+
+.buy-sell .fee {
+    color: #b1b9c1;
+    position: absolute;
+    left: 40%;
+}

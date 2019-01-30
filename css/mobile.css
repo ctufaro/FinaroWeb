@@ -1,0 +1,60 @@
+@media only screen and (max-width: 767px) {
+    html {
+        overflow-y: scroll; /* has to be scroll, not auto */
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .cards{
+        padding-top:40px !important;
+    }
+    .rt-side-bant{
+        display: none !important;
+    }
+
+    /*MAIN LINES*/
+    .team-place{
+        display:none;
+    }
+
+    .team-title::after{
+        content: "\A";
+        white-space: pre;
+    }
+
+    .team-line{
+        float: right;
+    }
+
+    .btn-bet{
+        float:left;
+        margin-right: 3px !important;
+    }
+
+    .btn-ou{
+        float:left;
+        margin-right: 3px!important;
+    }
+    
+    /*END MAIN LINES*/
+
+
+    .navbar-header{ 
+        height: 0px;       
+    }
+    .nav-wrapper{
+        border-top: 5px solid black;
+    }
+    .navbar-default{
+        background-color: black;
+    }  
+    .wrapper>.aside {
+        margin-top: 54px;
+    }
+    .navbar-default .navbar-nav > li > a {
+        color: white;
+    }
+    #bet-menu-icon{
+        color: white; 
+        display: none;
+    }
+}

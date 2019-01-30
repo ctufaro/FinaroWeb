@@ -1,0 +1,185 @@
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta name="description" content="">
+		<meta name="author" content="">
+		<link rel="icon" href="">
+		<title>BEtherSports</title>
+		<!-- Bootstrap core CSS -->
+		<link href="https://getbootstrap.com/docs/4.1/dist/css/bootstrap.min.css" rel="stylesheet">
+		<!-- Custom styles for this template -->
+		<link href="https://getbootstrap.com/docs/4.1/examples/carousel/carousel.css" rel="stylesheet">
+		<!-- Custom styles for this template -->
+		<link href="https://getbootstrap.com/docs/4.1/examples/album/album.css" rel="stylesheet">
+		<!-- Google Logo Font -->
+		<link href="https://fonts.googleapis.com/css?family=Racing+Sans+One" rel="stylesheet">
+		<!-- Font Awesome -->
+		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css">
+		<!-- Custom CSS -->
+		<link rel="stylesheet" href="css/gamestyle.css">
+		<link rel="stylesheet" href="css/cryptofont.min.css">
+	</head>
+	<body>
+		<header>
+			<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+				<a class="navbar-brand logo"" href="#">BEther<i class="cf cf-eth"></i>Sports</a>
+				<button class="btn btn-success ml-auto" style="visibility:hidden;">Always Show</button>
+				<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent">
+				<span class="navbar-toggler-icon"></span>
+				</button>
+				<div class="collapse navbar-collapse flex-grow-0" id="navbarSupportedContent">
+					<ul class="navbar-nav text-right">
+						<li class="nav-item">
+							<a class="nav-link" href="index.html">Home <span class="sr-only">(current)</span></a>
+						</li>
+						<!--<li class="nav-item dropdown">
+							<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+							About Us
+							</a>
+							<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+								<a class="dropdown-item" href="#">Blank</a>
+							</div>
+							</li>-->
+						<li class="nav-item active">
+							<a class="nav-link" href="mybets.html">My Bets <span class="sr-only">(current)</span></a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="exchange.html">Exchange</a>
+						</li>							
+					</ul>
+				</div>
+			</nav>
+		</header>
+		<main role="main">
+			<div class="bottom25"></div>
+			<!-- Marketing messaging and featurettes
+				================================================== -->
+			<!-- Wrap the rest of the page in another container to center all the content. -->
+			<div class="container marketing">
+				<!-- Three columns of text below the carousel -->
+				<div class="album py-5 bg-light">
+					<div class="container">
+						<div class="game-heading">Gameline Bet <span id="wallet-address">My Address: {{address}}</span></div>
+						<div class="row justify-content-center">
+							<div class="col-lg-4">
+								<strong>Team A</strong>
+								<div>Total amount:&nbsp;<span id="spnTotalA"></span></div>
+								<div class="input-group mb-3">
+									<input type="text" class="form-control" placeholder="Enter an amount to bet" id="txtBetA">
+									<div class="input-group-append">
+										<span class="input-group-text" id="basic-addon2">ETH</span>
+									</div>
+								</div>
+								<div><button type="button" id="btnBetA" class="btn btn-primary btn-lg"><i class="fas fa-football-ball"></i> CHICAGO BEARS</button></div>
+								<p></p>
+								<div><button type="button" id="btnWinA" class="btn btn-secondary btn-sm">Bears Win</button></div>
+							</div>
+							<div class="col-lg-4">
+								<strong>Team B</strong>
+								<div>Total amount:&nbsp;<span id="spnTotalB"></span></div>
+								<div class="input-group mb-3">
+									<input type="text" class="form-control" placeholder="Enter an amount to bet" id="txtBetB">
+									<div class="input-group-append">
+										<span class="input-group-text" id="basic-addon2">ETH</span>
+									</div>
+								</div>
+								<div><button type="button" id="btnBetB" class="btn btn-primary btn-lg"><i class="fas fa-football-ball"></i> DETROIT LIONS</button></div>
+								<p></p>
+								<div><button type="button" id="btnWinB" class="btn btn-secondary btn-sm">Lions Win</button></div>
+							</div>
+						</div>
+						<table class="table">
+							<thead>
+								<tr>
+									<th scope="col">TX#</th>
+									<th scope="col">Amount</th>
+									<th scope="col">Game</th>
+									<th scope="col">Status</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<th scope="row"><a href=''>0X6DAB86C0F7BDF3743C...</a></th>
+									<td>0.4409644 Ether</td>
+									<td><i class="fas fa-football-ball"></i> PITTSBURGH STEELERS -170</td>
+									<td>Pending</td>
+								</tr>
+								<tr>
+									<th scope="row"><a href=''>0X6DAB812345BDF3743C...</a></th>
+									<td>0.4409644 Ether</td>
+									<td><i class="fas fa-basketball-ball"></i> BOSTON CELTICS -525</td>
+									<td>Pending</td>
+								</tr>
+								<tr>
+									<th scope="row"><a href=''>0X6DAB856785BDF3743C...</a></th>
+									<td>0.4409644 Ether</td>
+									<td><i class="fas fa-hockey-puck"></i> NEW YORK ISLANDERS +180</td>
+									<td>Pending</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+				<!-- START THE FEATURETTES -->
+				<!--
+					<hr class="featurette-divider">
+					
+					<div class="row featurette">
+					  <div class="col-md-7">
+					    <h2 class="featurette-heading">First featurette heading. <span class="text-muted">It'll blow your mind.</span></h2>
+					    <p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.</p>
+					  </div>
+					  <div class="col-md-5">
+					    <img class="featurette-image img-fluid mx-auto" data-src="holder.js/500x500/auto" alt="Generic placeholder image">
+					  </div>
+					</div>
+					
+					<hr class="featurette-divider">
+					
+					<div class="row featurette">
+					  <div class="col-md-7 order-md-2">
+					    <h2 class="featurette-heading">Oh yeah, it's that good. <span class="text-muted">See for yourself.</span></h2>
+					    <p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.</p>
+					  </div>
+					  <div class="col-md-5 order-md-1">
+					    <img class="featurette-image img-fluid mx-auto" data-src="holder.js/500x500/auto" alt="Generic placeholder image">
+					  </div>
+					</div>
+					
+					<hr class="featurette-divider">
+					
+					<div class="row featurette">
+					  <div class="col-md-7">
+					    <h2 class="featurette-heading">And lastly, this one. <span class="text-muted">Checkmate.</span></h2>
+					    <p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.</p>
+					  </div>
+					  <div class="col-md-5">
+					    <img class="featurette-image img-fluid mx-auto" data-src="holder.js/500x500/auto" alt="Generic placeholder image">
+					  </div>
+					</div>
+					
+					<hr class="featurette-divider">
+					-->
+				<!-- /END THE FEATURETTES -->
+			</div>
+			<!-- /.container -->
+			<!-- FOOTER -->
+			<footer class="container">
+				<p class="float-right"><a href="#">Back to top</a></p>
+				<p>&copy; 2017-2018 BEtherSports, Inc. &middot; <a href="#">Privacy</a> &middot; <a href="#">Terms</a></p>
+			</footer>
+		</main>
+		<!-- Bootstrap core JavaScript
+			================================================== -->
+		<!-- Placed at the end of the document so the pages load faster -->
+		<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+		<script>window.jQuery || document.write('<script src="https://getbootstrap.com/docs/4.1/assets/js/vendor/jquery-slim.min.js"><\/script>')</script>
+		<script src="https://getbootstrap.com/docs/4.1/assets/js/vendor/popper.min.js"></script>
+		<script src="https://getbootstrap.com/docs/4.1/dist/js/bootstrap.min.js"></script>
+		<script src="https://getbootstrap.com/docs/4.1/assets/js/vendor/holder.min.js"></script>
+		<script src="js/vendors/web3.min.js"></script>
+		<script src="js/abis/contractBet.js"></script>  
+		<script src="js/bets.js"></script>
+	</body>
+</html>

@@ -1,13 +1,14 @@
 const apiBaseUrl = "http://localhost:7071";
+const userId = 1;
+const entityId = 1;
 
 const vm = new Vue({
     el: '#app',
     data: {
-        userId:  1,
-        entityId: 1,
         tradeType: null,
         price: null,
         quantity: null,
+        team: 'New York Giants'
     },
     created: function(){
         getConnectionInfo().then(info => {
@@ -48,21 +49,28 @@ const vm = new Vue({
         }
         
         function getOrders(){
-            axios.get(`${apiBaseUrl}/api/orders/1/1`)
+            axios.get(`${apiBaseUrl}/api/orders/${userId}/${entityId}`)
             .then(resp => console.log(resp));
         }
     },    
     methods: {
     sendData: function () {
-            axios.post(`${apiBaseUrl}/api/orders`,
-            {
-                userId: this.userId,
-                entityId: this.entityId,
-                tradeType: this.tradeType,
-                price: this.price,
-                quantity: this.quantity                        
-            });
-        }
+        axios.post(`${apiBaseUrl}/api/orders`,
+        {
+            userId: userId,
+            entityId: entityId,
+            tradeType: this.tradeType,
+            price: this.price,
+            quantity: this.quantity                        
+        });
+    },
+    testsubmit: function () {
+        console.log(`Trade Type: ${this.tradeType} Quanitity:${this.quantity} Price:${this.price}`);
+    },
+    clear: function () {
+        this.price = '';
+        this.quantity = '';
+    }            
     }
 });
 

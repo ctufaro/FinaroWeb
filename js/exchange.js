@@ -35,9 +35,7 @@ const vm = new Vue({
                 .then(() => console.log('connected!'))
                 .catch(console.error);
         
-        }).catch(alert);
-        
-        getOrders();
+        }).catch(alert);       
 
         function getConnectionInfo() {
             return axios.get(`${apiBaseUrl}/api/negotiate`)
@@ -45,35 +43,105 @@ const vm = new Vue({
         }
         
         function newOrders(orders) {
-            console.log(orders);
-        }
-        
-        function getOrders(){
-            axios.get(`${apiBaseUrl}/api/orders/${userId}/${entityId}`)
-            .then(resp => console.log(resp));
-        }
+            let rowNode = null;
+            const neworders = JSON.parse(orders).data;
+            const dt = $('#tblexchange').DataTable();
+            $('#tblexchange tr').removeClass('newsell');
+            $('#tblexchange tr').removeClass('newbuy');
+            neworders.forEach(function (order, index) {                
+                if(order.Id === null){
+                    rowNode = dt.row.add(order).draw(false).node();                   
+                }
+                else{                    
+                    rowNode = dt.row(`#id_${order.OrderId}`).data(order).draw().node();
+                }
+                if(order.TradeTypeId == 2)
+                    $(rowNode).addClass('newsell');                    
+                else if(order.TradeTypeId == 1)
+                    $(rowNode).addClass('newbuy'); 
+            });
+        }                
     },    
     methods: {
-    sendData: function () {
-        axios.post(`${apiBaseUrl}/api/orders`,
-        {
-            userId: userId,
-            entityId: entityId,
-            tradeType: this.tradeType,
-            price: this.price,
-            quantity: this.quantity                        
-        });
-    },
-    testsubmit: function () {
-        console.log(`Trade Type: ${this.tradeType} Quanitity:${this.quantity} Price:${this.price}`);
-    },
-    clear: function () {
-        this.price = '';
-        this.quantity = '';
-    }            
+        sendData: function () {
+            axios.post(`${apiBaseUrl}/api/orders`,
+            {
+                userId: userId,
+                entityId: entityId,
+                tradeType: this.tradeType,
+                price: this.price,
+                quantity: this.quantity                        
+            });
+        },
+        clear: function () {
+            this.price = '';
+            this.quantity = '';
+        }            
     }
 });
 
+
+function initDataTable()
+{
+    var dt = $('#tblexchange').DataTable({
+        searching: false, paging: false, info: false,autoWidth: false,
+        "ajax": {
+            "url": `${apiBaseUrl}/api/orders/${userId}/${entityId}`,
+            "dataSrc": 'data'
+        },
+        "rowId":  function(a) {return 'id_' + a.OrderId;},        
+        "columns": [
+            { "data": "TradeTypeId" },
+            { "data": "Price" },
+            { "data": "Date" },
+            { "data": "Quantity" },
+            { "data": "Status" }
+        ],
+        "columnDefs": [
+          {
+            "targets": 2,
+            "data": "Date",
+            "render": function ( data, type, row ) { return moment(data).format(); }                
+          },             
+          {
+            "targets": 1,
+            "data": "Price",
+            "render": function ( data, type, row ) { return data.toFixed(2); }                
+          },            
+          {
+            "targets": 0,
+            "data": "TradeTypeId",
+            "render": function ( data, type, row, meta ) {
+              return data===1?'BUY':'SELL'
+            }
+          },
+          {
+            "targets": 4,
+            "data": "Status",
+            "render": function ( data, type, row, meta ) {
+                switch(data){
+                    case(1):
+                        return 'OPEN'
+                    case(2):
+                        return 'PARTIAL'
+                    case(3):
+                        return 'FILLED'                                                
+                }
+            }
+          }],
+        "order": [[ 0, "desc" ],[ 1, "desc" ],[ 3, "desc" ]],
+        "createdRow": function( row, data, dataIndex){
+            if (data['TradeTypeId'] == '1' ) {
+                $(row).addClass('gains');
+            }
+            else if (data['TradeTypeId'] == '2' ) {
+                $(row).addClass('losses');
+            }
+        }
+    });
+};
+
+initDataTable();
 
 
 

@@ -54,6 +54,22 @@
     font-weight:bold;    
 }
 
+.ml-header .ml-header-tkr{
+    color:white;
+    font-weight:bold;
+    font-size:20px;
+}
+
+.gains{
+    color:#006100;
+    background-color: #C6EFCE !important;
+}
+
+.losses{
+    color:#9C0000;
+    background-color: #FFC7CE !important;
+}
+
 .ml-sub-header{
     margin: 0;
     line-height: 25px;
@@ -291,3 +307,51 @@
 }
 
 
+
+/*ANIMATION*/
+
+@-webkit-keyframes newsell {
+    from { background-color: red; }
+    to { background-color: #FFC7CE; }
+  }
+  @-moz-keyframes newsell {
+    from { background-color: red; }
+    to { background-color: #FFC7CE; }
+  }
+  @-o-keyframes newsell {
+    from { background-color: red; }
+    to { background-color: #FFC7CE; }
+  }
+  @keyframes newsell {
+    from { background-color: red; }
+    to { background-color: #FFC7CE; }
+  }
+  .newsell {
+    -webkit-animation: newsell 1s ; /* Safari 4+ */
+    -moz-animation:    newsell 1s ; /* Fx 5+ */
+    -o-animation:      newsell 1s ; /* Opera 12+ */
+    animation:         newsell 1s ; /* IE 10+ */
+  }
+
+  @-webkit-keyframes .newbuy {
+    from { background-color: green; }
+    to { background-color: #C6EFCE; }
+  }
+  @-moz-keyframes newbuy {
+    from { background-color: green; }
+    to { background-color: #C6EFCE; }
+  }
+  @-o-keyframes newbuy {
+    from { background-color: green; }
+    to { background-color: #C6EFCE; }
+  }
+  @keyframes newbuy {
+    from { background-color: green; }
+    to { background-color: #C6EFCE; }
+  }
+  .newbuy {
+    -webkit-animation: newbuy 1s ; /* Safari 4+ */
+    -moz-animation:    newbuy 1s ; /* Fx 5+ */
+    -o-animation:      newbuy 1s ; /* Opera 12+ */
+    animation:         newbuy 1s ; /* IE 10+ */
+  }

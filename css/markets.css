@@ -257,6 +257,11 @@
 
 /*LEFT-SIDE FORMS*/
 
+.dark .drop-drk{
+    background-color: #232323;
+    border: 2px solid #232323; 
+}
+
 .dark .control-label{
     color:#D5D6D8 !important;
 }
@@ -338,7 +343,7 @@
     animation:         newsell 1s ; /* IE 10+ */
   }
 
-  @-webkit-keyframes .newbuy {
+  @-webkit-keyframes newbuy {
     from { background-color: green; }
     to { background-color: #C6EFCE; }
   }

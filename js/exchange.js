@@ -9,7 +9,8 @@ const vm = new Vue({
         tradeType: null,
         price: null,
         quantity: null,
-        team: 'New York Giants'
+        team: 'New York Giants',
+        tradeTypeText: 'Select a Transaction Type'
     },
     created: function(){
         getConnectionInfo().then(info => {
@@ -83,6 +84,10 @@ const vm = new Vue({
         },
         openOrders: function(){            
             $('body').addClass('aside-toggled');
+        },
+        changeTranType:function(type){
+            this.tradeType = type;
+            this.tradeTypeText = type === 1 ? 'Buy' : 'Sell';
         }
     }
 });

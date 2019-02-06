@@ -178,19 +178,24 @@
                         <div class="panel-wrapper collapse in h-auto bet-entry">
                             <div class="panel-body">
                                 <div class="team-title spnteam1">{{team}}</div>
-                                <label class="control-label">Transaction Type</label>
-                                <div class="input-group col-sm-12 m-b">
-                                    <select class="form-control" v-model="tradeType">
-                                        <option value="1">Buy</option>
-                                        <option value="2">Sell</option>
-                                    </select>
+                                <label class="control-label">Transaction</label>
+                                <div class="input-group col-sm-12 m-b p-b-5">
+                                    <div class="dropdown">
+                                        <button class="btn btn-primary dropdown-toggle btn-block" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            {{tradeTypeText}}
+                                        </button>
+                                        <div class="dropdown-menu drop-drk" aria-labelledby="dropdownMenuButton">
+                                            <a class="dropdown-item control-label" href="#" v-on:click="changeTranType(1)">Buy</a>
+                                            <a class="dropdown-item control-label" href="#" v-on:click="changeTranType(2)">Sell</a>                                            
+                                        </div>
+                                    </div>                                    
                                 </div>                                
-                                <label class="control-label">Enter Quantity</label>
+                                <label class="control-label">Units</label>
                                 <div class="input-group col-sm-12 m-b">
                                     <input id="txtteam1spread" v-model="quantity" type="text" placeholder="0" class="form-control text-right">
                                 </div>
                                 <div class="m-t-9">
-                                    <label class="control-label">Enter Price</label>
+                                    <label class="control-label">Price</label>
                                     <div class="input-group col-sm-12 m-b">                                        
                                         <input id="txtteam1wager" v-model="price" type="text" placeholder="0.00" class="form-control text-right">
                                     </div>
@@ -202,7 +207,7 @@
                                                 <button id="btnteam1bet" type="button" class="btn btn-success btn-block" v-on:click.prevent="sendData()"><i class="fa fa-plus"></i> Place </button>                                                
                                             </div>
                                             <div class="col-xs-6">
-                                                <button type="button" class="btn btn-primary btn-block" v-on:click.prevent="clear()"><i class="far fa-trash-alt"></i> Clear </button>
+                                                <button type="button" class="btn btn-danger btn-block" v-on:click.prevent="clear()"><i class="far fa-trash-alt"></i> Clear </button>
                                             </div>
                                         </div>
                                     </div>
@@ -261,7 +266,7 @@
                                                                 <th>Type</th>
                                                                 <th>Price</th>
                                                                 <th>Date</th>
-                                                                <th>Quantity</th>
+                                                                <th>Units</th>
                                                                 <th>Status</th>
                                                                 <th>PriceSort</th>
                                                             </tr>

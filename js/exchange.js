@@ -95,7 +95,8 @@ function initDataTable()
             { "data": "Price" },
             { "data": "Date" },
             { "data": "Quantity" },
-            { "data": "Status" }
+            { "data": "Status" },
+            { "data": "PriceSort" }
         ],
         "columnDefs": [
           {
@@ -107,13 +108,17 @@ function initDataTable()
             "targets": 1,
             "data": "Price",
             "render": function ( data, type, row ) { return data.toFixed(2); }                
-          },            
+          },  
+          {
+            "targets": 5,
+            "visible": false,
+          },          
           {
             "targets": 0,
             "data": "TradeTypeId",
             "render": function ( data, type, row, meta ) {
               return data===1?'BUY':'SELL'
-            }
+          }
           },
           {
             "targets": 4,
@@ -129,7 +134,7 @@ function initDataTable()
                 }
             }
           }],
-        "order": [[ 0, "desc" ],[ 1, "desc" ],[ 3, "desc" ]],
+        "order": [[ 0, "desc" ],[ 5, "asc" ],[ 2, "asc" ]],
         "createdRow": function( row, data, dataIndex){
             if (data['TradeTypeId'] == '1' ) {
                 $(row).addClass('gains');

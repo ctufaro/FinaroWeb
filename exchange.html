@@ -181,10 +181,10 @@
                                 <label class="control-label">Transaction</label>
                                 <div class="input-group col-sm-12 m-b p-b-5">
                                     <div class="dropdown">
-                                        <button class="btn btn-primary dropdown-toggle btn-block" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <button class="btn btn-primary dropdown-toggle btn-block" style="min-width: 180px;" type="button" data-toggle="dropdown">
                                             {{tradeTypeText}}
                                         </button>
-                                        <div class="dropdown-menu drop-drk" aria-labelledby="dropdownMenuButton">
+                                        <div class="dropdown-menu drop-drk">
                                             <a class="dropdown-item control-label" href="#" v-on:click="changeTranType(1)">Buy</a>
                                             <a class="dropdown-item control-label" href="#" v-on:click="changeTranType(2)">Sell</a>                                            
                                         </div>
@@ -192,12 +192,12 @@
                                 </div>                                
                                 <label class="control-label">Units</label>
                                 <div class="input-group col-sm-12 m-b">
-                                    <input id="txtteam1spread" v-model="quantity" type="text" placeholder="0" class="form-control text-right">
+                                    <input id="txtteam1spread" v-model="quantity" type="number" pattern="\d*" placeholder="0" class="form-control text-right">
                                 </div>
                                 <div class="m-t-9">
                                     <label class="control-label">Price</label>
                                     <div class="input-group col-sm-12 m-b">                                        
-                                        <input id="txtteam1wager" v-model="price" type="text" placeholder="0.00" class="form-control text-right">
+                                        <input id="txtteam1wager" v-model="price" type="number" pattern="\d*" placeholder="0.00" class="form-control text-right">
                                     </div>
                                 </div>
                                 <div class="row">

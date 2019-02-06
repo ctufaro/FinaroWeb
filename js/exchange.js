@@ -1,4 +1,4 @@
-const apiBaseUrl = "http://localhost:7071";
+const apiBaseUrl = "https://finarofunc.azurewebsites.net";
 const userId = 1;
 const entityId = 1;
 

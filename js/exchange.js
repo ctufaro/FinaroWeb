@@ -51,7 +51,7 @@ const vm = new Vue({
             $('#tblexchange tr').removeClass('newbuy');
             neworders.forEach(function (order, index) {                
                 if(order.Id === null){
-                    rowNode = dt.row.add(order).draw(false).node();                   
+                    rowNode = dt.row.add(order).draw(false).node();                
                 }
                 else{                    
                     rowNode = dt.row(`#id_${order.OrderId}`).data(order).draw().node();
@@ -59,7 +59,7 @@ const vm = new Vue({
                 if(order.TradeTypeId == 2)
                     $(rowNode).addClass('newsell');                    
                 else if(order.TradeTypeId == 1)
-                    $(rowNode).addClass('newbuy'); 
+                    $(rowNode).addClass('newbuy');
 
                 showToast(order.Id, order.Status);
             });
@@ -79,7 +79,11 @@ const vm = new Vue({
         clear: function () {
             this.price = '';
             this.quantity = '';
-        }            
+            $('body').removeClass('aside-toggled');
+        },
+        openOrders: function(){            
+            $('body').addClass('aside-toggled');
+        }
     }
 });
 
@@ -152,7 +156,7 @@ function initDataTable()
 function showToast(orderId, status){
     if (orderId === null) {
         toastr.options = { "positionClass": "toast-bottom-right", "closeButton": true };
-        toastr.info("Your order has been submitted.");
+        toastr.info("Your order has been received.");
     }
 
     if (status === 2) {
@@ -167,7 +171,3 @@ function showToast(orderId, status){
 }
 
 initDataTable();
-
-
-
-

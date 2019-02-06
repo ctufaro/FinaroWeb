@@ -42,6 +42,11 @@
 /*END MENU ITEMS*/
 
 /*MAIN LINES*/
+
+#btnPlaceOrder{
+    display: none;
+}
+
 .ml-header{
     background-color:#293039 !important;
     border-bottom-width: 0px !important;

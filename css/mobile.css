@@ -25,6 +25,10 @@
         float: right;
     }
 
+    #btnPlaceOrder{
+        display: block;
+    }
+
     .btn-bet{
         float:left;
         margin-right: 3px !important;

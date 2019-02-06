@@ -1,4 +1,5 @@
 const apiBaseUrl = "https://finarofunc.azurewebsites.net";
+//const apiBaseUrl = "http://localhost:7071";
 const userId = 1;
 const entityId = 1;
 
@@ -59,6 +60,8 @@ const vm = new Vue({
                     $(rowNode).addClass('newsell');                    
                 else if(order.TradeTypeId == 1)
                     $(rowNode).addClass('newbuy'); 
+
+                showToast(order.Id, order.Status);
             });
         }                
     },    
@@ -83,7 +86,7 @@ const vm = new Vue({
 
 function initDataTable()
 {
-    var dt = $('#tblexchange').DataTable({
+    $('#tblexchange').DataTable({
         searching: false, paging: false, info: false,autoWidth: false,
         "ajax": {
             "url": `${apiBaseUrl}/api/orders/${userId}/${entityId}`,
@@ -145,6 +148,23 @@ function initDataTable()
         }
     });
 };
+
+function showToast(orderId, status){
+    if (orderId === null) {
+        toastr.options = { "positionClass": "toast-bottom-right", "closeButton": true };
+        toastr.info("Your order has been submitted.");
+    }
+
+    if (status === 2) {
+        toastr.options = { "positionClass": "toast-bottom-right", "closeButton": true };
+        toastr.warning("Your trade has been partially filled");
+    }   
+    
+    if (status === 3) {
+        toastr.options = { "positionClass": "toast-bottom-right", "closeButton": true };
+        toastr.success("Your trade has been filled");
+    } 
+}
 
 initDataTable();
 

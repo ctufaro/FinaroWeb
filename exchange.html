@@ -19,7 +19,8 @@
     <link rel="stylesheet" href="css/owl.carousel.css">
     <link rel="stylesheet" href="css/owl.theme.default.min.css">    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">    
-    <link rel="stylesheet" href="css/cryptofont.min.css">    
+    <link rel="stylesheet" href="css/cryptofont.min.css"> 
+    <link rel="stylesheet" href="css/gdax.css">   
     <!--APPLE ICONS-->
     <link rel="apple-touch-icon" sizes="180x180" href="images/icons/apple-touch-icon.png">
     <!--CUSTOM CSS-->
@@ -56,6 +57,11 @@
                     </li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right mt0">
+                    <li class="dropdown dropdown-list">
+                        <a href="#" class="dropdown-toggle" v-on:click.prevent="openOrders()" id="btnPlaceOrder">
+                            <strong><i class="fas fa-dollar-sign"></i></strong>
+                        </a>
+                    </li>                    
                     <li class="dropdown dropdown-list">
                         <a href="#" data-toggle="dropdown" data-play="fadeIn" class="dropdown-toggle">
                             <em class="fa fa-trophy"></em>
@@ -177,7 +183,7 @@
             <nav class="sidebar">
                 <ul class="nav">
                     <li>
-                        <div class="panel-wrapper collapse in h-auto">                            
+                        <div class="panel-wrapper collapse in h-auto pnodd">                            
                             <div class="panel-body">
                                 <div class="team-title spnteam1">BALANCE</div>
                                 <div class="m-t-9">
@@ -204,9 +210,9 @@
                         </div>
                     </li>
                     <li>
-                        <div class="panel-wrapper collapse in h-auto">
+                        <div class="panel-wrapper collapse in h-auto pneven">
                             <div class="panel-body">
-                                <div class="input-group col-sm-12 m-b p-b-5">
+                                <div class="m-b-5">
                                     <div class="row">
                                         <div class="col-xs-6">
                                             <button type="button" class="btn btn-secondary btn-block" v-on:click="changeTranType(1)" v-bind:class="{ success: btn.buy }">BUY</button>                                                
@@ -279,8 +285,7 @@
                                     </div>
                                     <div class="panel-body panel-body-dark">
                                         <div class="row">
-                                            <div class="col-md-12 col-sm-12">
-                                                <button id="btnPlaceOrder" type="button" class="btn btn-primary" v-on:click.prevent="openOrders()"><i class="fa fa-plus"></i> Place Order</button>
+                                            <div class="col-md-12 col-sm-12">                                                
                                                 <div class="table-responsive m-t-10">
                                                     <table id="tblexchange" class="table">
                                                         <thead>
@@ -305,7 +310,7 @@
                     <div class="col-md-5">                        
                         <div class="panel panel-dark panel-default">
                             <div class="panel-heading ml-header">
-                                <div class="panel-title ml-header-txt">OPEN ORDERS</div>
+                                <div class="panel-title ml-header-txt">MY ORDERS</div>
                             </div>                            
                         </div>
                     </div>

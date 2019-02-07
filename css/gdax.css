@@ -1,0 +1,25 @@
+.pnodd{
+    background-color: #29353D !important;
+}
+.pneven{
+    background-color: #3A444D !important;
+}
+.ml-header{
+    background-color:#2F3D45 !important;
+}
+.panel-body-dark table{
+    background-color: #1E2B34 !important;
+    border: none !important;
+}
+.wrapper>section{
+    background-color:#15232C;
+}
+.navbar-top .navbar-header{
+    background-color:#3A444D;
+}
+.sidebar{
+    background-color:#48525A;
+}
+.btn-secondary {
+    background-color: #5C656C;
+}

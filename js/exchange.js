@@ -1,5 +1,5 @@
-//const apiBaseUrl = "https://finarofunc.azurewebsites.net";
-const apiBaseUrl = "http://localhost:7071";
+const apiBaseUrl = "https://finarofunc.azurewebsites.net";
+//const apiBaseUrl = "http://localhost:7071";
 const userId = 1;
 const entityId = 1;
 
@@ -78,13 +78,12 @@ const vm = new Vue({
                 quantity: this.quantity                        
             });
         },
-        clear: function () {
-            this.price = '';
-            this.quantity = '';
-            $('body').removeClass('aside-toggled');
-        },
-        openOrders: function(){            
-            $('body').addClass('aside-toggled');
+        openOrders: function(){          
+            if ($('body').hasClass('aside-toggled')) {
+                $('body').removeClass('aside-toggled');
+            } else {
+                $('body').addClass('aside-toggled');
+            }
         },
         changeTranType:function(type){
             this.tradeType = type;

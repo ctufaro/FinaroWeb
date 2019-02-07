@@ -223,20 +223,18 @@
                                     </div>                                    
                                 </div>                                
                                 <label class="control-label">Units</label>
-                                <div class="input-group col-sm-12 m-b">
-                                    <input id="txtteam1spread" v-model="quantity" type="number" placeholder="0" class="form-control text-right">
+                                <div class="m-b-5">
+                                    <input v-model="quantity" type="number" placeholder="0" class="form-control text-right">
                                 </div>
-                                <div class="m-t-9">
-                                    <label class="control-label">Price</label>
-                                    <div class="input-group col-sm-12 m-b">                                        
-                                        <input id="txtteam1wager" v-model="price" type="number" placeholder="0.00" class="form-control text-right">
-                                    </div>
+                                <label class="control-label">Price</label>
+                                <div>
+                                    <input v-model="price" type="number" placeholder="0.00" class="form-control text-right">
                                 </div>
                                 <div class="row">
                                     <div class="btn-group m-t-9 col-md-12 col-sm-12 col-xs-12">
                                         <div class="row">
                                             <div class="col-xs-12">
-                                                <button id="btnteam1bet" type="button" class="btn btn-success btn-block" v-on:click.prevent="sendData()">PLACE {{tradeTypeText}} ORDER</button>                                                
+                                                <button type="button" class="btn btn-success btn-block" v-on:click.prevent="sendData()">PLACE {{tradeTypeText}} ORDER</button>                                                
                                             </div>
                                         </div>
                                     </div>

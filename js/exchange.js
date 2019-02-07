@@ -1,5 +1,5 @@
-const apiBaseUrl = "https://finarofunc.azurewebsites.net";
-//const apiBaseUrl = "http://localhost:7071";
+//const apiBaseUrl = "https://finarofunc.azurewebsites.net";
+const apiBaseUrl = "http://localhost:7071";
 const userId = 1;
 const entityId = 1;
 
@@ -114,6 +114,7 @@ function initDataTable()
           {
             "targets": 2,
             "data": "Date",
+            "visible": false,
             "render": function ( data, type, row ) { return moment(data).format(); }                
           },             
           {
@@ -127,10 +128,7 @@ function initDataTable()
           },          
           {
             "targets": 0,
-            "data": "TradeTypeId",
-            "render": function ( data, type, row, meta ) {
-              return data===1?'BUY':'SELL'
-          }
+            "visible": false,
           },
           {
             "targets": 4,

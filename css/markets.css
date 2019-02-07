@@ -1,15 +1,16 @@
 /*TODO: CLEAN THIS UP*/
 
-/*PC Display ONLY*/
-@media only screen and (min-width: 768px){
-    .main-content{        
-        padding-top: 5px !important;
-        padding-left:15px !important;
-        padding-right: 40px !important;
-        padding-bottom: 20px!important;
-    }
+/*PANELS*/
+.panel-dark{
+    border: 0px solid #eee !important;
+    border-bottom: 0px solid !important;
 }
-/*END PC Display ONLY*/
+
+.panel-body-dark{
+    padding: 5px !important;
+    border-width:0px !important;
+    background-color: #262a34!important;
+}
 
 .eth-fmt {
     font-family: 'Courier New', Courier, monospace !important;
@@ -48,7 +49,7 @@
 }
 
 .ml-header{
-    background-color:#293039 !important;
+    background-color:#2b303c !important;
     border-bottom-width: 0px !important;
     padding-top:3px !important;
     padding-bottom:3px !important;
@@ -66,13 +67,11 @@
 }
 
 .gains{
-    color:#006100;
-    background-color: #C6EFCE !important;
+    color:#6ecc5b;
 }
 
 .losses{
-    color:#9C0000;
-    background-color: #FFC7CE !important;
+    color:#bd5637;
 }
 
 .ml-sub-header{
@@ -322,19 +321,19 @@
 
 @-webkit-keyframes newsell {
     from { background-color: red; }
-    to { background-color: #FFC7CE; }
+    to { background-color: #262a34; }
   }
   @-moz-keyframes newsell {
     from { background-color: red; }
-    to { background-color: #FFC7CE; }
+    to { background-color: #262a34; }
   }
   @-o-keyframes newsell {
     from { background-color: red; }
-    to { background-color: #FFC7CE; }
+    to { background-color: #262a34; }
   }
   @keyframes newsell {
     from { background-color: red; }
-    to { background-color: #FFC7CE; }
+    to { background-color: #262a34; }
   }
   .newsell {
     -webkit-animation: newsell 1s ; /* Safari 4+ */
@@ -345,19 +344,19 @@
 
   @-webkit-keyframes newbuy {
     from { background-color: green; }
-    to { background-color: #C6EFCE; }
+    to { background-color: #262a34; }
   }
   @-moz-keyframes newbuy {
     from { background-color: green; }
-    to { background-color: #C6EFCE; }
+    to { background-color: #262a34; }
   }
   @-o-keyframes newbuy {
     from { background-color: green; }
-    to { background-color: #C6EFCE; }
+    to { background-color: #262a34; }
   }
   @keyframes newbuy {
     from { background-color: green; }
-    to { background-color: #C6EFCE; }
+    to { background-color: #262a34; }
   }
   .newbuy {
     -webkit-animation: newbuy 1s ; /* Safari 4+ */

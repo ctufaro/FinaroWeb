@@ -38,34 +38,11 @@ const vm = new Vue({
                 .then(() => console.log('connected!'))
                 .catch(console.error);
         
-        }).catch(alert);       
-
-        function getConnectionInfo() {
-            return axios.get(`${apiBaseUrl}/api/negotiate`)
-            .then(resp => resp.data);
-        }
-        
-        function newOrders(orders) {
-            let rowNode = null;
-            const neworders = JSON.parse(orders).data;
-            const dt = $('#tblexchange').DataTable();
-            $('#tblexchange tr').removeClass('newsell');
-            $('#tblexchange tr').removeClass('newbuy');
-            neworders.forEach(function (order, index) {                
-                if(order.Id === null){
-                    rowNode = dt.row.add(order).draw(false).node();                
-                }
-                else{                    
-                    rowNode = dt.row(`#id_${order.OrderId}`).data(order).draw().node();
-                }
-                if(order.TradeTypeId == 2)
-                    $(rowNode).addClass('newsell');                    
-                else if(order.TradeTypeId == 1)
-                    $(rowNode).addClass('newbuy');
-
-                showToast(order.Id, order.Status);
-            });
-        }                
+        }).catch(alert);                
+    },
+    mounted : function(){
+        initDataTable('tblsells');
+        initDataTable('tblbuys');
     },    
     methods: {
         sendData: function () {
@@ -103,9 +80,9 @@ const vm = new Vue({
 });
 
 
-function initDataTable()
+function initDataTable(tableid)
 {
-    $('#tblexchange').DataTable({
+    $(`#${tableid}`).DataTable({
         searching: false, paging: false, info: false,autoWidth: false,
         "ajax": {
             "url": `${apiBaseUrl}/api/orders/${userId}/${entityId}`,
@@ -134,10 +111,12 @@ function initDataTable()
           },  
           {
             "targets": 5,
+            "data": "PriceSort",
             "visible": false,
           },          
           {
             "targets": 0,
+            "data": "TradeTypeId",
             "visible": false,
           },
           {
@@ -183,4 +162,30 @@ function showToast(orderId, status){
     } 
 }
 
-initDataTable();
+function getConnectionInfo() {
+    return axios.get(`${apiBaseUrl}/api/negotiate`)
+    .then(resp => resp.data);
+}
+
+function newOrders(orders) {
+    let rowNode = null;
+    const neworders = JSON.parse(orders).data;
+    const dt = $('#tblexchange').DataTable();
+    $('#tblexchange tr').removeClass('newsell');
+    $('#tblexchange tr').removeClass('newbuy');
+    neworders.forEach(function (order, index) {                
+        if(order.Id === null){
+            rowNode = dt.row.add(order).draw(false).node();                
+        }
+        else{                    
+            rowNode = dt.row(`#id_${order.OrderId}`).data(order).draw().node();
+        }
+        if(order.TradeTypeId == 2)
+            $(rowNode).addClass('newsell');                    
+        else if(order.TradeTypeId == 1)
+            $(rowNode).addClass('newbuy');
+
+        showToast(order.Id, order.Status);
+    });
+}
+

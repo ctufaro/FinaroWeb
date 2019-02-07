@@ -1,3 +1,8 @@
+.panel-dark{
+    border:0px solid #eee !important;
+    border-bottom:0px solid #d1d2d3 !important;
+}
+
 .panel-body-dark table{
     background-color: #262a34 !important;
     border: none !important;

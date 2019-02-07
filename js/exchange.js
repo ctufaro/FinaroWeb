@@ -1,5 +1,5 @@
-const apiBaseUrl = "https://finarofunc.azurewebsites.net";
-//const apiBaseUrl = "http://localhost:7071";
+//const apiBaseUrl = "https://finarofunc.azurewebsites.net";
+const apiBaseUrl = "http://localhost:7071";
 const userId = 1;
 const entityId = 1;
 
@@ -10,7 +10,8 @@ const vm = new Vue({
         price: null,
         quantity: null,
         team: 'New York Giants',
-        tradeTypeText: 'Select a Transaction Type'
+        tradeTypeText: '',
+        btn:{buy:false,sell:false}
     },
     created: function(){
         getConnectionInfo().then(info => {
@@ -87,7 +88,17 @@ const vm = new Vue({
         },
         changeTranType:function(type){
             this.tradeType = type;
-            this.tradeTypeText = type === 1 ? 'Buy' : 'Sell';
+            if(type===1){
+                this.tradeTypeText = 'BUY';
+                this.btn.buy = true;
+                this.btn.sell = false;
+            }
+            else if(type===2){
+                this.tradeTypeText = 'SELL';
+                this.btn.buy = false;
+                this.btn.sell = true;
+            }           
+            
         }
     }
 });

@@ -4283,6 +4283,10 @@ select.input-sm {
   color: #ffbd4a;
 }
 
+.text-white {
+    color: #ffffff;
+}
+
 .margin-t-30 {
   margin-top: 30px;
 }
@@ -4421,7 +4425,11 @@ select.input-sm {
 }
 
 .btn-secondary {
-  background-color: #f42367;
+  background-color: #6c757d;
+}
+
+.success{
+  background-color: #5cb85c
 }
 
 .bg-facebook {

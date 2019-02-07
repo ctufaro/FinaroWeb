@@ -255,6 +255,13 @@
 }
 
 /*LEFT-SIDE FORMS*/
+.bal-but:hover{
+    background-color: transparent;
+}
+
+.bal-but:focus {
+    background: transparent;
+}
 
 .dark .drop-drk{
     background-color: #232323;

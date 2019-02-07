@@ -19,7 +19,7 @@
     <link rel="stylesheet" href="css/owl.carousel.css">
     <link rel="stylesheet" href="css/owl.theme.default.min.css">    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">    
-    <link rel="stylesheet" href="css/cryptofont.min.css">
+    <link rel="stylesheet" href="css/cryptofont.min.css">    
     <!--APPLE ICONS-->
     <link rel="apple-touch-icon" sizes="180x180" href="images/icons/apple-touch-icon.png">
     <!--CUSTOM CSS-->
@@ -177,19 +177,43 @@
             <nav class="sidebar">
                 <ul class="nav">
                     <li>
-                        <div class="panel-wrapper collapse in h-auto bet-entry">
+                        <div class="panel-wrapper collapse in h-auto">                            
                             <div class="panel-body">
-                                <div class="team-title spnteam1">{{team}}</div>
-                                <label class="control-label">Transaction</label>
-                                <div class="input-group col-sm-12 m-b p-b-5">
-                                    <div class="dropdown">
-                                        <button class="btn btn-primary dropdown-toggle btn-block" style="min-width: 180px;" type="button" data-toggle="dropdown">
-                                            {{tradeTypeText}}
-                                        </button>
-                                        <div class="dropdown-menu drop-drk">
-                                            <a class="dropdown-item control-label" href="#" v-on:click="changeTranType(1)">Buy</a>
-                                            <a class="dropdown-item control-label" href="#" v-on:click="changeTranType(2)">Sell</a>                                            
+                                <div class="team-title spnteam1">BALANCE</div>
+                                <div class="m-t-9">
+                                    <label class="control-label">USD</label>
+                                    <span class="pull-right text-white">$100.00</span>
+                                </div>
+                                <div class="m-t-9">
+                                    <label class="control-label">SWAY</label>
+                                    <span class="pull-right text-white">$100.00</span>
+                                </div>
+                                <div class="row">
+                                    <div class="btn-group m-t-9 col-md-12 col-sm-12 col-xs-12">
+                                        <div class="row">
+                                            <div class="col-xs-6">
+                                                <button type="button" class="btn btn-outline btn-block bal-but">DEPOSIT</button>                                                
+                                            </div>
+                                            <div class="col-xs-6">
+                                                <button type="button" class="btn btn-outline btn-block bal-but">WITHDRAW</button>
+                                            </div>
                                         </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="panel-wrapper collapse in h-auto">
+                            <div class="panel-body">
+                                <div class="input-group col-sm-12 m-b p-b-5">
+                                    <div class="row">
+                                        <div class="col-xs-6">
+                                            <button type="button" class="btn btn-secondary btn-block" v-on:click="changeTranType(1)" v-bind:class="{ success: btn.buy }">BUY</button>                                                
+                                        </div>
+                                        <div class="col-xs-6">
+                                            <button type="button" class="btn btn-secondary btn-block" v-on:click="changeTranType(2)" v-bind:class="{ success: btn.sell }">SELL</button>                                                
+                                        </div>                                        
                                     </div>                                    
                                 </div>                                
                                 <label class="control-label">Units</label>
@@ -205,18 +229,15 @@
                                 <div class="row">
                                     <div class="btn-group m-t-9 col-md-12 col-sm-12 col-xs-12">
                                         <div class="row">
-                                            <div class="col-xs-6">
-                                                <button id="btnteam1bet" type="button" class="btn btn-success btn-block" v-on:click.prevent="sendData()"><i class="fa fa-plus"></i> Place </button>                                                
-                                            </div>
-                                            <div class="col-xs-6">
-                                                <button type="button" class="btn btn-danger btn-block" v-on:click.prevent="clear()"><i class="far fa-trash-alt"></i> Clear </button>
+                                            <div class="col-xs-12">
+                                                <button id="btnteam1bet" type="button" class="btn btn-success btn-block" v-on:click.prevent="sendData()">PLACE {{tradeTypeText}} ORDER</button>                                                
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </li>
+                    </li>                    
                 </ul>
             </nav>
         </aside>

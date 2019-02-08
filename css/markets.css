@@ -1,5 +1,23 @@
 /*TODO: CLEAN THIS UP*/
 
+/*MARKET DATA HEADER*/
+.market-data-header{
+    background-color:white !important; 
+}
+
+.market-data-header .md-col{
+    font-size:15px;
+}
+
+.market-data-header .md-cell{
+    font-size:17px;
+    font-weight: bold;
+}
+
+/*END MARKET DATA HEADER*/
+
+
+
 /*PANELS*/
 .panel-dark{
     border: 0px solid #eee !important;
@@ -11,6 +29,7 @@
     border-width:0px !important;
     background-color: #262a34!important;
 }
+/*END PANELS*/
 
 .eth-fmt {
     font-family: 'Courier New', Courier, monospace !important;

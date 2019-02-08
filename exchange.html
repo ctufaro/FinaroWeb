@@ -30,6 +30,7 @@
     <link rel="stylesheet" href="css/mobile.css">
     <script src="plugins/modernizr/modernizr.js"></script>
     <script src="plugins/fastclick/fastclick.js"></script>
+    <style>[v-cloak] {display: none}</style>
 </head>
 <body>
 
@@ -48,6 +49,18 @@
                     <div class="brand-logo-collapsed"></div>
                 </a>
             </div>
+            <div class="navbar-header market-data-header">
+                <div class="md-col">Team/Player</div>
+                <div class="md-cell" v-cloak>{{team}}</div>
+            </div>
+            <div class="navbar-header market-data-header">
+                <div class="md-col">24 hour price</div>
+                <div class="md-cell" v-cloak>{{marketPrice}} {{priceChange}}%</div>
+            </div>
+            <div class="navbar-header market-data-header">
+                <div class="md-col">24 hour volume</div>
+                <div class="md-cell" v-cloak>{{volume}} SWAY</div>
+            </div>             
             <div class="nav-wrapper">
                 <ul class="nav navbar-nav mt0">
                     <li>
@@ -284,7 +297,7 @@
                                     <div class="panel-body panel-body-dark">
                                         <div class="row">
                                             <div class="col-md-12 col-sm-12">                                                
-                                                <div class="table-responsive m-t-10">
+                                                <div class="m-t-10">
                                                     <table id="tblsells" class="table">
                                                         <thead>
                                                             <tr>                                                            
@@ -292,8 +305,7 @@
                                                                 <th>Units</th>
                                                                 <th>Date</th>
                                                                 <th>Price</th>
-                                                                <th>Status</th>
-                                                                <th>PriceSort</th>
+                                                                <th id="s">Status</th>
                                                             </tr>
                                                         </thead>
                                                     </table>
@@ -301,13 +313,14 @@
                                             </div>
                                         </div>
                                         <div class="row">
-                                            <div class="col-md-12 col-sm-12" style="padding-top:10px;">
-                                                <strong>LAST PRICE:</strong>
+                                            <div class="col-md-12 col-sm-12" style="padding-top:7px;padding-bottom:7px;">
+                                                <strong v-on:click="balls()">LAST PRICE:</strong>
+                                                <label id="lblLastPrice">{{lastPrice}}</label>
                                             </div>
                                         </div>
                                         <div class="row">
                                             <div class="col-md-12 col-sm-12">                                                
-                                                <div class="table-responsive m-t-10">
+                                                <div class="table-responsive">
                                                     <table id="tblbuys" class="table">
                                                         <thead>
                                                             <tr>                                                            
@@ -316,7 +329,6 @@
                                                                 <th>Date</th>
                                                                 <th>Price</th>
                                                                 <th>Status</th>
-                                                                <th>PriceSort</th>
                                                             </tr>
                                                         </thead>
                                                     </table>

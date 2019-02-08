@@ -1,5 +1,6 @@
-const apiBaseUrl = "https://finarofunc.azurewebsites.net";
-//const apiBaseUrl = "http://localhost:7071";
+const useLocalHost = false;
+const useWebSockets = false;
+const apiBaseUrl = useLocalHost ? "http://localhost:7071" : "https://finarofunc.azurewebsites.net";
 const userId = 1;
 const entityId = 1;
 
@@ -9,11 +10,16 @@ const vm = new Vue({
         tradeType: null,
         price: null,
         quantity: null,
-        team: 'New York Giants',
+        team: 'NEW YORK GIANTS',
         tradeTypeText: '',
-        btn:{buy:false,sell:false}
+        btn:{buy:false,sell:false},
+        lastPrice:0,
+        volume: 0,
+        priceChange:0,
+        marketPrice:0
     },
     created: function(){
+        if(useWebSockets)
         getConnectionInfo().then(info => {
             // make compatible with old and new SignalRConnectionInfo
             info.accessToken = info.accessToken || info.accessKey;
@@ -40,9 +46,20 @@ const vm = new Vue({
         
         }).catch(alert);                
     },
-    mounted : function(){
-        initDataTable('tblsells');
-        initDataTable('tblbuys');
+    mounted : function(){     
+        axios.get(`${apiBaseUrl}/api/orders/${userId}/${entityId}`).then((response)=>
+        {         
+            const retdata = response.data;
+            initDataTable('tblsells', retdata.data.filter(v => v.TradeTypeId === 2), 'desc');
+            initDataTable('tblbuys', retdata.data.filter(v => v.TradeTypeId === 1), 'asc');
+            setLastPrice();
+        });
+        
+        axios.get(`${apiBaseUrl}/api/market/${userId}/${entityId}`).then((response)=>
+        {         
+            const retdata = response.data;
+            console.log(retdata);
+        });
     },    
     methods: {
         sendData: function () {
@@ -80,46 +97,48 @@ const vm = new Vue({
 });
 
 
-function initDataTable(tableid)
+function initDataTable(tableid,dataset,srtorder)
 {
     $(`#${tableid}`).DataTable({
         searching: false, paging: false, info: false,autoWidth: false,
-        "ajax": {
-            "url": `${apiBaseUrl}/api/orders/${userId}/${entityId}`,
-            "dataSrc": 'data'
-        },
+        "data":dataset,
         "rowId":  function(a) {return 'id_' + a.OrderId;},        
         "columns": [
             { "data": "TradeTypeId" },
             { "data": "Quantity" },
             { "data": "Date" },
             { "data": "Price" },
-            { "data": "Status" },
-            { "data": "PriceSort" }
+            { "data": "Status" }
         ],
         "columnDefs": [
           {
+            //visible
+            "width": "30%",
+            "targets": 1,
+            "data": "Quantity"
+          },
+          {            
+            "width": "30%",
             "targets": 2,
             "data": "Date",
             "visible": false,
             "render": function ( data, type, row ) { return moment(data).format(); }                
           },             
           {
+            //visible
+            "width": "30%",
             "targets": 3,
             "data": "Price",
             "render": function ( data, type, row ) { return data.toFixed(2); }                
-          },  
-          {
-            "targets": 5,
-            "data": "PriceSort",
-            "visible": false,
-          },          
+          },        
           {
             "targets": 0,
             "data": "TradeTypeId",
             "visible": false,
           },
           {
+            //visible
+            "width": "30%",
             "targets": 4,
             "data": "Status",
             "render": function ( data, type, row, meta ) {
@@ -133,7 +152,7 @@ function initDataTable(tableid)
                 }
             }
           }],
-        "order": [[ 0, "desc" ],[ 5, "asc" ],[ 2, "asc" ]],
+        "order": [[ 3, 'desc' ],[ 2, srtorder ]],
         "createdRow": function( row, data, dataIndex){
             if (data['TradeTypeId'] == '1' ) {
                 $(row).addClass('gains');
@@ -144,6 +163,10 @@ function initDataTable(tableid)
         }
     });
 };
+
+function setLastPrice(){
+    $("#lblLastPrice").css('position', 'absolute').css('left', $('#s').position().left);
+}
 
 function showToast(orderId, status){
     if (orderId === null) {
@@ -169,11 +192,18 @@ function getConnectionInfo() {
 
 function newOrders(orders) {
     let rowNode = null;
-    const neworders = JSON.parse(orders).data;
-    const dt = $('#tblexchange').DataTable();
-    $('#tblexchange tr').removeClass('newsell');
-    $('#tblexchange tr').removeClass('newbuy');
-    neworders.forEach(function (order, index) {                
+    let dt = null;
+    const neworders = JSON.parse(orders).data;    
+    resetTables();
+    neworders.forEach(function (order, index) {
+        //routing to correct table
+        if(order.TradeTypeId === 1){
+            dt = $('#tblbuys').DataTable();
+        } else if(order.TradeTypeId === 2){
+            dt = $('#tblsells').DataTable();
+        }
+
+
         if(order.Id === null){
             rowNode = dt.row.add(order).draw(false).node();                
         }
@@ -187,5 +217,12 @@ function newOrders(orders) {
 
         showToast(order.Id, order.Status);
     });
+}
+
+function resetTables(){
+    $('#tblbuys tr').removeClass('newsell');
+    $('#tblbuys tr').removeClass('newbuy'); 
+    $('#tblsells tr').removeClass('newsell');
+    $('#tblsells tr').removeClass('newbuy');     
 }
 

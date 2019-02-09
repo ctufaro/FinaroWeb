@@ -3,6 +3,7 @@ const useWebSockets = false;
 const apiBaseUrl = useLocalHost ? "http://localhost:7071" : "https://finarofunc.azurewebsites.net";
 const userId = 1;
 const entityId = 1;
+let tableLoadCount = 0;
 
 const vm = new Vue({
     el: '#app',
@@ -13,10 +14,10 @@ const vm = new Vue({
         team: 'NEW YORK GIANTS',
         tradeTypeText: '',
         btn:{buy:false,sell:false},
-        lastPrice:0,
-        volume: 0,
-        priceChange:0,
-        marketPrice:0
+        lastPrice:null,
+        volume: null,
+        priceChange:null,
+        marketPrice:null
     },
     created: function(){
         if(useWebSockets)
@@ -52,13 +53,12 @@ const vm = new Vue({
             const retdata = response.data;
             initDataTable('tblsells', retdata.data.filter(v => v.TradeTypeId === 2), 'desc');
             initDataTable('tblbuys', retdata.data.filter(v => v.TradeTypeId === 1), 'asc');
-            setLastPrice();
         });
         
         axios.get(`${apiBaseUrl}/api/market/${userId}/${entityId}`).then((response)=>
         {         
-            const retdata = response.data;
-            console.log(retdata);
+            const retdata = response.data.data[0];
+            this.setMarketData(retdata);
         });
     },    
     methods: {
@@ -92,10 +92,21 @@ const vm = new Vue({
                 this.btn.sell = true;
             }           
             
+        },
+        setMarketData:function(retdata) {
+            if(retdata !== null){
+                console.log(retdata);
+                $("#lblLastPrice").css('position', 'absolute').css('left', $('#s').position().left);
+                this.volume = retdata.Volume;
+                this.marketPrice = retdata.MarketPrice;
+                this.priceChange = retdata.ChangeInPrice;
+                this.lastPrice = retdata.LastTradePrice;
+            }
         }
     }
 });
 
+//HELPER FUNCTIONS
 
 function initDataTable(tableid,dataset,srtorder)
 {
@@ -160,13 +171,15 @@ function initDataTable(tableid,dataset,srtorder)
             else if (data['TradeTypeId'] == '2' ) {
                 $(row).addClass('losses');
             }
+        },
+        "initComplete": function( settings, json ) {
+            tableLoadCount++;
+            if(tableLoadCount == 2){
+                LoadingComplete();
+            }
         }
     });
 };
-
-function setLastPrice(){
-    $("#lblLastPrice").css('position', 'absolute').css('left', $('#s').position().left);
-}
 
 function showToast(orderId, status){
     if (orderId === null) {
@@ -193,7 +206,8 @@ function getConnectionInfo() {
 function newOrders(orders) {
     let rowNode = null;
     let dt = null;
-    const neworders = JSON.parse(orders).data;    
+    const neworders = JSON.parse(orders).orderbook;  
+    const newmarket = JSON.parse(orders).market;   
     resetTables();
     neworders.forEach(function (order, index) {
         //routing to correct table
@@ -202,7 +216,6 @@ function newOrders(orders) {
         } else if(order.TradeTypeId === 2){
             dt = $('#tblsells').DataTable();
         }
-
 
         if(order.Id === null){
             rowNode = dt.row.add(order).draw(false).node();                
@@ -217,6 +230,8 @@ function newOrders(orders) {
 
         showToast(order.Id, order.Status);
     });
+
+    vm.setMarketData(newmarket);
 }
 
 function resetTables(){

@@ -1,8 +1,8 @@
 @media only screen and (max-width: 767px) {
-    html {
+    /*html {
         overflow-y: scroll; /* has to be scroll, not auto */
         -webkit-overflow-scrolling: touch;
-    }
+    }*/
 
     .cards{
         padding-top:40px !important;

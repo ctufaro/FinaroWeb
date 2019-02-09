@@ -1,5 +1,5 @@
 const useLocalHost = false;
-const useWebSockets = false;
+const useWebSockets = true;
 const apiBaseUrl = useLocalHost ? "http://localhost:7071" : "https://finarofunc.azurewebsites.net";
 const userId = 1;
 const entityId = 1;

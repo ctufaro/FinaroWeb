@@ -63,6 +63,12 @@ const vm = new Vue({
     },    
     methods: {
         sendData: function () {
+            
+            if(this.tradeType == null){
+                alert("Please select BUY or SELL");
+                return;
+            }
+
             axios.post(`${apiBaseUrl}/api/orders`,
             {
                 userId: userId,
@@ -95,7 +101,6 @@ const vm = new Vue({
         },
         setMarketData:function(retdata) {
             if(retdata !== null){
-                console.log(retdata);
                 $("#lblLastPrice").css('position', 'absolute').css('left', $('#s').position().left);
                 this.volume = retdata.Volume;
                 this.marketPrice = retdata.MarketPrice;

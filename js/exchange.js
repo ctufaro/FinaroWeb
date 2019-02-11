@@ -17,8 +17,8 @@ const vm = new Vue({
         volume: null,
         priceChange:null,
         marketPrice:null,
-        futuresA:null,
-        futuresB:null
+        futuresA:'Team',
+        futuresB:'NFL'
     },
     created: function(){
         if(useWebSockets)

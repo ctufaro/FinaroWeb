@@ -4,6 +4,8 @@
 .top-nav-header{
     background-color:white !important;
     width:550px !important;
+    color: #2b303c !important;
+
 }
 
 .top-nav-header .top-nav-content{    
@@ -17,6 +19,7 @@
     color: #2b303c !important;
     padding: 1px 15px 1px 15px !important;
     min-height: 35px;
+    letter-spacing: 1px;
 }
 
 /*END TOP NAV HEADER*/

@@ -1,20 +1,25 @@
 /*TODO: CLEAN THIS UP*/
 
-/*MARKET DATA HEADER*/
-.market-data-header{
-    background-color:white !important; 
+/*TOP NAV HEADER*/
+.top-nav-header{
+    background-color:white !important;
+    width:550px !important;
 }
 
-.market-data-header .md-col{
-    font-size:15px;
+.top-nav-header .top-nav-content{    
+    padding-top: 3px !important;
+    padding-left: 5px !important;
+    float: left;
 }
 
-.market-data-header .md-cell{
-    font-size:17px;
-    font-weight: bold;
+.top-nav-header .top-nav-content .ddown{    
+    background-color: white;
+    color: #2b303c !important;
+    padding: 1px 15px 1px 15px !important;
+    min-height: 35px;
 }
 
-/*END MARKET DATA HEADER*/
+/*END TOP NAV HEADER*/
 
 
 

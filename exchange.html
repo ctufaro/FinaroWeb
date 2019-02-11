@@ -49,18 +49,30 @@
                     <div class="brand-logo-collapsed"></div>
                 </a>
             </div>
-            <div class="navbar-header market-data-header">
-                <div class="md-col">Team/Player</div>
-                <div class="md-cell" v-cloak>{{team}}</div>
+            <div class="navbar-header top-nav-header">
+                <div class="dropdown top-nav-content">
+                    <button class="btn btn-secondary dropdown-toggle ddown" type="button" id="dropdownMenuButton1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <div v-cloak><strong>{{futuresA}}</strong></div>
+                        <div>SELECT PRODUCT  <i class="fas fa-chevron-down"></i></div>
+                    </button>
+                    <div class="dropdown-menu ddown-menu" aria-labelledby="dropdownMenuButton1">
+                        <a class="dropdown-item" href="#" v-on:click.prevent="selectFutures('Team','A')">Team Futures</a>
+                        <a class="dropdown-item" href="#" v-on:click.prevent="selectFutures('Player','A')">Player Futures</a>
+                    </div>
+                </div>
+                <div class="dropdown top-nav-content">
+                    <button class="btn btn-secondary dropdown-toggle ddown" type="button" id="dropdownMenuButton1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <div v-cloak><strong>{{futuresB}}</strong></div>
+                        <div>SELECT LEAGUE  <i class="fas fa-chevron-down"></i></div>
+                    </button>
+                    <div class="dropdown-menu ddown-menu" aria-labelledby="dropdownMenuButton1">
+                        <a class="dropdown-item" href="#" v-on:click.prevent="selectFutures('MLB','B')">MLB Futures</a>
+                        <a class="dropdown-item" href="#" v-on:click.prevent="selectFutures('NFL','B')">NFL Futures</a>
+                        <a class="dropdown-item" href="#" v-on:click.prevent="selectFutures('NHL','B')">NHL Futures</a>
+                        <a class="dropdown-item" href="#" v-on:click.prevent="selectFutures('NBA','B')">NBA Futures</a>
+                    </div>
+                </div>                
             </div>
-            <div class="navbar-header market-data-header">
-                <div class="md-col">24 hour price</div>
-                <div class="md-cell" v-cloak>{{marketPrice}} {{priceChange}}%</div>
-            </div>
-            <div class="navbar-header market-data-header">
-                <div class="md-col">24 hour volume</div>
-                <div class="md-cell" v-cloak>{{volume}} SWAY</div>
-            </div>             
             <div class="nav-wrapper">
                 <ul class="nav navbar-nav mt0">
                     <li>
@@ -261,30 +273,32 @@
         <section>
             <section class="main-content">                
                 <div class="row">
-                    <div class="col-md-3">
-                        <!-- Owl Row Starts Here -->
-                        <div class="row cards">
-                            <div class="col-lg-12" style="display: none;">
-                                <div class="owl-carousel owl-theme">
-                                    <div class="item card football">
-                                        <div class="card-banner"><h4></h4></div>                                        
-                                    </div>
-                                    <div class="item card baseball">
-                                        <div class="card-banner"><h4></h4></div>
-                                    </div>
-                                    <div class="item card basketball">
-                                        <div class="card-banner"><h4></h4></div>
-                                    </div>
-                                    <div class="item card hockey">
-                                        <div class="card-banner"><h4></h4></div>
-                                    </div>
-                                    <div class="item card soccer">
-                                        <div class="card-banner"><h4></h4></div>
-                                    </div>                                                                                                                 
-                                </div>
+                    <div class="col-md-5">
+                        <div class="panel panel-dark panel-default">
+                            <div class="panel-heading ml-header">
+                                <div class="panel-title ml-header-txt">{{futuresB}} FUTURES</div>
                             </div>
-                        </div>                             
-                        <!-- Orders Book -->
+                            <div class="panel-body panel-body-dark">
+                                <div class="row">
+                                    <div class="col-md-12 col-sm-12">                                                
+                                        <div class="m-t-10">
+                                            <table id="tblleagueplayers" class="table leagueplayer">
+                                                <thead>
+                                                    <tr>                                                            
+                                                        <th>League/Player</th>
+                                                        <th>Current Bid</th>
+                                                        <th>Current Offer</th>
+                                                        <th>Last Price</th>
+                                                    </tr>
+                                                </thead>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>                            
+                        </div>
+                    </div>
+                    <div class="col-md-4">
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="panel panel-dark panel-default ">
@@ -338,11 +352,8 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    </div>
-                    <div class="col-md-5">
-                        <div class="row">
-                            <div class="panel panel-dark panel-default">
+                        </div>                        
+                        <div class="panel panel-dark panel-default">
                                 <div class="panel-heading ml-header">
                                     <div class="panel-title ml-header-txt">MY ORDERS</div>
                                 </div>
@@ -364,10 +375,9 @@
                                         </div>
                                     </div>
                                 </div>                            
-                            </div>                            
                         </div>
                     </div>
-                    <div class="col-md-4">                        
+                    <div class="col-md-3">                        
                         <div class="panel panel-dark panel-default">
                             <div class="panel-heading ml-header">
                                 <div class="panel-title ml-header-txt">TRADE HISTORY</div>

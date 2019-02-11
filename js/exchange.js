@@ -3,7 +3,6 @@ const useWebSockets = true;
 const apiBaseUrl = useLocalHost ? "http://localhost:7071" : "https://finarofunc.azurewebsites.net";
 const userId = 1;
 const entityId = 1;
-//let tableLoadCount = 0;
 
 const vm = new Vue({
     el: '#app',
@@ -17,7 +16,9 @@ const vm = new Vue({
         lastPrice:null,
         volume: null,
         priceChange:null,
-        marketPrice:null
+        marketPrice:null,
+        futuresA:null,
+        futuresB:null
     },
     created: function(){
         if(useWebSockets)
@@ -53,13 +54,16 @@ const vm = new Vue({
             const retdata = response.data;
             initDataTable('tblsells', retdata.data.filter(v => v.TradeTypeId === 2), 'desc');
             initDataTable('tblbuys', retdata.data.filter(v => v.TradeTypeId === 1), 'asc');
+            initStaticDataTable('tblleagueplayers', leagueplayers,
+                (row,data,dataIndex)=>{
+                    $(row).addClass('');
+                });            
             initStaticDataTable('tblmyorders', myorders, 
                 (row,data,dataIndex)=>{
                     $(row).addClass(data[4]==1?$(row).addClass('gains'):$(row).addClass('losses'));
                 });
-            console.log(3)
             initStaticDataTable('tblhistory',  tradehistory, 
-                (row,data,dataIndex)=>{
+                    (row,data,dataIndex)=>{
                     $(row).addClass(data[3]==1?$(row).addClass('gains'):$(row).addClass('losses'));
                 });
             LoadingComplete();
@@ -108,6 +112,14 @@ const vm = new Vue({
                 this.btn.sell = true;
             }           
             
+        },
+        selectFutures:function(type,level){
+            if(level==='A'){
+                this.futuresA = type;
+            }
+            else if(level ==='B'){
+                this.futuresB = type;
+            }
         },
         setMarketData:function(retdata) {
             if(retdata !== null){
@@ -188,7 +200,6 @@ function initDataTable(tableid,dataset,srtorder)
             }
         },
         "initComplete": function( settings, json ) {
-            //tableLoadCount++;            
         }
     });
 };
@@ -199,7 +210,6 @@ function initStaticDataTable(tableid,dataset, rowFunc){
         "data":dataset,
         "createdRow": rowFunc,
         "initComplete": function( settings, json ) {
-            //tableLoadCount++;            
         }        
     });
 };

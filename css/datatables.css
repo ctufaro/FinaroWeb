@@ -17,3 +17,15 @@
     border-bottom-width: 0px !important;
     padding: 1px !important;
 }
+
+
+
+.leagueplayer tbody tr:nth-child(even){
+    background: #293039;
+    color:#D6D7DE;
+}
+
+.leagueplayer tbody tr:nth-child(odd){
+    background: #212831; 
+    color:#D6D7DE;
+}

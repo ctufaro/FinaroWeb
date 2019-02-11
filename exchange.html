@@ -340,10 +340,30 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-5">                        
-                        <div class="panel panel-dark panel-default">
-                            <div class="panel-heading ml-header">
-                                <div class="panel-title ml-header-txt">MY ORDERS</div>
+                    <div class="col-md-5">
+                        <div class="row">
+                            <div class="panel panel-dark panel-default">
+                                <div class="panel-heading ml-header">
+                                    <div class="panel-title ml-header-txt">MY ORDERS</div>
+                                </div>
+                                <div class="panel-body panel-body-dark">
+                                    <div class="row">
+                                        <div class="col-md-12 col-sm-12">                                                
+                                            <div class="m-t-10">
+                                                <table id="tblmyorders" class="table">
+                                                    <thead>
+                                                        <tr>                                                            
+                                                            <th>Units</th>
+                                                            <th>Time</th>
+                                                            <th>Price</th>
+                                                            <th>Status</th>
+                                                        </tr>
+                                                    </thead>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>                            
                             </div>                            
                         </div>
                     </div>
@@ -351,6 +371,23 @@
                         <div class="panel panel-dark panel-default">
                             <div class="panel-heading ml-header">
                                 <div class="panel-title ml-header-txt">TRADE HISTORY</div>
+                            </div>
+                            <div class="panel-body panel-body-dark">
+                                <div class="row">
+                                    <div class="col-md-12 col-sm-12">                                                
+                                        <div class="m-t-10">
+                                            <table id="tblhistory" class="table">
+                                                <thead>
+                                                    <tr>                                                            
+                                                        <th>Units</th>
+                                                        <th>Price (USD)</th>
+                                                        <th>Time</th>
+                                                    </tr>
+                                                </thead>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>                            
                         </div>
                     </div>                                          
@@ -384,7 +421,9 @@
     <script src="app/js/tradify.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@aspnet/signalr@1.0.3/dist/browser/signalr.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/axios@0.18.0/dist/axios.min.js"></script>  
+    <script src="https://cdn.jsdelivr.net/npm/axios@0.18.0/dist/axios.min.js"></script>
+    <script src="https://www.chartjs.org/dist/2.7.3/Chart.bundle.js"></script>
+    <script src="js/static.js"></script>
     <script src="js/exchange.js"></script>
     
 </body>

@@ -3,7 +3,7 @@ const useWebSockets = true;
 const apiBaseUrl = useLocalHost ? "http://localhost:7071" : "https://finarofunc.azurewebsites.net";
 const userId = 1;
 const entityId = 1;
-let tableLoadCount = 0;
+//let tableLoadCount = 0;
 
 const vm = new Vue({
     el: '#app',
@@ -53,6 +53,16 @@ const vm = new Vue({
             const retdata = response.data;
             initDataTable('tblsells', retdata.data.filter(v => v.TradeTypeId === 2), 'desc');
             initDataTable('tblbuys', retdata.data.filter(v => v.TradeTypeId === 1), 'asc');
+            initStaticDataTable('tblmyorders', myorders, 
+                (row,data,dataIndex)=>{
+                    $(row).addClass(data[4]==1?$(row).addClass('gains'):$(row).addClass('losses'));
+                });
+            console.log(3)
+            initStaticDataTable('tblhistory',  tradehistory, 
+                (row,data,dataIndex)=>{
+                    $(row).addClass(data[3]==1?$(row).addClass('gains'):$(row).addClass('losses'));
+                });
+            LoadingComplete();
         });
         
         axios.get(`${apiBaseUrl}/api/market/${userId}/${entityId}`).then((response)=>
@@ -178,11 +188,19 @@ function initDataTable(tableid,dataset,srtorder)
             }
         },
         "initComplete": function( settings, json ) {
-            tableLoadCount++;
-            if(tableLoadCount == 2){
-                LoadingComplete();
-            }
+            //tableLoadCount++;            
         }
+    });
+};
+
+function initStaticDataTable(tableid,dataset, rowFunc){
+    $(`#${tableid}`).DataTable({
+        searching: false, paging: false, info: false,autoWidth: false,
+        "data":dataset,
+        "createdRow": rowFunc,
+        "initComplete": function( settings, json ) {
+            //tableLoadCount++;            
+        }        
     });
 };
 
@@ -245,4 +263,3 @@ function resetTables(){
     $('#tblsells tr').removeClass('newsell');
     $('#tblsells tr').removeClass('newbuy');     
 }
-

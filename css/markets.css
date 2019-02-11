@@ -346,19 +346,19 @@
 /*ANIMATION*/
 
 @-webkit-keyframes newsell {
-    from { background-color: red; }
+    from { background-color: #bd5637; }
     to { background-color: #262a34; }
   }
   @-moz-keyframes newsell {
-    from { background-color: red; }
+    from { background-color: #bd5637; }
     to { background-color: #262a34; }
   }
   @-o-keyframes newsell {
-    from { background-color: red; }
+    from { background-color: #bd5637; }
     to { background-color: #262a34; }
   }
   @keyframes newsell {
-    from { background-color: red; }
+    from { background-color: #bd5637; }
     to { background-color: #262a34; }
   }
   .newsell {
@@ -369,19 +369,19 @@
   }
 
   @-webkit-keyframes newbuy {
-    from { background-color: green; }
+    from { background-color: #6ecc5b; }
     to { background-color: #262a34; }
   }
   @-moz-keyframes newbuy {
-    from { background-color: green; }
+    from { background-color: #6ecc5b; }
     to { background-color: #262a34; }
   }
   @-o-keyframes newbuy {
-    from { background-color: green; }
+    from { background-color: #6ecc5b; }
     to { background-color: #262a34; }
   }
   @keyframes newbuy {
-    from { background-color: green; }
+    from { background-color: #6ecc5b; }
     to { background-color: #262a34; }
   }
   .newbuy {

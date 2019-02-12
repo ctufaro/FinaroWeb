@@ -41,6 +41,9 @@
     
     /*END MAIN LINES*/
 
+    .top-nav-header{
+        display: none; 
+    }
 
     .navbar-header{ 
         height: 0px;       

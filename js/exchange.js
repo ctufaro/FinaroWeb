@@ -54,18 +54,22 @@ const vm = new Vue({
             const retdata = response.data;
             initDataTable('tblsells', retdata.data.filter(v => v.TradeTypeId === 2), 'desc');
             initDataTable('tblbuys', retdata.data.filter(v => v.TradeTypeId === 1), 'asc');
+            
             initStaticDataTable('tblleagueplayers', leagueplayers,
                 (row,data,dataIndex)=>{
                     $(row).addClass('');
                 });            
+            
             initStaticDataTable('tblmyorders', myorders, 
                 (row,data,dataIndex)=>{
                     $(row).addClass(data[4]==1?$(row).addClass('gains'):$(row).addClass('losses'));
-                });
+                }, [{"targets": 0, "width": "22%"},{"targets": 1, "width": "22%"},{"targets": 2, "width": "22%"},{"targets": 3, "width": "22%"}]);
+            
             initStaticDataTable('tblhistory',  tradehistory, 
                     (row,data,dataIndex)=>{
                     $(row).addClass(data[3]==1?$(row).addClass('gains'):$(row).addClass('losses'));
-                });
+                }, [{"targets": 0, "width": "33%"},{"targets": 1, "width": "33%"},{"targets": 2, "width": "33%"}]);
+            
             LoadingComplete();
         });
         
@@ -123,7 +127,6 @@ const vm = new Vue({
         },
         setMarketData:function(retdata) {
             if(retdata !== null){
-                $("#lblLastPrice").css('position', 'absolute').css('left', $('#s').position().left);
                 this.volume = retdata.Volume;
                 this.marketPrice = retdata.MarketPrice;
                 this.priceChange = retdata.ChangeInPrice;
@@ -151,12 +154,11 @@ function initDataTable(tableid,dataset,srtorder)
         "columnDefs": [
           {
             //visible
-            "width": "30%",
+            "width": "22%",
             "targets": 1,
             "data": "Quantity"
           },
           {            
-            "width": "30%",
             "targets": 2,
             "data": "Date",
             "visible": false,
@@ -164,19 +166,28 @@ function initDataTable(tableid,dataset,srtorder)
           },             
           {
             //visible
-            "width": "30%",
+            "width": "22%",
             "targets": 3,
             "data": "Price",
             "render": function ( data, type, row ) { return data.toFixed(2); }                
           },        
           {
+            //visible
+            "width": "22%",
             "targets": 0,
             "data": "TradeTypeId",
-            "visible": false,
+            "render": function ( data, type, row, meta ) {
+                switch(data){
+                    case(1):
+                        return 'BUY ORDERS'
+                    case(2):
+                        return 'SALE ORDERS'                                             
+                }
+            }
           },
           {
             //visible
-            "width": "30%",
+            "width": "22%",
             "targets": 4,
             "data": "Status",
             "render": function ( data, type, row, meta ) {
@@ -204,11 +215,12 @@ function initDataTable(tableid,dataset,srtorder)
     });
 };
 
-function initStaticDataTable(tableid,dataset, rowFunc){
+function initStaticDataTable(tableid,dataset, rowFunc, columnDefs){
     $(`#${tableid}`).DataTable({
         searching: false, paging: false, info: false,autoWidth: false,
         "data":dataset,
         "createdRow": rowFunc,
+        "columnDefs": columnDefs,
         "initComplete": function( settings, json ) {
         }        
     });

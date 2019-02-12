@@ -98,7 +98,25 @@
 }
 
 .losses{
-    color:#bd5637;
+    color:#DE514A;
+}
+
+.last-price{
+    color:white;
+    font-size:16px;
+    background: #293039;    
+    font-weight: bold;
+    margin-left: -4px;
+    margin-right: -4px;     
+}
+
+.last-price .price{
+    padding: 0 34.2%;
+    position:relative;
+}
+
+.last-price .lbl{
+    padding-left:5px;
 }
 
 .ml-sub-header{
@@ -354,19 +372,19 @@
 /*ANIMATION*/
 
 @-webkit-keyframes newsell {
-    from { background-color: #bd5637; }
+    from { background-color: #DE514A; }
     to { background-color: #262a34; }
   }
   @-moz-keyframes newsell {
-    from { background-color: #bd5637; }
+    from { background-color: #DE514A; }
     to { background-color: #262a34; }
   }
   @-o-keyframes newsell {
-    from { background-color: #bd5637; }
+    from { background-color: #DE514A; }
     to { background-color: #262a34; }
   }
   @keyframes newsell {
-    from { background-color: #bd5637; }
+    from { background-color: #DE514A; }
     to { background-color: #262a34; }
   }
   .newsell {

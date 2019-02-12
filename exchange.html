@@ -307,7 +307,7 @@
                                         </div>
                                         <div class="panel-body panel-body-dark">
                                             <span style="font-size: 27px; padding: 8px; font-family: 'Roboto',arial,sans-serif; color:white">$15.70</span>
-                                            <span style="font-size: 16px; font-weight: 400; color:red">−53.22 (0.21%) <i class="fas fa-arrow-down"></i></span>
+                                            <span style="font-size: 16px; font-weight: 400; color:#DE514A">−53.22 (0.21%) <i class="fas fa-arrow-down"></i></span>
                                         </div>                            
                                 </div>
                             </div>
@@ -316,7 +316,7 @@
                             <div class="col-md-12">
                                 <div class="panel panel-dark panel-default ">
                                     <div class="panel-heading ml-header">
-                                        <span class="panel-title ml-header-txt">ORDER BOOK</span>
+                                        <span class="panel-title ml-header-txt" v-cloak>{{team}} OPEN ORDERS</span>
                                         <a href="javascript:void(0);" data-perform="panel-collapse" data-toggle="tooltip" title="" class="pull-right" data-original-title="Collapse Panel">
                                             <em class="fa fa-minus"></em>
                                         </a>
@@ -332,18 +332,16 @@
                                                                 <th>Units</th>
                                                                 <th>Date</th>
                                                                 <th>Price</th>
-                                                                <th id="s">Status</th>
+                                                                <th>Status</th>
                                                             </tr>
                                                         </thead>
                                                     </table>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="row">
-                                            <div class="col-md-12 col-sm-12" style="padding-top:7px;padding-bottom:7px;">
-                                                <strong v-on:click="balls()">LAST PRICE:</strong>
-                                                <label id="lblLastPrice">{{lastPrice}}</label>
-                                            </div>
+                                        <div class="last-price">
+                                            <span class="lbl">LAST PRICE:</span>
+                                            <span class="price">{{lastPrice}}</span>
                                         </div>
                                         <div class="row">
                                             <div class="col-md-12 col-sm-12">                                                
@@ -351,11 +349,11 @@
                                                     <table id="tblbuys" class="table">
                                                         <thead>
                                                             <tr>                                                            
-                                                                <th>Type</th>
-                                                                <th>Units</th>
-                                                                <th>Date</th>
-                                                                <th>Price</th>
-                                                                <th>Status</th>
+                                                                <th></th>
+                                                                <th></th>
+                                                                <th></th>
+                                                                <th></th>
+                                                                <th></th>
                                                             </tr>
                                                         </thead>
                                                     </table>

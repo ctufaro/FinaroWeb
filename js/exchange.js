@@ -18,7 +18,8 @@ const vm = new Vue({
         priceChange:null,
         marketPrice:null,
         futuresA:'Team',
-        futuresB:'NFL'
+        futuresB:'NFL',
+        user:{id:localStorage.swayUserId,name:localStorage.swayUserName}
     },
     created: function(){
         if(useWebSockets)
@@ -71,6 +72,7 @@ const vm = new Vue({
                 }, [{"targets": 0, "width": "35%"},{"targets": 1, "width": "12%"},{"targets": 2, "width": "12%"},{"targets": 3, "width": "22%"}]);
             
             LoadingComplete();
+            checkLoggedOnUser();
         });
         
         axios.get(`${apiBaseUrl}/api/market/${userId}/${entityId}`).then((response)=>
@@ -78,6 +80,7 @@ const vm = new Vue({
             const retdata = response.data.data[0];
             this.setMarketData(retdata);
         });
+        
     },    
     methods: {
         sendData: function () {
@@ -132,6 +135,19 @@ const vm = new Vue({
                 this.priceChange = retdata.ChangeInPrice;
                 this.lastPrice = retdata.LastTradePrice;
             }
+        },
+        setUserId:function(userId){
+            this.user.id = userId;
+            this.user.name = (userId===1) ? "Chris Tufaro":"Mark Finn";
+            localStorage.swayUserId = this.user.id;
+            localStorage.swayUserName = this.user.name;
+            $('#loginModal').modal('hide');
+        },
+        logOut:function(){
+            localStorage.removeItem("swayUser");
+            localStorage.removeItem("swayUserId");
+            localStorage.removeItem("swayUserName");
+            window.location.href = 'index.html';
         }
     }
 });
@@ -284,4 +300,11 @@ function resetTables(){
     $('#tblbuys tr').removeClass('newbuy'); 
     $('#tblsells tr').removeClass('newsell');
     $('#tblsells tr').removeClass('newbuy');     
+}
+
+function checkLoggedOnUser(){
+    if (!localStorage.swayUserId) { 
+        $("#loginModal").modal({backdrop: 'static', keyboard: false});
+        $('#loginModal').modal('show');
+    } 
 }

@@ -368,6 +368,33 @@
 }
 
 /*MODAL LOGIN*/
+#loginModal{
+    top:30px;
+}
+
+#loginModal .modal-content{
+    text-align:center;
+    background-color: transparent;
+    -webkit-box-shadow: 0 5px 15px rgba(0,0,0,0);
+    -moz-box-shadow: 0 5px 15px rgba(0,0,0,0);
+    -o-box-shadow: 0 5px 15px rgba(0,0,0,0);
+    box-shadow: 0 5px 15px rgba(0,0,0,0);
+    border: 0px solid;
+}
+
+#loginModal .modal-header{
+    border: 0px solid;
+}
+
+#loginModal .modal-body{
+    padding:0px;
+}
+
+#loginModal .modal-title{
+    line-height: 1;
+}
+
+/*END MODAL LOGIN*/
  
 
 .btn-circle {

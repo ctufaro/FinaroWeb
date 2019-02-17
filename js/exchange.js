@@ -50,9 +50,8 @@ const vm = new Vue({
         }).catch(alert);                
     },
     mounted : function(){     
-        axios.get(`${apiBaseUrl}/api/orders/${userId}/${entityId}`).then((response)=>
+        axios.get(`${apiBaseUrl}/api/orders/${userId}/${entityId}`).then((retdata)=>
         {         
-            const retdata = response.data;
             initDataTable('tblsells', retdata.data.filter(v => v.TradeTypeId === 2), 'desc');
             initDataTable('tblbuys', retdata.data.filter(v => v.TradeTypeId === 1), 'asc');
             
@@ -77,8 +76,7 @@ const vm = new Vue({
         
         axios.get(`${apiBaseUrl}/api/market/${userId}/${entityId}`).then((response)=>
         {         
-            const retdata = response.data.data[0];
-            this.setMarketData(retdata);
+            this.setMarketData(response.data);
         });
         
     },    
@@ -265,10 +263,11 @@ function getConnectionInfo() {
 }
 
 function newOrders(orders) {
+    console.log(orders);
     let rowNode = null;
     let dt = null;
-    const neworders = JSON.parse(orders).orderbook;  
-    const newmarket = JSON.parse(orders).market;   
+    const neworders = JSON.parse(orders).Orders;  
+    const newmarket = JSON.parse(orders).MarketData;   
     resetTables();
     neworders.forEach(function (order, index) {
         //routing to correct table

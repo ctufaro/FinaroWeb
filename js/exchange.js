@@ -1,4 +1,4 @@
-const useLocalHost = false;
+const useLocalHost = true;
 const useWebSockets = true;
 const apiBaseUrl = useLocalHost ? "http://localhost:7071" : "https://finarofunc.azurewebsites.net";
 const userId = 1;
@@ -52,13 +52,8 @@ const vm = new Vue({
         axios.get(`${apiBaseUrl}/api/orders/${userId}/${entityId}`).then((retdata)=>
         {         
             initDataTable('tblsells', retdata.data.filter(v => v.TradeTypeId === 2), 'desc');
-            initDataTable('tblbuys', retdata.data.filter(v => v.TradeTypeId === 1), 'asc');
-            
-            initStaticDataTable('tblleagueplayers', leagueplayers,
-                (row,data,dataIndex)=>{
-                    $(row).addClass('');
-                });            
-            
+            initDataTable('tblbuys', retdata.data.filter(v => v.TradeTypeId === 1), 'asc');            
+          
             initStaticDataTable('tblmyorders', myorders, 
                 (row,data,dataIndex)=>{
                     $(row).addClass(data[5]==1?$(row).addClass('gains'):$(row).addClass('losses'));
@@ -232,8 +227,23 @@ function initDataTable(tableid,dataset,srtorder)
 
 function initLeaguePlayerTable(futuresId, teamPlayerId){
     if(futuresId === null || teamPlayerId === null) return;
+    $('.tbl-overlay-loader').toggle();
     axios.get(`${apiBaseUrl}/api/teamplayers/${futuresId}/${teamPlayerId}`).then(resp=>{
-        console.log(resp.data);
+        $('#tblleagueplayers').DataTable({
+            searching: false, paging: false, info: false,autoWidth: false,        
+            "data":resp.data,
+            "rowId":  function(a) {return 'id_' + a.id;},        
+            "columns": [
+                { "data": "name" }
+            ],
+            "columnDefs": [
+                { "className": "team", "targets": [0] }
+            ],            
+            "bDestroy": true,
+            "initComplete": function( settings, json ) {
+                $('.tbl-overlay-loader').toggle();
+            }            
+        });
     });
 }
 
@@ -271,6 +281,7 @@ function getConnectionInfo() {
 }
 
 function newOrders(orders) {
+    console.log(orders);
     let rowNode = null;
     let dt = null;
     const neworders = JSON.parse(orders).Orders;  

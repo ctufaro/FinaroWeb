@@ -41,6 +41,13 @@
         </div>
     </div>
 
+    <div class="tbl-overlay-loader">
+        <div class="tbl-loader">
+            <span></span>
+            <span></span>
+        </div>
+    </div>    
+
     <section class="wrapper" id="app">
         <nav class="navbar navbar-default navbar-top navbar-fixed-top">
             <div class="navbar-header">
@@ -279,7 +286,7 @@
                     <div class="col-md-4">
                         <div class="panel panel-dark panel-default">
                             <div class="panel-heading ml-header">
-                                <div class="panel-title ml-header-txt">{{futures.name}} FUTURES</div>
+                                <div class="panel-title ml-header-txt" v-cloak>{{futures.name}} FUTURES</div>
                             </div>
                             <div class="panel-body panel-body-dark">
                                 <div class="row">
@@ -289,9 +296,11 @@
                                                 <thead>
                                                     <tr>                                                            
                                                         <th>Team/Player</th>
+                                                        <!--
                                                         <th>Current Bid</th>
                                                         <th>Current Offer</th>
                                                         <th>Last Price</th>
+                                                        -->
                                                     </tr>
                                                 </thead>
                                             </table>

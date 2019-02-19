@@ -10,15 +10,14 @@ const vm = new Vue({
         tradeType: null,
         price: null,
         quantity: null,
-        team: 'NEW YORK GIANTS',
         tradeTypeText: '',
         btn:{buy:false,sell:false},
         lastPrice:null,
         volume: null,
         priceChange:null,
         marketPrice:null,
-        futuresA:'Team',
-        futuresB:'NFL',
+        futures:{name:null,id:null},
+        teamPlayer:{name:null,id:null},
         user:{id:localStorage.swayUserId,name:localStorage.swayUserName}
     },
     created: function(){
@@ -118,13 +117,15 @@ const vm = new Vue({
             }           
             
         },
-        selectFutures:function(type,level){
-            if(level==='A'){
-                this.futuresA = type;
-            }
-            else if(level ==='B'){
-                this.futuresB = type;
-            }
+        selectFutures:function(type,typeid){
+            this.futures.name = type;
+            this.futures.id = typeid;
+            initLeaguePlayerTable(this.futures.id, this.teamPlayer.id);
+        },
+        selectTeamPlayer:function(type,typeid){
+            this.teamPlayer.name = type;
+            this.teamPlayer.id = typeid;
+            initLeaguePlayerTable(this.futures.id, this.teamPlayer.id);
         },
         setMarketData:function(retdata) {
             if(retdata !== null){
@@ -229,6 +230,13 @@ function initDataTable(tableid,dataset,srtorder)
     });
 };
 
+function initLeaguePlayerTable(futuresId, teamPlayerId){
+    if(futuresId === null || teamPlayerId === null) return;
+    axios.get(`${apiBaseUrl}/api/teamplayers/${futuresId}/${teamPlayerId}`).then(resp=>{
+        console.log(resp.data);
+    });
+}
+
 function initStaticDataTable(tableid,dataset, rowFunc, columnDefs){
     $(`#${tableid}`).DataTable({
         searching: false, paging: false, info: false,autoWidth: false,
@@ -256,14 +264,13 @@ function showToast(orderId, status){
         toastr.success("Your trade has been filled");
     } 
 }
-
+ 
 function getConnectionInfo() {
     return axios.get(`${apiBaseUrl}/api/negotiate`)
     .then(resp => resp.data);
 }
 
 function newOrders(orders) {
-    console.log(orders);
     let rowNode = null;
     let dt = null;
     const neworders = JSON.parse(orders).Orders;  

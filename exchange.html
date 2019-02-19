@@ -52,24 +52,24 @@
             <div class="navbar-header top-nav-header">
                 <div class="dropdown top-nav-content">
                     <button class="btn btn-secondary dropdown-toggle ddown" type="button" id="dropdownMenuButton1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <div v-cloak><strong>{{futuresA}}</strong></div>
+                        <div v-cloak><strong>{{futures.name}}</strong></div>
                         <div>SELECT PRODUCT  <i class="fas fa-chevron-down"></i></div>
                     </button>
                     <div class="dropdown-menu ddown-menu" aria-labelledby="dropdownMenuButton1">
-                        <a class="dropdown-item" href="#" v-on:click.prevent="selectFutures('Team','A')">Team Futures</a>
-                        <a class="dropdown-item" href="#" v-on:click.prevent="selectFutures('Player','A')">Player Futures</a>
+                        <a class="dropdown-item" href="#" v-on:click.prevent="selectFutures('TEAM',1)">Team Futures</a>
+                        <a class="dropdown-item" href="#" v-on:click.prevent="selectFutures('PLAYER',2)">Player Futures</a>
                     </div>
                 </div>
                 <div class="dropdown top-nav-content">
                     <button class="btn btn-secondary dropdown-toggle ddown" type="button" id="dropdownMenuButton1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <div v-cloak><strong>{{futuresB}}</strong></div>
+                        <div v-cloak><strong>{{teamPlayer.name}}</strong></div>
                         <div>SELECT LEAGUE  <i class="fas fa-chevron-down"></i></div>
                     </button>
                     <div class="dropdown-menu ddown-menu" aria-labelledby="dropdownMenuButton1">
-                        <a class="dropdown-item" href="#" v-on:click.prevent="selectFutures('MLB','B')">MLB Futures</a>
-                        <a class="dropdown-item" href="#" v-on:click.prevent="selectFutures('NFL','B')">NFL Futures</a>
-                        <a class="dropdown-item" href="#" v-on:click.prevent="selectFutures('NHL','B')">NHL Futures</a>
-                        <a class="dropdown-item" href="#" v-on:click.prevent="selectFutures('NBA','B')">NBA Futures</a>
+                        <a class="dropdown-item" href="#" v-on:click.prevent="selectTeamPlayer('MLB',1)">MLB Futures</a>
+                        <a class="dropdown-item" href="#" v-on:click.prevent="selectTeamPlayer('NFL',2)">NFL Futures</a>
+                        <a class="dropdown-item" href="#" v-on:click.prevent="selectTeamPlayer('NHL',3)">NHL Futures</a>
+                        <a class="dropdown-item" href="#" v-on:click.prevent="selectTeamPlayer('NBA',4)">NBA Futures</a>
                     </div>
                 </div>                
             </div>
@@ -279,7 +279,7 @@
                     <div class="col-md-4">
                         <div class="panel panel-dark panel-default">
                             <div class="panel-heading ml-header">
-                                <div class="panel-title ml-header-txt">{{futuresB}} FUTURES</div>
+                                <div class="panel-title ml-header-txt">{{futures.name}} FUTURES</div>
                             </div>
                             <div class="panel-body panel-body-dark">
                                 <div class="row">
@@ -320,7 +320,7 @@
                             <div class="col-md-12">
                                 <div class="panel panel-dark panel-default ">
                                     <div class="panel-heading ml-header">
-                                        <span class="panel-title ml-header-txt" v-cloak>{{team}} OPEN ORDERS</span>
+                                        <span class="panel-title ml-header-txt" v-cloak>NEW YORK GIANTS OPEN ORDERS</span>
                                         <a href="javascript:void(0);" data-perform="panel-collapse" data-toggle="tooltip" title="" class="pull-right" data-original-title="Collapse Panel">
                                             <em class="fa fa-minus"></em>
                                         </a>

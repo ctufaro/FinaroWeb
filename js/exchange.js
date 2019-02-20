@@ -281,12 +281,11 @@ function getConnectionInfo() {
 }
 
 function newOrders(orders) {
-    console.log(orders);
     let rowNode = null;
     let dt = null;
     const neworders = JSON.parse(orders).Orders;  
     const newmarket = JSON.parse(orders).MarketData;   
-    resetTables();
+
     neworders.forEach(function (order, index) {
         //routing to correct table
         if(order.TradeTypeId === 1){
@@ -301,10 +300,10 @@ function newOrders(orders) {
         else{                    
             rowNode = dt.row(`#id_${order.OrderId}`).data(order).draw().node();
         }
-        if(order.TradeTypeId == 2)
-            $(rowNode).addClass('newsell');                    
+        if(order.TradeTypeId == 2)  
+            applyRem(rowNode,'newsell', 2);                
         else if(order.TradeTypeId == 1)
-            $(rowNode).addClass('newbuy');
+            applyRem(rowNode,'newbuy', 2);
 
         showToast(order.Id, order.Status);
     });
@@ -312,11 +311,11 @@ function newOrders(orders) {
     vm.setMarketData(newmarket);
 }
 
-function resetTables(){
-    $('#tblbuys tr').removeClass('newsell');
-    $('#tblbuys tr').removeClass('newbuy'); 
-    $('#tblsells tr').removeClass('newsell');
-    $('#tblsells tr').removeClass('newbuy');     
+function applyRem(rowNode,cname,timeout){
+    $(rowNode).addClass(cname);    
+    setTimeout(function () { 
+        $(rowNode).removeClass(cname);
+    }, 2000);
 }
 
 function checkLoggedOnUser(){

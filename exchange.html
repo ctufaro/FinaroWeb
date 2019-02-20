@@ -18,7 +18,8 @@
     <link rel="stylesheet" href="plugins/slider/css/slider.css">
     <link rel="stylesheet" href="css/owl.carousel.css">
     <link rel="stylesheet" href="css/owl.theme.default.min.css">    
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css" />
     <link rel="stylesheet" href="css/cryptofont.min.css"> 
     <link rel="stylesheet" href="css/gdax.css">   
     <!--APPLE ICONS-->
@@ -282,7 +283,7 @@
         </aside>
         <section>
             <section class="main-content">                
-                <div class="row">
+                <div class="row" v-cloak>
                     <div class="col-md-4">
                         <div class="panel panel-dark panel-default">
                             <div class="panel-heading ml-header">
@@ -295,12 +296,10 @@
                                             <table id="tblleagueplayers" class="table leagueplayer">
                                                 <thead>
                                                     <tr>                                                            
-                                                        <th>Team/Player</th>
-                                                        <!--
+                                                        <th>Team/Player</th>                                                        
                                                         <th>Current Bid</th>
                                                         <th>Current Offer</th>
-                                                        <th>Last Price</th>
-                                                        -->
+                                                        <th>Last Price</th>                                                        
                                                     </tr>
                                                 </thead>
                                             </table>
@@ -317,9 +316,9 @@
                                         <div class="panel-heading ml-header">
                                             <div class="panel-title ml-header-txt">NEW YORK GIANTS</div>
                                         </div>
-                                        <div class="panel-body panel-body-dark">
-                                            <span style="font-size: 27px; padding: 8px; font-family: 'Roboto',arial,sans-serif; color:white">$15.70</span>
-                                            <span style="font-size: 16px; font-weight: 400; color:#DE514A">−53.22 (0.21%) <i class="fas fa-arrow-down"></i></span>
+                                        <div class="panel-body panel-body-dark" v-cloak>
+                                            <span style="font-size: 27px; padding: 8px; font-family: 'Roboto',arial,sans-serif; color:white">${{marketPrice}}</span>
+                                            <span style="font-size: 16px; font-weight: 400; color:#DE514A">X.XX ({{priceChange}})% <i class="fas fa-arrow-down"></i></span>
                                             <span style="font-size: 12px; padding: 8px; font-family: 'Roboto',arial,sans-serif; color:white" v-cloak>{{volume}} SWAY</span>
                                         </div>                            
                                 </div>
@@ -352,10 +351,18 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="last-price">
-                                            <span class="lbl">LAST PRICE:</span>
-                                            <span class="price">{{lastPrice}}</span>
-                                        </div>
+                                        <table id="tbllastprice" class="table last-price">
+                                            <thead>
+                                                <tr>
+                                                    <th></th>
+                                                    <th></th>
+                                                </tr>
+                                            </thead>
+                                            <tr>
+                                                <td>LAST PRICE</td>
+                                                <td>{{lastPrice}}</td>
+                                            </tr>
+                                        </table>
                                         <div class="row">
                                             <div class="col-md-12 col-sm-12">                                                
                                                 <div class="table-responsive">

@@ -52,7 +52,9 @@ const vm = new Vue({
         axios.get(`${apiBaseUrl}/api/orders/${userId}/${entityId}`).then((retdata)=>
         {         
             initDataTable('tblsells', retdata.data.filter(v => v.TradeTypeId === 2), 'desc');
-            initDataTable('tblbuys', retdata.data.filter(v => v.TradeTypeId === 1), 'asc');            
+            initDataTable('tblbuys', retdata.data.filter(v => v.TradeTypeId === 1), 'asc');
+            
+            initStaticDataTable('tbllastprice',null,null,[{"targets": 1, "width": "50%"}]);
           
             initStaticDataTable('tblmyorders', myorders, 
                 (row,data,dataIndex)=>{
@@ -64,7 +66,7 @@ const vm = new Vue({
                     $(row).addClass(data[4]==1?$(row).addClass('gains'):$(row).addClass('losses'));
                 }, [{"targets": 0, "width": "35%"},{"targets": 1, "width": "12%"},{"targets": 2, "width": "12%"},{"targets": 3, "width": "22%"}]);
             
-            LoadingComplete();
+            loadingComplete();
             checkLoggedOnUser();
         });
         
@@ -125,9 +127,9 @@ const vm = new Vue({
         setMarketData:function(retdata) {
             if(retdata !== null){
                 this.volume = retdata.Volume;
-                this.marketPrice = retdata.MarketPrice;
-                this.priceChange = retdata.ChangeInPrice;
-                this.lastPrice = retdata.LastTradePrice;
+                this.marketPrice = retdata.MarketPrice.toFixed(2);
+                this.priceChange = retdata.ChangeInPrice * 100;
+                this.lastPrice = retdata.LastTradePrice === null ? null : retdata.LastTradePrice.toFixed(2);              
             }
         },
         setUserId:function(userId){
@@ -221,6 +223,7 @@ function initDataTable(tableid,dataset,srtorder)
             }
         },
         "initComplete": function( settings, json ) {
+
         }
     });
 };
@@ -234,10 +237,16 @@ function initLeaguePlayerTable(futuresId, teamPlayerId){
             "data":resp.data,
             "rowId":  function(a) {return 'id_' + a.id;},        
             "columns": [
-                { "data": "name" }
+                { "data": "name" },
+                { "data": "currentBid" },
+                { "data": "currentAsk" },
+                { "data": "lastPrice" }
             ],
             "columnDefs": [
-                { "className": "team", "targets": [0] }
+                { "targets": [0], "className": "team" },
+                { "targets": [1], "render": function ( data, type, row ) { return nullDecimal(data) }},
+                { "targets": [2], "render": function ( data, type, row ) { return nullDecimal(data) }},
+                { "targets": [3], "render": function ( data, type, row ) { return nullDecimal(data) }}
             ],            
             "bDestroy": true,
             "initComplete": function( settings, json ) {
@@ -301,9 +310,9 @@ function newOrders(orders) {
             rowNode = dt.row(`#id_${order.OrderId}`).data(order).draw().node();
         }
         if(order.TradeTypeId == 2)  
-            applyRem(rowNode,'newsell', 2);                
+            applyRem(rowNode,'newsell', 1);                
         else if(order.TradeTypeId == 1)
-            applyRem(rowNode,'newbuy', 2);
+            applyRem(rowNode,'newbuy', 1);
 
         showToast(order.Id, order.Status);
     });
@@ -315,7 +324,7 @@ function applyRem(rowNode,cname,timeout){
     $(rowNode).addClass(cname);    
     setTimeout(function () { 
         $(rowNode).removeClass(cname);
-    }, 2000);
+    }, timeout*1000);
 }
 
 function checkLoggedOnUser(){
@@ -323,4 +332,13 @@ function checkLoggedOnUser(){
         $("#loginModal").modal({backdrop: 'static', keyboard: false});
         $('#loginModal').modal('show');
     } 
+}
+
+function nullDecimal(data){
+    if(data!=null){
+        return data.toFixed(2);
+    }
+    else{
+        return '-';
+    }
 }

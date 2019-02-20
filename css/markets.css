@@ -103,20 +103,9 @@
 
 .last-price{
     color:white;
-    font-size:16px;
-    background: #293039;    
+    font-size:14px;
+    background: #293039 !important;    
     font-weight: bold;
-    margin-left: -4px;
-    margin-right: -4px;     
-}
-
-.last-price .price{
-    padding: 0 29%;
-    position:relative;
-}
-
-.last-price .lbl{
-    padding-left:5px;
 }
 
 .ml-sub-header{

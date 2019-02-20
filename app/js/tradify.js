@@ -1404,7 +1404,7 @@ function(e, t, o) {
 //             },1000)
 //         })
 
-function LoadingComplete(){
+function loadingComplete(){
     $('#preloader').velocity({
         opacity : 0.1,
         translateY: "-80px"

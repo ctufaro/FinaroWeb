@@ -1,8 +1,14 @@
+import Utility from '../js/modules/utility.js';
+import GUI from '../js/modules/gui.js';
+import User from './modules/user.js';
+import Websocket from './modules/websocket.js';
+import DTLeaguePlayer from './modules/dtleagueplayer.js';
+import DTHistory from './modules/dthistory.js';
+import DTMyOrders from './modules/dtmyorders.js';
+
 const useLocalHost = true;
-const useWebSockets = true;
+const useWebSockets = false;
 const apiBaseUrl = useLocalHost ? "http://localhost:7071" : "https://finarofunc.azurewebsites.net";
-const userId = 1;
-const entityId = 1;
 
 const vm = new Vue({
     el: '#app',
@@ -16,13 +22,14 @@ const vm = new Vue({
         volume: null,
         priceChange:null,
         marketPrice:null,
-        futures:{name:null,id:null},
+        futures:{name:'TEAM',id:1},
         teamPlayer:{name:null,id:null},
+        entity:{name:null, id: null},
         user:{id:localStorage.swayUserId,name:localStorage.swayUserName}
     },
     created: function(){
         if(useWebSockets)
-        getConnectionInfo().then(info => {
+        Websocket.getConnectionInfo(apiBaseUrl).then(info => {
             // make compatible with old and new SignalRConnectionInfo
             info.accessToken = info.accessToken || info.accessKey;
             info.url = info.url || info.endpoint;
@@ -36,7 +43,9 @@ const vm = new Vue({
                 .configureLogging(signalR.LogLevel.Information)
                 .build();
         
-            connection.on('newOrders', newOrders);
+            connection.on('newOrders', (orders)=>{
+                Websocket.wsNewOrders(orders, vm);
+            });
         
             connection.onclose(() => console.log('disconnected'));
         
@@ -48,46 +57,25 @@ const vm = new Vue({
         
         }).catch(alert);                
     },
-    mounted : function(){     
-        axios.get(`${apiBaseUrl}/api/orders/${userId}/${entityId}`).then((retdata)=>
-        {         
-            initDataTable('tblsells', retdata.data.filter(v => v.TradeTypeId === 2), 'desc');
-            initDataTable('tblbuys', retdata.data.filter(v => v.TradeTypeId === 1), 'asc');
-            
-            initStaticDataTable('tbllastprice',null,null,[{"targets": 1, "width": "50%"}]);
-          
-            initStaticDataTable('tblmyorders', myorders, 
-                (row,data,dataIndex)=>{
-                    $(row).addClass(data[5]==1?$(row).addClass('gains'):$(row).addClass('losses'));
-                }, [{"targets": 0, "width": "30%"},{"targets": 1, "width": "10%"},{"targets": 2, "width": "20%"},{"targets": 3, "width": "20%"},{"targets": 4, "width": "20%"}]);
-            
-            initStaticDataTable('tblhistory',  tradehistory, 
-                    (row,data,dataIndex)=>{
-                    $(row).addClass(data[4]==1?$(row).addClass('gains'):$(row).addClass('losses'));
-                }, [{"targets": 0, "width": "35%"},{"targets": 1, "width": "12%"},{"targets": 2, "width": "12%"},{"targets": 3, "width": "22%"}]);
-            
-            loadingComplete();
-            checkLoggedOnUser();
-        });
-        
-        axios.get(`${apiBaseUrl}/api/market/${userId}/${entityId}`).then((response)=>
-        {         
-            this.setMarketData(response.data);
-        });
-        
+    mounted : function(){
+
+        if(!User.isLoggedOn())
+        {
+            User.showPopUp();
+        }
+
+        Utility.loadingComplete();
     },    
     methods: {
-        sendData: function () {
-            
+        sendData: function () {            
             if(this.tradeType == null){
                 alert("Please select BUY or SELL");
                 return;
             }
-
             axios.post(`${apiBaseUrl}/api/orders`,
             {
-                userId: userId,
-                entityId: entityId,
+                userId: this.user.id,
+                entityId: this.entity.id,
                 tradeType: this.tradeType,
                 price: this.price,
                 quantity: this.quantity                        
@@ -117,40 +105,51 @@ const vm = new Vue({
         selectFutures:function(type,typeid){
             this.futures.name = type;
             this.futures.id = typeid;
-            initLeaguePlayerTable(this.futures.id, this.teamPlayer.id);
+            DTLeaguePlayer.init(apiBaseUrl, this.futures.id, this.teamPlayer.id, this.reloadFunc);
+        },
+        reloadFunc:function(data){
+            this.entity.name = data.name.toUpperCase();
+            this.entity.id = data.id;
+            
+            axios.get(`${apiBaseUrl}/api/orders/${this.user.id}/${this.entity.id}`).then((retdata)=>
+            {         
+                initBuysSellsDataTable('tblsells', retdata.data.filter(v => v.TradeTypeId === 2), 'desc');
+                initBuysSellsDataTable('tblbuys', retdata.data.filter(v => v.TradeTypeId === 1), 'asc');            
+                Utility.initStaticDataTable('tbllastprice',null,null,[{"targets": 1, "width": "50%"}],true);
+            });            
+            axios.get(`${apiBaseUrl}/api/market/${this.user.id}/${this.entity.id}`).then((response)=>
+            {         
+                this.setMarketData(response.data);
+            });
+            
         },
         selectTeamPlayer:function(type,typeid){
             this.teamPlayer.name = type;
             this.teamPlayer.id = typeid;
-            initLeaguePlayerTable(this.futures.id, this.teamPlayer.id);
+            DTLeaguePlayer.init(apiBaseUrl, this.futures.id, this.teamPlayer.id, this.reloadFunc);
         },
         setMarketData:function(retdata) {
             if(retdata !== null){
                 this.volume = retdata.Volume;
-                this.marketPrice = retdata.MarketPrice.toFixed(2);
+                this.marketPrice = retdata.MarketPrice === null ? null : retdata.MarketPrice.toFixed(2);
                 this.priceChange = retdata.ChangeInPrice * 100;
                 this.lastPrice = retdata.LastTradePrice === null ? null : retdata.LastTradePrice.toFixed(2);              
             }
         },
-        setUserId:function(userId){
-            this.user.id = userId;
-            this.user.name = (userId===1) ? "Chris Tufaro":"Mark Finn";
-            localStorage.swayUserId = this.user.id;
-            localStorage.swayUserName = this.user.name;
+        setUserId:function(uId){
+            this.user.id = uId;
+            this.user.name = (uId===1) ? "Chris Tufaro":"Mark Finn";
+            User.setUserId(this.user);
             $('#loginModal').modal('hide');
         },
         logOut:function(){
-            localStorage.removeItem("swayUser");
-            localStorage.removeItem("swayUserId");
-            localStorage.removeItem("swayUserName");
+            User.logout();
             window.location.href = 'index.html';
-        }
+        }        
     }
 });
 
-//HELPER FUNCTIONS
-
-function initDataTable(tableid,dataset,srtorder)
+function initBuysSellsDataTable(tableid,dataset,srtorder)
 {
     $(`#${tableid}`).DataTable({
         searching: false, paging: false, info: false,autoWidth: false,
@@ -213,6 +212,7 @@ function initDataTable(tableid,dataset,srtorder)
                 }
             }
           }],
+        "bDestroy": true,
         "order": [[ 3, 'desc' ],[ 2, srtorder ]],
         "createdRow": function( row, data, dataIndex){
             if (data['TradeTypeId'] == '1' ) {
@@ -228,117 +228,4 @@ function initDataTable(tableid,dataset,srtorder)
     });
 };
 
-function initLeaguePlayerTable(futuresId, teamPlayerId){
-    if(futuresId === null || teamPlayerId === null) return;
-    $('.tbl-overlay-loader').toggle();
-    axios.get(`${apiBaseUrl}/api/teamplayers/${futuresId}/${teamPlayerId}`).then(resp=>{
-        $('#tblleagueplayers').DataTable({
-            searching: false, paging: false, info: false,autoWidth: false,        
-            "data":resp.data,
-            "rowId":  function(a) {return 'id_' + a.id;},        
-            "columns": [
-                { "data": "name" },
-                { "data": "currentBid" },
-                { "data": "currentAsk" },
-                { "data": "lastPrice" }
-            ],
-            "columnDefs": [
-                { "targets": [0], "className": "team" },
-                { "targets": [1], "render": function ( data, type, row ) { return nullDecimal(data) }},
-                { "targets": [2], "render": function ( data, type, row ) { return nullDecimal(data) }},
-                { "targets": [3], "render": function ( data, type, row ) { return nullDecimal(data) }}
-            ],            
-            "bDestroy": true,
-            "initComplete": function( settings, json ) {
-                $('.tbl-overlay-loader').toggle();
-            }            
-        });
-    });
-}
 
-function initStaticDataTable(tableid,dataset, rowFunc, columnDefs){
-    $(`#${tableid}`).DataTable({
-        searching: false, paging: false, info: false,autoWidth: false,
-        "data":dataset,
-        "createdRow": rowFunc,
-        "columnDefs": columnDefs,
-        "initComplete": function( settings, json ) {
-        }        
-    });
-};
-
-function showToast(orderId, status){
-    if (orderId === null) {
-        toastr.options = { "positionClass": "toast-bottom-right", "closeButton": true };
-        toastr.info("Your order has been received.");
-    }
-
-    if (status === 2) {
-        toastr.options = { "positionClass": "toast-bottom-right", "closeButton": true };
-        toastr.warning("Your trade has been partially filled");
-    }   
-    
-    if (status === 3) {
-        toastr.options = { "positionClass": "toast-bottom-right", "closeButton": true };
-        toastr.success("Your trade has been filled");
-    } 
-}
- 
-function getConnectionInfo() {
-    return axios.get(`${apiBaseUrl}/api/negotiate`)
-    .then(resp => resp.data);
-}
-
-function newOrders(orders) {
-    let rowNode = null;
-    let dt = null;
-    const neworders = JSON.parse(orders).Orders;  
-    const newmarket = JSON.parse(orders).MarketData;   
-
-    neworders.forEach(function (order, index) {
-        //routing to correct table
-        if(order.TradeTypeId === 1){
-            dt = $('#tblbuys').DataTable();
-        } else if(order.TradeTypeId === 2){
-            dt = $('#tblsells').DataTable();
-        }
-
-        if(order.Id === null){
-            rowNode = dt.row.add(order).draw(false).node();                
-        }
-        else{                    
-            rowNode = dt.row(`#id_${order.OrderId}`).data(order).draw().node();
-        }
-        if(order.TradeTypeId == 2)  
-            applyRem(rowNode,'newsell', 1);                
-        else if(order.TradeTypeId == 1)
-            applyRem(rowNode,'newbuy', 1);
-
-        showToast(order.Id, order.Status);
-    });
-
-    vm.setMarketData(newmarket);
-}
-
-function applyRem(rowNode,cname,timeout){
-    $(rowNode).addClass(cname);    
-    setTimeout(function () { 
-        $(rowNode).removeClass(cname);
-    }, timeout*1000);
-}
-
-function checkLoggedOnUser(){
-    if (!localStorage.swayUserId) { 
-        $("#loginModal").modal({backdrop: 'static', keyboard: false});
-        $('#loginModal').modal('show');
-    } 
-}
-
-function nullDecimal(data){
-    if(data!=null){
-        return data.toFixed(2);
-    }
-    else{
-        return '-';
-    }
-}

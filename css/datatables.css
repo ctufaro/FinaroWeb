@@ -26,6 +26,10 @@
     font-weight: bold;
 }
 
+.leagueplayer tr {
+    cursor: pointer;
+}
+
 .leagueplayer tbody tr:nth-child(even){
     background: #293039;
     color:#D6D7DE;    

@@ -6,7 +6,11 @@ export default class Websocket{
         .then(resp => resp.data);
     }
 
-    static wsNewOrders(orders, vm) {
+    static wsNewOrders(orders, vm) {        
+        //if selected entity does not equal entity from the orders dont show!
+        let eqEntity = vm.entity.id === parseInt(JSON.parse(orders).Orders[0].EntityId);
+        if(!eqEntity) return;
+
         let rowNode = null;
         let dt = null;
         const neworders = JSON.parse(orders).Orders;  

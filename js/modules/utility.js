@@ -8,6 +8,10 @@ export default class Utility{
         }
     }
 
+    static getPriceSign(val){
+        return (val > 0) ? '+' : '';
+    }
+
     static initStaticDataTable(tableid,dataset, rowFunc, columnDefs, destroy){
         $(`#${tableid}`).DataTable({
             searching: false, paging: false, info: false,autoWidth: false,

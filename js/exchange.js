@@ -2,12 +2,12 @@ import Utility from '../js/modules/utility.js';
 import GUI from '../js/modules/gui.js';
 import User from './modules/user.js';
 import Websocket from './modules/websocket.js';
-import DTLeaguePlayer from './modules/dtleagueplayer.js';
-import DTHistory from './modules/dthistory.js';
-import DTMyOrders from './modules/dtmyorders.js';
-import DTBuySell from './modules/dtbuysell.js';
+import DTLeaguePlayer from './modules/datatables/dtleagueplayer.js';
+import DTHistory from './modules/datatables/dthistory.js';
+import DTMyOrders from './modules/datatables/dtmyorders.js';
+import DTBuySell from './modules/datatables/dtbuysell.js';
 
-const useLocalHost = false;
+const useLocalHost = true;
 const useWebSockets = true;
 const apiBaseUrl = useLocalHost ? "http://localhost:7071" : "https://finarofunc.azurewebsites.net";
 
@@ -21,10 +21,11 @@ const vm = new Vue({
         btn:{buy:false,sell:false},
         lastPrice:null,
         volume: null,
-        priceChange:null,
+        priceChange: null,
+        priceChangePcnt:null,
         marketPrice:null,
         futures:{name:'TEAM',id:1},
-        teamPlayer:{name:null,id:null},
+        teamPlayer:{name:' ',id:null},
         entity:{name:null, id: null},
         user:{id:localStorage.swayUserId,name:localStorage.swayUserName}
     },
@@ -118,9 +119,14 @@ const vm = new Vue({
             $('.tbl-overlay-loader').toggle();
             axios.get(`${apiBaseUrl}/api/orders/${this.user.id}/${this.entity.id}`).then((retdata)=>
             {         
+                //BUYS
                 DTBuySell.init('tblsells', retdata.data.filter(v => v.TradeTypeId === 2), 'desc');
+                //SELLS
                 DTBuySell.init('tblbuys', retdata.data.filter(v => v.TradeTypeId === 1), 'asc');            
+                //LAST PRICE
                 Utility.initStaticDataTable('tbllastprice',null,null,[{"targets": 1, "width": "50%"}],true);
+                //TRADE HISTORY
+                DTHistory.init(apiBaseUrl, this.user.id, this.entity.id, this.entity.name);
             }).then(() =>{            
                 axios.get(`${apiBaseUrl}/api/market/${this.user.id}/${this.entity.id}`).then((response)=>
                 {         
@@ -140,7 +146,8 @@ const vm = new Vue({
             if(retdata !== null){
                 this.volume = retdata.Volume;
                 this.marketPrice = retdata.MarketPrice === null ? null : retdata.MarketPrice.toFixed(2);
-                this.priceChange = retdata.ChangeInPrice * 100;
+                this.priceChange = Utility.getPriceSign(retdata.ChangeInPrice) + (this.marketPrice * retdata.ChangeInPrice).toFixed(2);
+                this.priceChangePcnt = (retdata.ChangeInPrice * 100).toFixed(2);
                 this.lastPrice = retdata.LastTradePrice === null ? null : retdata.LastTradePrice.toFixed(2);              
             }
         },

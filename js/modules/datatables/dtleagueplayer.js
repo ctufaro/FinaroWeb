@@ -1,4 +1,4 @@
-import Utility from '../modules/utility.js';
+import Utility from '../utility.js';
 
 export default class DTLeaguePlayer{
 

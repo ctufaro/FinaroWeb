@@ -318,7 +318,9 @@
                                         </div>
                                         <div class="panel-body panel-body-dark" v-cloak>
                                             <span style="font-size: 27px; padding: 8px; font-family: 'Roboto',arial,sans-serif; color:white">${{marketPrice}}</span>
-                                            <span style="font-size: 16px; font-weight: 400; color:#DE514A">X.XX ({{priceChange}})% <i class="fas fa-arrow-down"></i></span>
+                                            <span style="font-size: 16px; font-weight: 400;" v-bind:class="{ gains: priceChange > 0, losses: priceChange < 0 }">
+                                                {{priceChange}} ({{priceChangePcnt}})% <i v-bind:class="{ 'fas fa-arrow-up': priceChange > 0, 'fas fa-arrow-down': priceChange < 0 }"></i>
+                                            </span>
                                             <span style="font-size: 12px; padding: 8px; font-family: 'Roboto',arial,sans-serif; color:white" v-cloak>{{volume}} SWAY</span>
                                         </div>                            
                                 </div>
@@ -386,7 +388,7 @@
                         </div>                        
                         <div class="panel panel-dark panel-default">
                                 <div class="panel-heading ml-header">
-                                    <div class="panel-title ml-header-txt">MY OPEN ORDERS</div>
+                                    <div class="panel-title ml-header-txt">MY ORDERS</div>
                                 </div>
                                 <div class="panel-body panel-body-dark">
                                     <div class="row">
@@ -420,8 +422,7 @@
                                         <div class="m-t-10">
                                             <table id="tblhistory" class="table">
                                                 <thead>
-                                                    <tr>
-                                                        <th>Team/Player</th>                                                             
+                                                    <tr>                                                             
                                                         <th>Units</th>
                                                         <th>Price</th>
                                                         <th>Time</th>

@@ -6,38 +6,53 @@ export default class Websocket{
         .then(resp => resp.data);
     }
 
-    static wsNewOrders(orders, vm) {        
-        //if selected entity does not equal entity from the orders dont show!
-        let eqEntity = vm.entity.id === parseInt(JSON.parse(orders).Orders[0].EntityId);
-        if(!eqEntity) return;
+    static wsNewOrders(orders, vm) {  
 
         let rowNode = null;
         let dt = null;
+        let cls = null;
+        let dthist = $('#tblhistory').DataTable();        
         const neworders = JSON.parse(orders).Orders;  
         const newmarket = JSON.parse(orders).MarketData;   
     
         neworders.forEach(function (order, index) {
-            //routing to correct table
-            if(order.TradeTypeId === 1){
-                dt = $('#tblbuys').DataTable();
-            } else if(order.TradeTypeId === 2){
-                dt = $('#tblsells').DataTable();
+            // FIRST CHECK IF THE ENTITY ID IS DIFFERENT THAN THE SELECTED
+            if(!vm.entity.id === order.EntityId)
+                return;// TODO REROUTE THIS TO THE LEAGUE/PLAYER TABLE
+            // IF THE SAME, UPDATE THE MARKET DATA FIELDS
+            else
+                vm.setMarketData(newmarket);
+
+            // DETERMINING IF BUY/SELL
+            (order.TradeTypeId === 1) ? (dt = $('#tblbuys').DataTable(), cls='newbuy') : (dt = $('#tblsells').DataTable(), cls='newsell');
+
+            // CHECKING IF THIS IS A NEW ORDER
+            if(order.Id === null) {
+                // NEW AND PARTIALS TRADE GO DIRECTLY TO B/S AND MY ORDERS               
+                if(order.Status === 1 || order.Status === 2){
+                    rowNode = dt.row.add(order).draw(false).node();
+                }
+                // NEW TRADE ALREADY FILLED GO DIRECTLY TO HISTORY AND MY ORDERS
+                else if(order.Status === 3){
+                    rowNode = dthist.row.add(order).draw(false).node();
+                }
+            } 
+            // EXISTING ORDER RESIDING IN THE BOOK
+            else {
+                // EXISTING TRADE PARTIALLY FILLED UPDATE B/S AND UPDATE MY ORDERS
+                if(order.Status === 2){
+                    rowNode = dt.row(`#id_${order.OrderId}`).data(order).draw().node();
+                }
+                // EXISTING TRADE FILLED GO REMOVE FROM B/S, ADD TO HISTORY AND UPDATE MY ORDERS
+                else if(order.Status === 3){
+                    rowNode = dthist.row.add(order).draw(false).node();                    
+                    dt.row(`#id_${order.OrderId}`).remove().draw();
+                }
             }
-    
-            if(order.Id === null){
-                rowNode = dt.row.add(order).draw(false).node();                
-            }
-            else{                    
-                rowNode = dt.row(`#id_${order.OrderId}`).data(order).draw().node();
-            }
-            if(order.TradeTypeId == 2)  
-                GUI.applyRem(rowNode,'newsell', 1);                
-            else if(order.TradeTypeId == 1)
-                GUI.applyRem(rowNode,'newbuy', 1);
-    
+
+            // SORT THIS OUT
+            GUI.applyRem(rowNode,cls, 1);
             GUI.showToast(order.Id, order.Status);
         });
-    
-        vm.setMarketData(newmarket);
-    }    
+    }
 }

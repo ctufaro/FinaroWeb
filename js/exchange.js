@@ -5,9 +5,10 @@ import Websocket from './modules/websocket.js';
 import DTLeaguePlayer from './modules/dtleagueplayer.js';
 import DTHistory from './modules/dthistory.js';
 import DTMyOrders from './modules/dtmyorders.js';
+import DTBuySell from './modules/dtbuysell.js';
 
-const useLocalHost = true;
-const useWebSockets = false;
+const useLocalHost = false;
+const useWebSockets = true;
 const apiBaseUrl = useLocalHost ? "http://localhost:7071" : "https://finarofunc.azurewebsites.net";
 
 const vm = new Vue({
@@ -72,6 +73,10 @@ const vm = new Vue({
                 alert("Please select BUY or SELL");
                 return;
             }
+            if(this.entity.id == null){
+                alert("Please select a team/player");
+                return;
+            }
             axios.post(`${apiBaseUrl}/api/orders`,
             {
                 userId: this.user.id,
@@ -110,16 +115,19 @@ const vm = new Vue({
         reloadFunc:function(data){
             this.entity.name = data.name.toUpperCase();
             this.entity.id = data.id;
-            
+            $('.tbl-overlay-loader').toggle();
             axios.get(`${apiBaseUrl}/api/orders/${this.user.id}/${this.entity.id}`).then((retdata)=>
             {         
-                initBuysSellsDataTable('tblsells', retdata.data.filter(v => v.TradeTypeId === 2), 'desc');
-                initBuysSellsDataTable('tblbuys', retdata.data.filter(v => v.TradeTypeId === 1), 'asc');            
+                DTBuySell.init('tblsells', retdata.data.filter(v => v.TradeTypeId === 2), 'desc');
+                DTBuySell.init('tblbuys', retdata.data.filter(v => v.TradeTypeId === 1), 'asc');            
                 Utility.initStaticDataTable('tbllastprice',null,null,[{"targets": 1, "width": "50%"}],true);
-            });            
-            axios.get(`${apiBaseUrl}/api/market/${this.user.id}/${this.entity.id}`).then((response)=>
-            {         
-                this.setMarketData(response.data);
+            }).then(() =>{            
+                axios.get(`${apiBaseUrl}/api/market/${this.user.id}/${this.entity.id}`).then((response)=>
+                {         
+                    this.setMarketData(response.data);
+                });
+            }).then(()=>{
+                $('.tbl-overlay-loader').toggle();
             });
             
         },
@@ -149,83 +157,5 @@ const vm = new Vue({
     }
 });
 
-function initBuysSellsDataTable(tableid,dataset,srtorder)
-{
-    $(`#${tableid}`).DataTable({
-        searching: false, paging: false, info: false,autoWidth: false,
-        "data":dataset,
-        "rowId":  function(a) {return 'id_' + a.OrderId;},        
-        "columns": [
-            { "data": "TradeTypeId" },
-            { "data": "Quantity" },
-            { "data": "Date" },
-            { "data": "Price" },
-            { "data": "Status" }
-        ],
-        "columnDefs": [
-          {
-            //visible
-            "width": "22%",
-            "targets": 1,
-            "data": "Quantity"
-          },
-          {            
-            "targets": 2,
-            "data": "Date",
-            "visible": false,
-            "render": function ( data, type, row ) { return moment(data).format(); }                
-          },             
-          {
-            //visible
-            "width": "22%",
-            "targets": 3,
-            "data": "Price",
-            "render": function ( data, type, row ) { return data.toFixed(2); }                
-          },        
-          {
-            //visible
-            "width": "22%",
-            "targets": 0,
-            "data": "TradeTypeId",
-            "render": function ( data, type, row, meta ) {
-                switch(data){
-                    case(1):
-                        return 'BUY ORDERS'
-                    case(2):
-                        return 'SALE ORDERS'                                             
-                }
-            }
-          },
-          {
-            //visible
-            "width": "22%",
-            "targets": 4,
-            "data": "Status",
-            "render": function ( data, type, row, meta ) {
-                switch(data){
-                    case(1):
-                        return 'OPEN'
-                    case(2):
-                        return 'PARTIAL'
-                    case(3):
-                        return 'FILLED'                                                
-                }
-            }
-          }],
-        "bDestroy": true,
-        "order": [[ 3, 'desc' ],[ 2, srtorder ]],
-        "createdRow": function( row, data, dataIndex){
-            if (data['TradeTypeId'] == '1' ) {
-                $(row).addClass('gains');
-            }
-            else if (data['TradeTypeId'] == '2' ) {
-                $(row).addClass('losses');
-            }
-        },
-        "initComplete": function( settings, json ) {
-
-        }
-    });
-};
 
 

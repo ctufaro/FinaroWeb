@@ -100,16 +100,16 @@
                             <em class="fa fa-trophy"></em>
                         </a>
                         <ul class="dropdown-menu menu-items">
-                            <li>
+                            <li v-on:click.prevent="selectTeamPlayer('NFL',2)">
                                 <span class="menu-item" data-league="1"><i class="fas fa-football-ball"></i>NFL</span>
                             </li>
-                            <li>
+                            <li v-on:click.prevent="selectTeamPlayer('MLB',1)">
                                 <span class="menu-item" data-league="2"><i class="fas fa-baseball-ball"></i>MLB</span>
                             </li>                                                  
-                            <li>
+                            <li v-on:click.prevent="selectTeamPlayer('NBA',4)">
                                 <span class="menu-item" data-league="3"><i class="fas fa-basketball-ball"></i>NBA</span>
                             </li>
-                            <li>
+                            <li v-on:click.prevent="selectTeamPlayer('NHL',3)">
                                 <span class="menu-item" data-league="4"><i class="fas fa-hockey-puck"></i>NHL</span>
                             </li>
                         </ul>                     

@@ -7,7 +7,7 @@ import DTHistory from './modules/datatables/dthistory.js';
 import DTMyOrders from './modules/datatables/dtmyorders.js';
 import DTBuySell from './modules/datatables/dtbuysell.js';
 
-const useLocalHost = true;
+const useLocalHost = false;
 const useWebSockets = true;
 const apiBaseUrl = useLocalHost ? "http://localhost:7071" : "https://finarofunc.azurewebsites.net";
 
@@ -63,9 +63,13 @@ const vm = new Vue({
 
         if(!User.isLoggedOn())
         {
-            User.showPopUp();
+           User.showPopUp();                         
         }
-
+        else
+        {
+            // TODO: LOADING MY ORDERS, REFACTOR
+            DTMyOrders.init(apiBaseUrl, this.user.id);
+        }
         Utility.loadingComplete();
     },    
     methods: {
@@ -119,13 +123,13 @@ const vm = new Vue({
             $('.tbl-overlay-loader').toggle();
             axios.get(`${apiBaseUrl}/api/orders/${this.user.id}/${this.entity.id}`).then((retdata)=>
             {         
-                //BUYS
+                // BUYS
                 DTBuySell.init('tblsells', retdata.data.filter(v => v.TradeTypeId === 2), 'desc');
-                //SELLS
+                // SELLS
                 DTBuySell.init('tblbuys', retdata.data.filter(v => v.TradeTypeId === 1), 'asc');            
-                //LAST PRICE
+                // LAST PRICE
                 Utility.initStaticDataTable('tbllastprice',null,null,[{"targets": 1, "width": "50%"}],true);
-                //TRADE HISTORY
+                // TRADE HISTORY
                 DTHistory.init(apiBaseUrl, this.user.id, this.entity.id, this.entity.name);
             }).then(() =>{            
                 axios.get(`${apiBaseUrl}/api/market/${this.user.id}/${this.entity.id}`).then((response)=>
@@ -155,6 +159,8 @@ const vm = new Vue({
             this.user.id = uId;
             this.user.name = (uId===1) ? "Chris Tufaro":"Mark Finn";
             User.setUserId(this.user);
+            // TODO: LOADING MY ORDERS, REFACTOR
+            DTMyOrders.init(apiBaseUrl, this.user.id);
             $('#loginModal').modal('hide');
         },
         logOut:function(){

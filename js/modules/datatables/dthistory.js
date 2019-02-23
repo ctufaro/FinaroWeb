@@ -12,11 +12,16 @@ export default class DTHistory{
                     { "data": "Price" },
                     { "data": "Date" }
                 ],
-                "columnDefs": [                   
+                "columnDefs": [
+                    {
+                        "targets": 1,
+                        "render": function ( data, type, row ) { return data.toFixed(2); }                
+                    },                   
                     {
                         "targets": 2,
                         "render": function ( data, type, row ) { return moment(data).format("YYYY-MM-DD HH:mm:ss"); }
-                    }],                                           
+                    },
+                ],                                           
                 "bDestroy": true,
                 "order": [[ 2, 'desc' ]],
                 "createdRow": function(row, data, dataIndex){

@@ -18,7 +18,25 @@ export default class DTMyOrders{
                     {
                         "targets": 2,
                         "render": function ( data, type, row ) { return moment(data).format("YYYY-MM-DD HH:mm:ss"); }
-                    }],                                           
+                    },
+                    {
+                        "targets": 3,
+                        "render": function ( data, type, row ) { return data.toFixed(2); }                
+                    },                    
+                    {
+                        "targets": 4,
+                        "render": function ( data, type, row, meta ) {
+                            switch(data){
+                                case(1):
+                                    return 'OPEN'
+                                case(2):
+                                    return 'PARTIAL'
+                                case(3):
+                                    return 'FILLED'                                                
+                            }
+                        }
+                    }
+                ],                                           
                 "bDestroy": true,
                 "order": [[ 2, 'desc' ]],
                 "createdRow": function(row, data, dataIndex){

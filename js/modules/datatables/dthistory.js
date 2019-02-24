@@ -25,7 +25,12 @@ export default class DTHistory{
                 "bDestroy": true,
                 "order": [[ 2, 'desc' ]],
                 "createdRow": function(row, data, dataIndex){
-                    $(row).addClass('text-white');
+                    if (data['TradeTypeId'] == '1' ) {
+                        $(row).addClass('gains');
+                    }
+                    else if (data['TradeTypeId'] == '2' ) {
+                        $(row).addClass('losses');
+                    }
                 },
                 "initComplete": function( settings, json ) { }            
             });

@@ -60,17 +60,14 @@ const vm = new Vue({
         }).catch(alert);                
     },
     mounted : function(){
-
         if(!User.isLoggedOn())
         {
-           User.showPopUp();                         
+            User.showPopUp();                         
         }
         else
         {
-            // TODO: LOADING MY ORDERS, REFACTOR
-            DTMyOrders.init(apiBaseUrl, this.user.id);
-        }
-        Utility.loadingComplete();
+            DTMyOrders.init(apiBaseUrl, this.user.id, Utility.loadingComplete);
+        }        
     },    
     methods: {
         sendData: function () {            
@@ -160,8 +157,7 @@ const vm = new Vue({
             this.user.id = uId;
             this.user.name = (uId===1) ? "Chris Tufaro":"Mark Finn";
             User.setUserId(this.user);
-            // TODO: LOADING MY ORDERS, REFACTOR
-            DTMyOrders.init(apiBaseUrl, this.user.id);
+            DTMyOrders.init(apiBaseUrl, this.user.id, Utility.loadingComplete);
             $('#loginModal').modal('hide');
         },
         logOut:function(){

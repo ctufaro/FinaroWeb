@@ -1,7 +1,7 @@
 import Utility from '../utility.js';
 
 export default class DTMyOrders{
-    static init(apiBaseUrl, userid){
+    static init(apiBaseUrl, userid, func){
         axios.get(`${apiBaseUrl}/api/myorders/${userid}/0`).then(resp=>{
             $('#tblmyorders').DataTable({
                 searching: false, paging: false, info: false,autoWidth: false,        
@@ -47,7 +47,7 @@ export default class DTMyOrders{
                         $(row).addClass('losses');
                     }
                 },
-                "initComplete": function( settings, json ) { }            
+                "initComplete": function( settings, json ) { func(); }            
             });
         });
     }

@@ -9,7 +9,7 @@ export default class DTMyOrders{
                 "rowId":  function(a) {return 'id_' + a.OrderId;},        
                 "columns": [
                     { "data": "Name" },
-                    { "data": "Quantity" },
+                    { "data": "UnsetQuantity" },
                     { "data": "Date" },
                     { "data": "Price" },
                     { "data": "Status" }

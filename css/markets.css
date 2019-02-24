@@ -108,6 +108,10 @@
     font-weight: bold;
 }
 
+.last-price tr td:first-child{
+    padding-left:11px !important;
+}
+
 .ml-sub-header{
     margin: 0;
     line-height: 25px;

@@ -8,7 +8,7 @@ export default class DTHistory{
                 "data":resp.data,
                 "rowId":  function(a) {return 'id_' + a.orderId;},        
                 "columns": [
-                    { "data": "Quantity" },
+                    { "data": "UnsetQuantity" },
                     { "data": "Price" },
                     { "data": "Date" }
                 ],
@@ -25,12 +25,7 @@ export default class DTHistory{
                 "bDestroy": true,
                 "order": [[ 2, 'desc' ]],
                 "createdRow": function(row, data, dataIndex){
-                    if (data['TradeTypeId'] == '1' ) {
-                        $(row).addClass('gains');
-                    }
-                    else if (data['TradeTypeId'] == '2' ) {
-                        $(row).addClass('losses');
-                    }
+                    $(row).addClass('text-white');
                 },
                 "initComplete": function( settings, json ) { }            
             });

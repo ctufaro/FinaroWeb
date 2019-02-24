@@ -88,7 +88,8 @@ const vm = new Vue({
                 entityId: this.entity.id,
                 tradeType: this.tradeType,
                 price: this.price,
-                quantity: this.quantity                        
+                quantity: this.quantity,
+                unsetQuantity: this.quantity                        
             });
         },
         openOrders: function(){          

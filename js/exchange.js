@@ -24,8 +24,8 @@ const vm = new Vue({
         priceChange: null,
         priceChangePcnt:null,
         marketPrice:null,
-        futures:{name:'TEAM',id:1},
-        teamPlayer:{name:' ',id:null},
+        futures:{name:'',id:null},
+        teamPlayer:{name:'',id:null},
         entity:{name:null, id: null},
         user:{id:localStorage.swayUserId,name:localStorage.swayUserName}
     },
@@ -142,6 +142,8 @@ const vm = new Vue({
         selectTeamPlayer:function(type,typeid){
             this.teamPlayer.name = type;
             this.teamPlayer.id = typeid;
+            //DEFAULT TO TEAM FUTURES
+            if (this.futures.id === null) this.futures = {name:'TEAM',id:1};
             DTLeaguePlayer.init(apiBaseUrl, this.futures.id, this.teamPlayer.id, this.reloadFunc);
         },
         setMarketData:function(retdata) {

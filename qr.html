@@ -33,7 +33,9 @@
         <form class="form-signin" id="app">
             <img class="mb-4" src="images/sway/logo-blk.png" alt="" style="width:10rem;">
             <div v-bind:class="{ active: isActive }">                
-                <h1 class="h3 mb-3 font-weight-normal">New York Giants ($1.00)</h1>
+                <h1 class="h3 mb-3 font-weight-bold">New York Giants</h1>
+                <h1 class="h3 font-weight-normal">$1.00 USD</h1>
+                <div class="mb-3">1 SWAY</div>
                 <button class="btn btn-lg btn-primary btn-block" v-on:click.prevent="submitOrder(51,100)">Buy 100 Units</button>
                 <button class="btn btn-lg btn-success btn-block" v-on:click.prevent="submitOrder(51,50)">Buy 50 Units</button>
                 <button class="btn btn-lg btn-warning btn-block" v-on:click.prevent="submitOrder(51,10)">Buy 10 Units</button>

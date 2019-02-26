@@ -55,6 +55,7 @@
                 },
                 methods:{
                     submitOrder: function (entityId, units, vm) {
+                        this.isActive = !this.isActive;
                         axios.post(`${apiBaseUrl}/api/orders`,
                         {
                             userId: 2,
@@ -63,10 +64,6 @@
                             price: 1,
                             quantity: units,
                             unsetQuantity: units                        
-                        }).then(()=>
-                        {
-                            //window.location.href = 'exchange.html';
-                            this.isActive = !this.isActive;
                         });
                     }
                 }

@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta name="description" content="">
+        <title>S'way</title>
+        <!-- Bootstrap core CSS -->
+        <link href="https://getbootstrap.com/docs/4.3/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
+        <style>
+            .bd-placeholder-img {
+            font-size: 1.125rem;
+            text-anchor: middle;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            }
+            @media (min-width: 768px) {
+            .bd-placeholder-img-lg {
+            font-size: 3.5rem;
+            }
+            }
+        </style>
+        <!-- Custom styles for this template -->
+        <link href="https://getbootstrap.com/docs/4.3/examples/sign-in/signin.css" rel="stylesheet">
+        <style>
+            [v-cloak] {display: none}
+            .active{display:none;}
+        </style>
+    </head>
+    <body class="text-center">
+        <form class="form-signin" id="app">
+            <img class="mb-4" src="images/sway/logo-blk.png" alt="" style="width:10rem;">
+            <div v-bind:class="{ active: isActive }">                
+                <h1 class="h3 mb-3 font-weight-normal">New York Giants ($1.00)</h1>
+                <button class="btn btn-lg btn-primary btn-block" v-on:click.prevent="submitOrder(51,100)">Buy 100 Units</button>
+                <button class="btn btn-lg btn-success btn-block" v-on:click.prevent="submitOrder(51,50)">Buy 50 Units</button>
+                <button class="btn btn-lg btn-warning btn-block" v-on:click.prevent="submitOrder(51,10)">Buy 10 Units</button>
+            </div>
+            <div v-cloak v-bind:class="{ active: !isActive }">
+                <h1 class="h3 mb-3 font-weight-normal">Order Submitted!</h1>
+                <div><a href="exchange.html">(Visit the Exchange)</a></div>
+            </div>
+        </form>
+        <script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/axios@0.18.0/dist/axios.min.js"></script>
+        <script>
+            const useLocalHost = false;        
+            const apiBaseUrl = useLocalHost ? "http://localhost:7071" : "https://finarofunc.azurewebsites.net";
+            const vm = new Vue({
+                el: '#app',
+                data: {
+                    isActive:false
+                },
+                methods:{
+                    submitOrder: function (entityId, units, vm) {
+                        axios.post(`${apiBaseUrl}/api/orders`,
+                        {
+                            userId: 2,
+                            entityId: entityId,
+                            tradeType: 1,
+                            price: 1,
+                            quantity: units,
+                            unsetQuantity: units                        
+                        }).then(()=>
+                        {
+                            //window.location.href = 'exchange.html';
+                            this.isActive = !this.isActive;
+                        });
+                    }
+                }
+            });
+        </script>
+    </body>
+</html>

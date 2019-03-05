@@ -118,6 +118,13 @@ contract SwayToken is ERC20Interface, Owned {
         emit Transfer(address(0), owner, _totalSupply);
 	}
 
+    // ------------------------------------------------------------------------
+    // Owners Adress
+    // ------------------------------------------------------------------------
+    function contractOwner() public view returns (address) {
+        return address(this);
+    }
+
 
     // ------------------------------------------------------------------------
     // Total supply

@@ -195,6 +195,9 @@
                                 <a>User: {{user.name}}</a>
                             </li>
                             <li>
+                                <a><span style="float:left;">Addr:&nbsp;</span><span class="eth-fmt">{{user.address}}</span></a>
+                            </li>
+                            <li>
                                 <a href="#">Profile</a>
                             </li>
                             <li>
@@ -221,14 +224,18 @@
                     <li>
                         <div class="panel-wrapper collapse in h-auto pnodd">                            
                             <div class="panel-body">
-                                <div class="team-title spnteam1">BALANCE</div>
-                                <div class="m-t-9">
-                                    <label class="control-label">USD</label>
-                                    <span class="pull-right text-white">$100.00</span>
+                                <div class="m-b-5" v-cloak>
+                                    <span class="symbol">1 SWAY = </span>
+                                    <span class="quote">$ {{quote}}</span>
                                 </div>
-                                <div class="m-t-9">
+                                <div class="team-title">BALANCE</div>
+                                <div class="m-t-9" v-cloak>
+                                    <label class="control-label">USD</label>
+                                    <span class="pull-right text-white">${{balanceUSD}}</span>
+                                </div>
+                                <div v-cloak>
                                     <label class="control-label">SWAY</label>
-                                    <span class="pull-right text-white">$100.00</span>
+                                    <span class="pull-right text-white">{{balance}}</span>
                                 </div>
                                 <div class="row">
                                     <div class="btn-group m-t-9 col-md-12 col-sm-12 col-xs-12">

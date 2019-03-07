@@ -40,9 +40,11 @@
 /*END PANELS*/
 
 .eth-fmt {
-    font-family: 'Courier New', Courier, monospace !important;
-    font-size: 12px !important;
-    color:#656565 !important;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 230px !important;
+    float: left;
 }
 
 /*MENU ITEMS*/
@@ -331,8 +333,24 @@
 .team-title{
     color:#D5D6D8 !important;
     font-size:18px;
-    padding-bottom: 3px;
     font-weight: bold;
+}
+
+.symbol{
+    font-size:24px;
+    font-weight: bold;
+    color:#ffc107;
+}
+
+.quote{
+    color:white;
+    font-size:24px;
+    font-weight: bold;
+    padding-bottom:5px;
+}
+
+.quote span{
+    font-size:16px !important;
 }
 
 .slider{

@@ -7,8 +7,8 @@ import DTHistory from './modules/datatables/dthistory.js';
 import DTMyOrders from './modules/datatables/dtmyorders.js';
 import DTBuySell from './modules/datatables/dtbuysell.js';
 
-const useLocalHost = false;
-const useWebSockets = true;
+const useLocalHost = true;
+const useWebSockets = false;
 const apiBaseUrl = useLocalHost ? "http://localhost:7071" : "https://finarofunc.azurewebsites.net";
 
 const vm = new Vue({
@@ -23,11 +23,14 @@ const vm = new Vue({
         volume: null,
         priceChange: null,
         priceChangePcnt:null,
+        quote:null,
+        balance:null,
+        balanceUSD:null,
         marketPrice:null,
         futures:{name:'',id:null},
         teamPlayer:{name:'',id:null},
         entity:{name:null, id: null},
-        user:{id:localStorage.swayUserId,name:localStorage.swayUserName}
+        user:{id:localStorage.swayUserId,name:localStorage.swayUserName,address:localStorage.swayAddress}
     },
     created: function(){
         if(useWebSockets)
@@ -60,14 +63,17 @@ const vm = new Vue({
         }).catch(alert);                
     },
     mounted : function(){
+        this.preLogin();
+        
         if(!User.isLoggedOn())
         {
             User.showPopUp();                         
         }
         else
         {
-            DTMyOrders.init(apiBaseUrl, this.user.id, Utility.loadingComplete);
-        }        
+            DTMyOrders.init(apiBaseUrl, this.user.id, this.postLogin);
+        }
+        
     },    
     methods: {
         sendData: function () {            
@@ -136,8 +142,7 @@ const vm = new Vue({
                 });
             }).then(()=>{
                 $('.tbl-overlay-loader').toggle();
-            });
-            
+            });            
         },
         selectTeamPlayer:function(type,typeid){
             this.teamPlayer.name = type;
@@ -158,14 +163,34 @@ const vm = new Vue({
         setUserId:function(uId){
             this.user.id = uId;
             this.user.name = (uId===1) ? "Chris Tufaro":"Mark Finn";
+            this.user.address = (uId===1) ? "0xD64c013d4676F832D9BC69b4D65412dF6a393a76":"0x8E86638C68BB5342F281D96f772f1447A40425D5";
             User.setUserId(this.user);
-            DTMyOrders.init(apiBaseUrl, this.user.id, Utility.loadingComplete);
+            DTMyOrders.init(apiBaseUrl, this.user.id, this.postLogin);
             $('#loginModal').modal('hide');
         },
         logOut:function(){
             User.logout();
             window.location.href = 'index.html';
-        }        
+        },
+        preLogin:function(){
+            //DEFAULT TO NFL
+            this.selectTeamPlayer('MLB',1)
+
+            //GET THE CURRENT PRICE OF USDC
+            axios.get(`https://min-api.cryptocompare.com/data/price?fsym=USDC&tsyms=USD`).then((retdata)=>{
+                this.quote = (parseFloat(retdata.data.USD)/100).toFixed(2);
+            });            
+        },
+        postLogin:function(){
+            //CLOSE LOADING SPINNER
+            Utility.loadingComplete();
+            
+            //GET THE USERS BALANCE
+            axios.get(`${apiBaseUrl}/api/contract/balance/${this.user.address}`).then((retdata)=>{                
+                this.balance = retdata.data;
+                this.balanceUSD = (this.balance * this.quote).toFixed(4);
+            });            
+        }
     }
 });
 

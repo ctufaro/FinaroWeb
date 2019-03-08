@@ -336,6 +336,14 @@
     font-weight: bold;
 }
 
+.team-title a{
+    color:#D5D6D8 !important;
+    font-size:16px;
+    font-weight: bold;
+    cursor: pointer;
+    padding-left:3px;
+}
+
 .symbol{
     font-size:24px;
     font-weight: bold;
@@ -369,6 +377,7 @@
 .slider.slider-horizontal .slider-handle {
     margin-top: -10px; 
 }
+
 /*END LEFT-SIDE FORMS*/
 
 .p-b-5 { padding-bottom: 5px !important; }
@@ -432,6 +441,7 @@
     font-size: 24px;
     line-height: 1.33;
     border-radius: 35px;
+    margin:0px 5px;
   }
 /*END MODAL LOGIN*/
 
@@ -484,3 +494,16 @@
     -o-animation:      newbuy 1s ; /* Opera 12+ */
     animation:         newbuy 1s ; /* IE 10+ */
   }
+
+.spin {
+    animation: spinner 2s infinite linear;
+}
+
+@keyframes spinner {
+    from {
+            -webkit-transform: rotate(0deg);
+    }
+    to {
+            -webkit-transform: rotate(359deg);
+    }
+}

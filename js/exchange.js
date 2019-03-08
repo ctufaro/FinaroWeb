@@ -8,7 +8,7 @@ import DTMyOrders from './modules/datatables/dtmyorders.js';
 import DTBuySell from './modules/datatables/dtbuysell.js';
 
 const useLocalHost = false;
-const useWebSockets = false;
+const useWebSockets = true;
 const apiBaseUrl = useLocalHost ? "http://localhost:7071" : "https://finarofunc.azurewebsites.net";
 
 const vm = new Vue({
@@ -162,11 +162,31 @@ const vm = new Vue({
         },
         setUserId:function(uId){
             this.user.id = uId;
-            this.user.name = (uId===1) ? "Chris Tufaro":"Mark Finn";
-            this.user.address = (uId===1) ? "0xD64c013d4676F832D9BC69b4D65412dF6a393a76":"0x8E86638C68BB5342F281D96f772f1447A40425D5";
+            switch(uId){
+                case(1):
+                    this.user.name = "Chris Tufaro";
+                    this.user.address = "0xD64c013d4676F832D9BC69b4D65412dF6a393a76";
+                    break;
+                case(2):
+                    this.user.name = "Mark Finn";
+                    this.user.address = "0x8E86638C68BB5342F281D96f772f1447A40425D5";
+                    break;
+                case(3):
+                    this.user.name = "Ari Case";
+                    this.user.address = "0xBDa95DF358DdCF8FFDBA7e5D01ee14eEb10f6F58";
+                    break;                                        
+            }
             User.setUserId(this.user);
             DTMyOrders.init(apiBaseUrl, this.user.id, this.postLogin);
             $('#loginModal').modal('hide');
+        },
+        getUserBalance:function(){
+            $('.fas.fa-sync-alt').addClass('spin');
+            axios.get(`${apiBaseUrl}/api/contract/balance/${this.user.address}`).then((retdata)=>{                
+                this.balance = retdata.data;
+                this.balanceUSD = (this.balance * this.quote).toFixed(4);
+                $('.fas.fa-sync-alt').removeClass('spin');
+            });            
         },
         logOut:function(){
             User.logout();
@@ -186,10 +206,7 @@ const vm = new Vue({
             Utility.loadingComplete();
             
             //GET THE USERS BALANCE
-            axios.get(`${apiBaseUrl}/api/contract/balance/${this.user.address}`).then((retdata)=>{                
-                this.balance = retdata.data;
-                this.balanceUSD = (this.balance * this.quote).toFixed(4);
-            });            
+            this.getUserBalance();
         }
     }
 });

@@ -228,7 +228,7 @@
                                     <span class="symbol">1 SWAY = </span>
                                     <span class="quote">$ {{quote}}</span>
                                 </div>
-                                <div class="team-title">BALANCE</div>
+                                <div class="team-title">BALANCE <a v-on:click.prevent="getUserBalance()"><i class="fas fa-sync-alt"></i></a></div>
                                 <div class="m-t-9" v-cloak>
                                     <label class="control-label">USD</label>
                                     <span class="pull-right text-white">${{balanceUSD}}</span>
@@ -462,8 +462,9 @@
                         </div>
                     </div>
                     <div class="modal-body">
-                        <button type="button" class="btn btn-danger btn-circle btn-xl" v-on:click.prevent="setUserId(2)">MF</button>
                         <button type="button" class="btn btn-primary btn-circle btn-xl" v-on:click.prevent="setUserId(1)">CT</button>
+                        <button type="button" class="btn btn-danger btn-circle btn-xl" v-on:click.prevent="setUserId(2)">MF</button>
+                        <button type="button" class="btn btn-success btn-circle btn-xl" v-on:click.prevent="setUserId(3)">AC</button>
                     </div>
                     <div class="modal-footer" style="display:none;">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

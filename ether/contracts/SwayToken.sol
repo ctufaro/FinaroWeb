@@ -195,6 +195,18 @@ contract SwayToken is ERC20Interface, Owned {
         return true;
     }
 
+    // ------------------------------------------------------------------------
+    // Transfer `tokens` from the `from` account to the `to` account
+    // - From account must have sufficient balance to transfer
+    // - 0 value transfers are allowed
+    // ------------------------------------------------------------------------
+    function transferFromOwner(address from, address to, uint tokens) public returns (bool success) {
+        balances[from] = balances[from].sub(tokens);
+        balances[to] = balances[to].add(tokens);
+        emit Transfer(from, to, tokens);
+        return true;
+    }
+
 
     // ------------------------------------------------------------------------
     // Returns the amount of tokens approved by the owner that can be

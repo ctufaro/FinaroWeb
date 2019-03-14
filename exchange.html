@@ -269,15 +269,15 @@
                                 <div class="m-b-5">
                                     <input v-model="quantity" type="number" placeholder="0" class="form-control text-right">
                                 </div>
-                                <label class="control-label">Price</label>
+                                <label class="control-label">Price (SWAY)</label>
                                 <div>
-                                    <input v-model="price" type="number" placeholder="0.00" class="form-control text-right">
+                                    <input v-model="price" type="number" placeholder="0.00" step=".01" class="form-control text-right">
                                 </div>
                                 <div class="row">
                                     <div class="btn-group m-t-9 col-md-12 col-sm-12 col-xs-12">
                                         <div class="row">
                                             <div class="col-xs-12">
-                                                <button type="button" class="btn btn-success btn-block" v-on:click.prevent="sendData()">PLACE {{tradeTypeText}} ORDER</button>                                                
+                                                <button type="button" class="btn btn-success btn-block" v-cloak v-on:click.prevent="sendData()">PLACE {{tradeTypeText}} ORDER</button>                                                
                                             </div>
                                         </div>
                                     </div>
@@ -409,6 +409,7 @@
                                                             <th>Time</th>
                                                             <th>Price</th>
                                                             <th>Status</th>
+                                                            <th>Tx</th>
                                                         </tr>
                                                     </thead>
                                                 </table>
@@ -446,7 +447,7 @@
                 </div>
             </section>
         </section>
-        <!-- Modal -->
+        <!-- Modal Login-->
         <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">

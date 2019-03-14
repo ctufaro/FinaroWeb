@@ -7,7 +7,7 @@ import DTHistory from './modules/datatables/dthistory.js';
 import DTMyOrders from './modules/datatables/dtmyorders.js';
 import DTBuySell from './modules/datatables/dtbuysell.js';
 
-const useLocalHost = false;
+const useLocalHost = true;
 const useWebSockets = true;
 const apiBaseUrl = useLocalHost ? "http://localhost:7071" : "https://finarofunc.azurewebsites.net";
 

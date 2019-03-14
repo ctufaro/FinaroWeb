@@ -12,7 +12,8 @@ export default class DTMyOrders{
                     { "data": "UnsetQuantity" },
                     { "data": "Date" },
                     { "data": "Price" },
-                    { "data": "Status" }
+                    { "data": "Status" },
+                    { "data": "TxHash" }
                 ],
                 "columnDefs": [                   
                     {
@@ -35,7 +36,18 @@ export default class DTMyOrders{
                                     return 'FILLED'                                                
                             }
                         }
-                    }
+                    },
+                    {
+                        "targets": 5,
+                        "render": function ( data, type, row ) { 
+                            if(data === ''){
+                                return '';
+                            }
+                            else{
+                                return `<a href='https://ropsten.etherscan.io/tx/${data}' target='_blank'><i class='far fa-file-alt'></i></a>`;
+                            }
+                        }                
+                    },
                 ],                                           
                 "bDestroy": true,
                 "order": [[ 2, 'desc' ]],

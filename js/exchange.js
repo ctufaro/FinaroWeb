@@ -85,6 +85,10 @@ const vm = new Vue({
                 alert("Please select a team/player");
                 return;
             }
+            if(this.user.address == null){
+                alert("Please retrieve user public key");
+                return;
+            }
             axios.post(`${apiBaseUrl}/api/orders`,
             {
                 userId: this.user.id,
@@ -92,7 +96,8 @@ const vm = new Vue({
                 tradeType: this.tradeType,
                 price: this.price,
                 quantity: this.quantity,
-                unsetQuantity: this.quantity                        
+                unsetQuantity: this.quantity,
+                publicKey: this.user.address                        
             });
         },
         openOrders: function(){          

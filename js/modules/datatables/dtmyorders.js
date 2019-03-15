@@ -1,7 +1,7 @@
 import Utility from '../utility.js';
 
 export default class DTMyOrders{
-    static init(apiBaseUrl, userid, func){
+    static init(apiBaseUrl, userid, func, etherUrl){
         axios.get(`${apiBaseUrl}/api/myorders/${userid}/0`).then(resp=>{
             $('#tblmyorders').DataTable({
                 searching: false, paging: false, info: false,autoWidth: false,        
@@ -44,7 +44,7 @@ export default class DTMyOrders{
                                 return '';
                             }
                             else{
-                                return `<a href='https://ropsten.etherscan.io/tx/${data}' target='_blank'><i class='far fa-file-alt'></i></a>`;
+                                return `<a href='${etherUrl}/tx/${data}' target='_blank'><i class='far fa-file-alt'></i></a>`;
                             }
                         }                
                     },

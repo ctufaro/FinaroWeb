@@ -4332,6 +4332,10 @@ select.input-sm {
     color: #ffffff;
 }
 
+.text-off-white {
+    color: #D5D6D8 !important;
+}
+
 .margin-t-30 {
   margin-top: 30px;
 }

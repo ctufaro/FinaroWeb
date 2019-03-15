@@ -7,7 +7,8 @@ import DTHistory from './modules/datatables/dthistory.js';
 import DTMyOrders from './modules/datatables/dtmyorders.js';
 import DTBuySell from './modules/datatables/dtbuysell.js';
 
-const useLocalHost = true;
+const etherUrl = "https://ropsten.etherscan.io";
+const useLocalHost = false;
 const useWebSockets = true;
 const apiBaseUrl = useLocalHost ? "http://localhost:7071" : "https://finarofunc.azurewebsites.net";
 
@@ -23,13 +24,14 @@ const vm = new Vue({
         volume: null,
         priceChange: null,
         priceChangePcnt:null,
-        quote:null,
-        balance:null,
+        quote:null,        
+        walletBalance:null,
+        unitBalance:null,
         balanceUSD:null,
         marketPrice:null,
         futures:{name:'',id:null},
         teamPlayer:{name:'',id:null},
-        entity:{name:null, id: null},
+        entity:{name:null, id: null, units: 0},
         user:{id:localStorage.swayUserId,name:localStorage.swayUserName,address:localStorage.swayAddress}
     },
     created: function(){
@@ -71,12 +73,16 @@ const vm = new Vue({
         }
         else
         {
-            DTMyOrders.init(apiBaseUrl, this.user.id, this.postLogin);
+            DTMyOrders.init(apiBaseUrl, this.user.id, this.postLogin, etherUrl);
         }
         
     },    
     methods: {
-        sendData: function () {            
+        sendData: function () { 
+            if(this.price <= 0 || this.quantity <= 0){
+                alert("Please enter a valid price and units");
+                return;
+            }
             if(this.tradeType == null){
                 alert("Please select BUY or SELL");
                 return;
@@ -85,6 +91,10 @@ const vm = new Vue({
                 alert("Please select a team/player");
                 return;
             }
+            if(this.quantity > this.entity.units && this.tradeType == 2){
+                alert("You can not sell more units than you own");
+                return;
+            }             
             if(this.user.address == null){
                 alert("Please retrieve user public key");
                 return;
@@ -145,6 +155,13 @@ const vm = new Vue({
                 {         
                     this.setMarketData(response.data);
                 });
+            }).then(() =>{            
+                //IActionResult
+                axios.get(`${apiBaseUrl}/api/balance/units/${this.user.id}/${this.entity.id}`).then((response)=>
+                {         
+                    this.entity.units = response.data;
+                    this.quantity = 0;
+                });
             }).then(()=>{
                 $('.tbl-overlay-loader').toggle();
             });            
@@ -182,17 +199,19 @@ const vm = new Vue({
                     break;                                        
             }
             User.setUserId(this.user);
-            DTMyOrders.init(apiBaseUrl, this.user.id, this.postLogin);
+            DTMyOrders.init(apiBaseUrl, this.user.id, this.postLogin, etherUrl);
             $('#loginModal').modal('hide');
         },
         getUserBalance:function(){
             $('.fas.fa-sync-alt').addClass('spin');
-            axios.get(`${apiBaseUrl}/api/contract/balance/${this.user.address}`).then((retdata)=>{                
-                this.balance = retdata.data;
-                this.balanceUSD = (this.balance * this.quote).toFixed(4);
+            axios.get(`${apiBaseUrl}/api/contract/balance/${this.user.id}/${this.user.address}`).then((retdata)=>{                
+                this.walletBalance = (retdata.data.walletBalance).toFixed(4);
+                this.unitBalance = parseFloat((retdata.data.unitBalance)).toFixed(4);
+                let total = parseFloat(this.walletBalance) + parseFloat(this.unitBalance);
+                this.balanceUSD = (total * this.quote).toFixed(4);
                 $('.fas.fa-sync-alt').removeClass('spin');
             });            
-        },
+        },               
         logOut:function(){
             User.logout();
             window.location.href = 'index.html';

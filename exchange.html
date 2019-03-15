@@ -197,13 +197,14 @@
                             <li>
                                 <a><span style="float:left;">Addr:&nbsp;</span><span class="eth-fmt">{{user.address}}</span></a>
                             </li>
+                            <!--
                             <li>
                                 <a href="#">Profile</a>
                             </li>
                             <li>
                                 <a href="#">Settings</a>
                             </li>
-                                                  
+                            -->                     
                             <li class="divider"></li>
                             <li>
                                 <a href="#" v-on:click.prevent="logOut">Logout</a>
@@ -228,14 +229,18 @@
                                     <span class="symbol">1 SWAY = </span>
                                     <span class="quote">$ {{quote}}</span>
                                 </div>
-                                <div class="team-title">BALANCE <a v-on:click.prevent="getUserBalance()"><i class="fas fa-sync-alt"></i></a></div>
+                                <div class="team-title">MY PORTFOLIO <a v-on:click.prevent="getUserBalance()"><i class="fas fa-sync-alt"></i></a></div>
                                 <div class="m-t-9" v-cloak>
-                                    <label class="control-label">USD</label>
-                                    <span class="pull-right text-white">${{balanceUSD}}</span>
+                                    <span class="text-white" style="margin-bottom:0px;">WALLET</span>
+                                    <span class="pull-right text-white">{{walletBalance}} SWAY</span>
                                 </div>
                                 <div v-cloak>
-                                    <label class="control-label">SWAY</label>
-                                    <span class="pull-right text-white">{{balance}}</span>
+                                    <span class="text-white">TEAMS</span>
+                                    <span class="pull-right text-white">{{unitBalance}} SWAY</span>
+                                </div>
+                                <hr style="margin-top:10px;margin-bottom:10px;">
+                                <div v-cloak style="text-align:center;">                                    
+                                    <label class="control-label">BALANCE ≈ $ {{balanceUSD}}</label>                                    
                                 </div>
                                 <div class="row">
                                     <div class="btn-group m-t-9 col-md-12 col-sm-12 col-xs-12">
@@ -265,7 +270,7 @@
                                         </div>                                        
                                     </div>                                    
                                 </div>                                
-                                <label class="control-label">Units</label>
+                                <label v-cloak class="control-label" v-on:click="quantity=entity.units">Units ({{entity.units}})</label>
                                 <div class="m-b-5">
                                     <input v-model="quantity" type="number" placeholder="0" class="form-control text-right">
                                 </div>

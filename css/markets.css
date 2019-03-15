@@ -39,6 +39,8 @@
 }
 /*END PANELS*/
 
+/*UPPER RIGHT HAND NAV*/
+
 .eth-fmt {
     white-space: nowrap;
     overflow: hidden;
@@ -95,12 +97,20 @@
     font-size:20px;
 }
 
-.gains{
-    color:#6ecc5b;
+.gains {
+    color:#6ecc5b !important;
 }
 
-.losses{
-    color:#DE514A;
+.gains a {
+    color:#6ecc5b !important;
+}
+
+.losses {
+    color:#DE514A !important;
+}
+
+.losses a {
+    color:#DE514A !important;
 }
 
 .last-price{

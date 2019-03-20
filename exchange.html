@@ -472,11 +472,24 @@
                         </div>
                     </div>
                     <div class="modal-body">
-                        <button type="button" class="btn btn-primary btn-circle btn-xl" v-on:click.prevent="setUserId(1)">CT</button>
-                        <button type="button" class="btn btn-danger btn-circle btn-xl" v-on:click.prevent="setUserId(2)">MF</button>
-                        <button type="button" class="btn btn-success btn-circle btn-xl" v-on:click.prevent="setUserId(3)">AC</button>
+                        <form>
+                            <div class="row">
+                                <div class="form-group modal-form">
+                                    <label class="sr-only" for="exampleInputAmount">Username</label>
+                                    <div class="input-group m-b-5">
+                                        <div class="input-group-addon"><span class="glyphicon glyphicon-user"></span></div>
+                                        <input type="text" class="form-control" id="exampleInputAmount" placeholder="Username">
+                                    </div>
+                                    <label class="sr-only" for="exampleInputAmount">Password</label>
+                                    <div class="input-group">
+                                        <div class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></div>
+                                        <input type="text" class="form-control" id="exampleInputAmount" placeholder="Username">
+                                    </div>                                    
+                                </div>
+                            </div>
+                        </form>
                     </div>
-                    <div class="modal-footer" style="display:none;">
+                    <div class="modal-footer" style="text-align: center;">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                         <button type="button" class="btn btn-primary">Save changes</button>
                     </div>

@@ -424,6 +424,11 @@
     line-height: 1;
 }
 
+#loginModal .modal-form{
+    margin-right: 25%; 
+    margin-left:25%;
+}
+
 /*END MODAL LOGIN*/
  
 

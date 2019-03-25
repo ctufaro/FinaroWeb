@@ -388,6 +388,14 @@
     margin-top: -10px; 
 }
 
+.order-type{
+    cursor: pointer;
+}
+
+.order-type a{
+    text-decoration: none;
+}
+
 /*END LEFT-SIDE FORMS*/
 
 .p-b-5 { padding-bottom: 5px !important; }

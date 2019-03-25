@@ -3672,6 +3672,9 @@ textarea.chosen-container-active.chosen-with-drop .chosen-single,textarea.chosen
 .m-b-5 {
     margin-bottom: 5px !important;
 }
+.m-b-10 {
+    margin-bottom: 10px !important;
+}
 .w-260 {
     width: 260px;
 }

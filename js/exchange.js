@@ -18,8 +18,7 @@ const vm = new Vue({
         tradeType: null,
         price: null,
         quantity: null,
-        tradeTypeText: '',
-        btn:{buy:false,sell:false},
+        tradeTypeText: '----',
         lastPrice:null,
         volume: null,
         priceChange: null,
@@ -84,7 +83,7 @@ const vm = new Vue({
                 return;
             }
             if(this.tradeType == null){
-                alert("Please select BUY or SELL");
+                alert("Please select an order type");
                 return;
             }
             if(this.entity.id == null){
@@ -121,13 +120,15 @@ const vm = new Vue({
             this.tradeType = type;
             if(type===1){
                 this.tradeTypeText = 'BUY';
-                this.btn.buy = true;
-                this.btn.sell = false;
             }
             else if(type===2){
                 this.tradeTypeText = 'SELL';
-                this.btn.buy = false;
-                this.btn.sell = true;
+            }
+            else if(type===3){
+                this.tradeTypeText = 'SHORT SELL';
+            }
+            else if(type===4){
+                this.tradeTypeText = 'BUY TO COVER';
             }           
             
         },

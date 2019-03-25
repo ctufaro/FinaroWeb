@@ -262,11 +262,21 @@
                             <div class="panel-body">
                                 <div class="m-b-5">
                                     <div class="row">
-                                        <div class="col-xs-6">
-                                            <button type="button" class="btn btn-secondary btn-block" v-on:click="changeTranType(1)" v-bind:class="{ success: btn.buy }">BUY</button>                                                
-                                        </div>
-                                        <div class="col-xs-6">
-                                            <button type="button" class="btn btn-secondary btn-block" v-on:click="changeTranType(2)" v-bind:class="{ success: btn.sell }">SELL</button>                                                
+                                        <!-- <label class="control-label">Order Type</label> -->
+                                        <div class="btn-group btn-block col-xs-6">
+                                            <label class="control-label">Order Type</label>
+                                            <button class="btn btn-secondary dropdown-toggle btn-block" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                <strong v-cloak>{{tradeTypeText}}</strong>
+                                                <span class="pull-right">
+                                                    <i class="fas fa-caret-down"></i>
+                                                </span>
+                                            </button>
+                                            <div class="dropdown-menu order-type">
+                                                <a class="dropdown-item" v-on:click.prevent="changeTranType(1)">BUY</a>
+                                                <a class="dropdown-item" v-on:click.prevent="changeTranType(2)">SELL</a>
+                                                <a class="dropdown-item" v-on:click.prevent="changeTranType(3)">SELL SHORT</a>
+                                                <a class="dropdown-item" v-on:click.prevent="changeTranType(4)">BUY TO COVER</a>
+                                            </div>
                                         </div>                                        
                                     </div>                                    
                                 </div>                                
@@ -475,23 +485,39 @@
                         <form>
                             <div class="row">
                                 <div class="form-group modal-form">
-                                    <label class="sr-only" for="exampleInputAmount">Username</label>
                                     <div class="input-group m-b-5">
                                         <div class="input-group-addon"><span class="glyphicon glyphicon-user"></span></div>
-                                        <input type="text" class="form-control" id="exampleInputAmount" placeholder="Username">
-                                    </div>
-                                    <label class="sr-only" for="exampleInputAmount">Password</label>
+                                        <input type="text" class="form-control" placeholder="Username">
+                                    </div>                                    
                                     <div class="input-group">
                                         <div class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></div>
-                                        <input type="text" class="form-control" id="exampleInputAmount" placeholder="Username">
+                                        <input type="text" class="form-control" placeholder="Password">
                                     </div>                                    
                                 </div>
+                            </div>
+                            <div class="row modal-form" style="display:none;">
+                                <div class="m-b-10" style="font-family: 'Shrikhand';font-size:2rem; color:white;">Choose your strategy</div>
+                                <div class="list-group">
+                                    <a href="#" class="list-group-item list-group-item-action flex-column align-items-start active">
+                                      <div class="d-flex w-100 justify-content-between">
+                                        <span style="font-size:4rem;"><i class="fas fa-chart-line"></i></span>
+                                      </div>
+                                      <p style="font-weight:bold; font-size:2rem;">Buy low, sell high</p>
+                                      <p class="mb-1">Let our S'way bots automatically execute your trades</p>
+                                    </a>
+                                    <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
+                                        <div class="d-flex w-100 justify-content-between">
+                                            <span style="font-size:4rem;"><i class="fas fa-dollar-sign"></i></span>
+                                        </div>
+                                        <p style="font-weight:bold; font-size:2rem;">Take me to the exchange</p>
+                                        <p class="mb-1">I'm familiar with exchanges already</p>
+                                    </a>                                    
+                                  </div>
                             </div>
                         </form>
                     </div>
                     <div class="modal-footer" style="text-align: center;">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary">Save changes</button>
+                        <button type="button" class="btn btn-primary btn-lg" v-on:click.prevent="setUserId(1)">Login</button>
                     </div>
                 </div>
             </div>

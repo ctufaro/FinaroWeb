@@ -28,6 +28,8 @@ export default class DTLeaguePlayer{
                     $("#tblleagueplayers").unbind('click');               
                     $('#tblleagueplayers').on('click', 'tr', function (event) {                        
                         let data = $('#tblleagueplayers').DataTable().row(this).data();
+                        $('#tblleagueplayers tr').removeClass("selected");
+                        $(this).addClass('selected');                        
                         DTLeaguePlayer.rowSelected(data, reloadFunc);
                     } );
                 }            

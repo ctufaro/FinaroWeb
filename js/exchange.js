@@ -18,7 +18,7 @@ const vm = new Vue({
         tradeType: null,
         price: null,
         quantity: null,
-        tradeTypeText: '----',
+        tradeTypeText: '',
         lastPrice:null,
         volume: null,
         priceChange: null,

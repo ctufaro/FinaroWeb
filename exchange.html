@@ -259,11 +259,12 @@
                     </li>
                     <li>
                         <div class="panel-wrapper collapse in h-auto pneven">
-                            <div class="panel-body">
+                            <div class="panel-body" style="padding-top:5px;">
                                 <div class="m-b-5">
                                     <div class="row">
                                         <!-- <label class="control-label">Order Type</label> -->
                                         <div class="btn-group btn-block col-xs-6">
+                                            <div class="team-title m-b-5" v-cloak>{{entity.name}}</div>
                                             <label class="control-label">Order Type</label>
                                             <button class="btn btn-secondary dropdown-toggle btn-block" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                 <strong v-cloak>{{tradeTypeText}}</strong>
@@ -278,7 +279,7 @@
                                                 <a class="dropdown-item" v-on:click.prevent="changeTranType(4)">BUY TO COVER</a>
                                             </div>
                                         </div>                                        
-                                    </div>                                    
+                                </div>                                    
                                 </div>                                
                                 <label v-cloak class="control-label" v-on:click="quantity=entity.units">Units ({{entity.units}})</label>
                                 <div class="m-b-5">

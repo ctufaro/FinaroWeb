@@ -30,6 +30,12 @@
     cursor: pointer;
 }
 
+.leagueplayer tbody tr.selected {
+    color: white !important;
+    background-color: #428bca !important;
+    cursor: pointer;
+}
+
 .leagueplayer tbody tr:nth-child(even){
     background: #293039;
     color:#D6D7DE;    
@@ -39,3 +45,4 @@
     background: #212831; 
     color:#D6D7DE;
 }
+

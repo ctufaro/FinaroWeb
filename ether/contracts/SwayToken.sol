@@ -46,6 +46,7 @@ contract ERC20Interface {
     function transferFrom(address from, address to, uint tokens) public returns (bool success);
 
     event Transfer(address indexed from, address indexed to, uint tokens);
+    event Margin(address indexed from, uint tokens);
     event Approval(address indexed tokenOwner, address indexed spender, uint tokens);
 }
 
@@ -103,6 +104,7 @@ contract SwayToken is ERC20Interface, Owned {
     uint _totalSupply;
 
     mapping(address => uint) balances;
+    mapping(address => uint) margin;
     mapping(address => mapping(address => uint)) allowed;
 
 
@@ -207,6 +209,17 @@ contract SwayToken is ERC20Interface, Owned {
         return true;
     }
 
+    // ------------------------------------------------------------------------
+    // Transfer `tokens` from the `from` account to the margin account
+    // - From account must have sufficient balance to transfer
+    // - 0 value transfers are allowed
+    // ------------------------------------------------------------------------
+    function transferMargin(address from, uint tokens) public returns (bool success) {
+        balances[from] = balances[from].sub(tokens);
+        margin[from] = margin[from].add(tokens);
+        emit Margin(from, tokens);
+        return true;
+    }
 
     // ------------------------------------------------------------------------
     // Returns the amount of tokens approved by the owner that can be

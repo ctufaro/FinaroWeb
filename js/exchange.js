@@ -13,7 +13,7 @@ const useWebSockets = true;
 const apiBaseUrl = useLocalHost ? "http://localhost:7071" : "https://finarofunc.azurewebsites.net";
 
 const vm = new Vue({
-    el: '#app',
+    el: '#app',    
     data: {
         tradeType: null,
         price: null,
@@ -77,7 +77,7 @@ const vm = new Vue({
         
     },    
     methods: {
-        sendData: function () { 
+        previewOrder: function(){
             if(this.price <= 0 || this.quantity <= 0){
                 alert("Please enter a valid price and units");
                 return;
@@ -98,6 +98,9 @@ const vm = new Vue({
                 alert("Please retrieve user public key");
                 return;
             }
+            $("#prevOrderModal").modal();
+        },
+        sendOrder: function () {          
             axios.post(`${apiBaseUrl}/api/orders`,
             {
                 userId: this.user.id,
@@ -107,6 +110,8 @@ const vm = new Vue({
                 quantity: this.quantity,
                 unsetQuantity: this.quantity,
                 publicKey: this.user.address                        
+            }).then(()=>{
+                $("#prevOrderModal").modal('hide');
             });
         },
         openOrders: function(){          

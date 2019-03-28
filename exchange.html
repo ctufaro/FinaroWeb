@@ -293,7 +293,7 @@
                                     <div class="btn-group m-t-9 col-md-12 col-sm-12 col-xs-12">
                                         <div class="row">
                                             <div class="col-xs-12">
-                                                <button type="button" class="btn btn-success btn-block" v-cloak v-on:click.prevent="sendData()">PLACE {{tradeTypeText}} ORDER</button>                                                
+                                                <button type="button" class="btn btn-success btn-block" v-cloak v-on:click.prevent="previewOrder()">PREVIEW ORDER</button>                                                
                                             </div>
                                         </div>
                                     </div>
@@ -519,6 +519,66 @@
                     </div>
                     <div class="modal-footer" style="text-align: center;">
                         <button type="button" class="btn btn-primary btn-lg" v-on:click.prevent="setUserId(1)">Login</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Modal Preview Order-->
+        <div class="modal fade" id="prevOrderModal" tabindex="-1" role="dialog" aria-labelledby="prevOrderModalLabel" aria-hidden="true">
+            <div class="vertical-alignment-helper">
+                <div class="modal-dialog vertical-align-center" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="prevOrderModal">
+                                <span style="font-size:18px !important; font-weight:bold;"><i class="fas fa-file-invoice-dollar"></i> ORDER SUMMARY</span>
+                            </h5>
+                        </div>
+                        <div class="modal-body">
+                            <p style="font-size:14px">Below are the details of your order:</p>
+                            <div class="table-responsive">
+                                <table style="width:100%">
+                                    <tr>
+                                        <td width="50%">Transaction:</td>
+                                        <td>{{tradeTypeText}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td width="50%">Team/Player:</td>
+                                        <td>{{entity.name}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td width="50%">Units:</td>
+                                        <td>{{this.quantity}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td width="50%">Price:</td>
+                                        <td>{{this.price}}</td>
+                                    </tr>                                    
+                                </table>                               
+                            </div>                           
+                           
+                        </div>
+                        <div class="modal-footer" style="border-top-width:1px;">
+                            <div class="table-responsive" style="text-align:left;">
+                                <table style="width:100%">
+                                    <tr>
+                                        <td width="50%">Gas Fees:</td>
+                                        <td>FREE</td>
+                                    </tr>
+                                    <tr>
+                                        <td width="50%">Exchange Fees:</strong></td>
+                                        <td>FREE</td>
+                                    </tr>
+                                    <tr style="font-size:16px;">
+                                        <td width="50%"><strong>Total Cost (SWAY):</strong></td>
+                                        <td><strong>{{this.price * this.quantity}}</strong></td>
+                                    </tr>         
+                                </table>                               
+                            </div> 
+                            <div style="text-align:center; margin-top:20px;">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">CANCEL</button>
+                                <button type="button" class="btn btn-primary" v-on:click.prevent="sendOrder">PLACE ORDER</button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

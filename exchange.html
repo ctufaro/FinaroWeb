@@ -275,8 +275,8 @@
                                             <div class="dropdown-menu order-type">
                                                 <a class="dropdown-item" v-on:click.prevent="changeTranType(1)">BUY</a>
                                                 <a class="dropdown-item" v-on:click.prevent="changeTranType(2)">SELL</a>
-                                                <a class="dropdown-item" v-on:click.prevent="changeTranType(3)">SHORT SELL</a>
-                                                <a class="dropdown-item" v-on:click.prevent="changeTranType(4)">BUY TO COVER</a>
+                                                <a class="dropdown-item" v-on:click.prevent="changeTranType(3)">SELL TO SHORT</a>
+                                                <a class="dropdown-item" v-on:click.prevent="changeTranType(4)">BUY TO COVER SHORT</a>
                                             </div>
                                         </div>                                        
                                 </div>                                    
@@ -534,7 +534,7 @@
                             </h5>
                         </div>
                         <div class="modal-body">
-                            <p style="font-size:14px">Below are the details of your order:</p>
+                            <p style="font-size:14px">{{this.orderLanguage()}}</p>
                             <div class="table-responsive">
                                 <table style="width:100%">
                                     <tr>
@@ -612,7 +612,6 @@
     <script src="https://cdn.jsdelivr.net/npm/@aspnet/signalr@1.0.3/dist/browser/signalr.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios@0.18.0/dist/axios.min.js"></script>
     <script src="https://www.chartjs.org/dist/2.7.3/Chart.bundle.js"></script>
-    <script src="js/static.js"></script>
     <script src="js/exchange.js" type="module"></script>    
 </body>
 </html>

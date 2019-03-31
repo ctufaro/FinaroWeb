@@ -100,6 +100,23 @@ const vm = new Vue({
             }
             $("#prevOrderModal").modal();
         },
+        orderLanguage : function(){
+            let retTxt = '';
+            let finalTxt = Utility.getLeagueFinal(this.teamPlayer.id);
+            if(this.tradeType===1){
+                retTxt = `You are buying ${this.quantity} units for ${this.price} SWAY. You will earn ${this.quantity * 10000} SWAY if the ${this.entity.name} wins the ${finalTxt}. `;
+            }
+            else if(this.tradeType===2){
+                retTxt = `You are selling ${this.quantity} units of an existing long position for the ${this.entity.name}. `;
+            }
+            else if(this.tradeType===3){
+                retTxt = `You are selling ${this.quantity} units to earn ${this.price} SWAY. You will owe xxx ${this.quantity * 10000} if the ${this.entity.name} wins the ${finalTxt}. `;
+            }
+            else if(this.tradeType===4){
+                retTxt = `You are buying back ${this.quantity} units of an existing short position for the ${this.entity.name}. `;
+            } 
+            return retTxt + "Below are your order details.";
+        },
         sendOrder: function () {          
             axios.post(`${apiBaseUrl}/api/orders`,
             {
@@ -130,10 +147,10 @@ const vm = new Vue({
                 this.tradeTypeText = 'SELL';
             }
             else if(type===3){
-                this.tradeTypeText = 'SHORT SELL';
+                this.tradeTypeText = 'SELL TO SHORT';
             }
             else if(type===4){
-                this.tradeTypeText = 'BUY TO COVER';
+                this.tradeTypeText = 'BUY TO COVER SHORT';
             }           
             
         },

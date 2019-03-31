@@ -13,7 +13,7 @@ const useWebSockets = true;
 const apiBaseUrl = useLocalHost ? "http://localhost:7071" : "https://finarofunc.azurewebsites.net";
 
 const vm = new Vue({
-    el: '#app',
+    el: '#app',    
     data: {
         tradeType: null,
         price: null,
@@ -77,7 +77,7 @@ const vm = new Vue({
         
     },    
     methods: {
-        sendData: function () { 
+        previewOrder: function(){
             if(this.price <= 0 || this.quantity <= 0){
                 alert("Please enter a valid price and units");
                 return;
@@ -98,6 +98,26 @@ const vm = new Vue({
                 alert("Please retrieve user public key");
                 return;
             }
+            $("#prevOrderModal").modal();
+        },
+        orderLanguage : function(){
+            let retTxt = '';
+            let finalTxt = Utility.getLeagueFinal(this.teamPlayer.id);
+            if(this.tradeType===1){
+                retTxt = `You are buying ${this.quantity} units for ${this.price} SWAY. You will earn ${this.quantity * 10000} SWAY if the ${this.entity.name} wins the ${finalTxt}. `;
+            }
+            else if(this.tradeType===2){
+                retTxt = `You are selling ${this.quantity} units of an existing long position for the ${this.entity.name}. `;
+            }
+            else if(this.tradeType===3){
+                retTxt = `You are selling ${this.quantity} units to earn ${this.price} SWAY. You will owe xxx ${this.quantity * 10000} if the ${this.entity.name} wins the ${finalTxt}. `;
+            }
+            else if(this.tradeType===4){
+                retTxt = `You are buying back ${this.quantity} units of an existing short position for the ${this.entity.name}. `;
+            } 
+            return retTxt + "Below are your order details.";
+        },
+        sendOrder: function () {          
             axios.post(`${apiBaseUrl}/api/orders`,
             {
                 userId: this.user.id,
@@ -107,6 +127,8 @@ const vm = new Vue({
                 quantity: this.quantity,
                 unsetQuantity: this.quantity,
                 publicKey: this.user.address                        
+            }).then(()=>{
+                $("#prevOrderModal").modal('hide');
             });
         },
         openOrders: function(){          
@@ -125,10 +147,10 @@ const vm = new Vue({
                 this.tradeTypeText = 'SELL';
             }
             else if(type===3){
-                this.tradeTypeText = 'SHORT SELL';
+                this.tradeTypeText = 'SELL TO SHORT';
             }
             else if(type===4){
-                this.tradeTypeText = 'BUY TO COVER';
+                this.tradeTypeText = 'BUY TO COVER SHORT';
             }           
             
         },

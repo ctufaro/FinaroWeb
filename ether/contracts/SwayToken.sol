@@ -46,6 +46,7 @@ contract ERC20Interface {
     function transferFrom(address from, address to, uint tokens) public returns (bool success);
 
     event Transfer(address indexed from, address indexed to, uint tokens);
+    event Margin(address indexed from, address indexed to, uint tokens, uint destorigin);
     event Approval(address indexed tokenOwner, address indexed spender, uint tokens);
 }
 
@@ -103,6 +104,7 @@ contract SwayToken is ERC20Interface, Owned {
     uint _totalSupply;
 
     mapping(address => uint) balances;
+    mapping(address => uint) margin;
     mapping(address => mapping(address => uint)) allowed;
 
 
@@ -139,6 +141,13 @@ contract SwayToken is ERC20Interface, Owned {
     // ------------------------------------------------------------------------
     function balanceOf(address tokenOwner) public view returns (uint balance) {
         return balances[tokenOwner];
+    }
+
+    // ------------------------------------------------------------------------
+    // Get the margin balance for account `tokenOwner`
+    // ------------------------------------------------------------------------
+    function marginBalanceOf(address tokenOwner) public view returns (uint balance) {
+        return margin[tokenOwner];
     }
 
 
@@ -207,6 +216,28 @@ contract SwayToken is ERC20Interface, Owned {
         return true;
     }
 
+    // ------------------------------------------------------------------------
+    // Transfer `tokens` from the `from` account to the margin account
+    // - From account must have sufficient balance to transfer
+    // - 0 value transfers are allowed
+    // ------------------------------------------------------------------------
+    function transferMargin(address from, address to, uint tokens, uint destorigin) public returns (bool success) {               
+        //transfer from balance to margin
+        if(destorigin == 0) {
+            balances[from] = balances[from].sub(tokens);
+            margin[to] = margin[to].add(tokens);
+        //transfer from margin to balance
+        } else if (destorigin == 1) {
+            margin[from] = margin[from].sub(tokens);
+            balances[to] = balances[to].add(tokens);
+        //transfer from margin to margin
+        } else if (destorigin == 2) {
+            margin[from] = margin[from].sub(tokens);
+            margin[to] = margin[to].add(tokens);
+        }        
+        emit Margin(from, to, tokens, destorigin);
+        return true;
+    }
 
     // ------------------------------------------------------------------------
     // Returns the amount of tokens approved by the owner that can be

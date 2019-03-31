@@ -444,6 +444,19 @@
 
 /*END MODAL LOGIN*/
  
+/* MODAL PREVIEW ORDER */
+.vertical-alignment-helper {
+    display:table;
+    height: 100%;
+    margin-right: 25%; 
+    margin-left:25%;
+}
+.vertical-align-center {
+    /* To center vertically */
+    display: table-cell;
+    vertical-align: middle;
+}
+/* END MODAL PREVIEW ORDER */
 
 .btn-circle {
     width: 30px;

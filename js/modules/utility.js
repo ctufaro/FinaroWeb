@@ -44,4 +44,20 @@ export default class Utility{
         });
     }
 
+    static getLeagueFinal(league){
+        switch(league){
+            case(1):
+                return "World Series";
+                break;
+            case(2):
+                return "Super Bowl";
+                break;            
+            case(3):
+                return "Stanley Cup";           
+                break;
+            case(4):
+                return "NBA Finals";
+                break;
+        }
+    }
 }

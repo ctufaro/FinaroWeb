@@ -8,7 +8,7 @@ import DTMyOrders from './modules/datatables/dtmyorders.js';
 import DTBuySell from './modules/datatables/dtbuysell.js';
 
 const etherUrl = "https://ropsten.etherscan.io";
-const useLocalHost = true;
+const useLocalHost = false;
 const useWebSockets = true;
 const apiBaseUrl = useLocalHost ? "http://localhost:7071" : "https://finarofunc.azurewebsites.net";
 

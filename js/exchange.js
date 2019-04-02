@@ -104,16 +104,16 @@ const vm = new Vue({
             let retTxt = '';
             let finalTxt = Utility.getLeagueFinal(this.teamPlayer.id);
             if(this.tradeType===1){
-                retTxt = `You are buying ${this.quantity} units for ${this.price} SWAY. You will earn ${this.quantity * 10000} SWAY if the ${this.entity.name} wins the ${finalTxt}. `;
+                retTxt = `You are buying ${this.quantity} unit(s) for ${this.price} SWAY. You will earn ${this.quantity * 1000} SWAY if the ${this.entity.name} win the ${finalTxt}. `;
             }
             else if(this.tradeType===2){
-                retTxt = `You are selling ${this.quantity} units of an existing long position for the ${this.entity.name}. `;
+                retTxt = `You are selling ${this.quantity} unit(s) of an existing long position for the ${this.entity.name}. `;
             }
             else if(this.tradeType===3){
-                retTxt = `You are selling ${this.quantity} units to earn ${this.price} SWAY. You will owe xxx ${this.quantity * 10000} if the ${this.entity.name} wins the ${finalTxt}. `;
+                retTxt = `You are selling ${this.quantity} unit(s) to earn ${this.price} SWAY. You will owe ${this.quantity * 1000} SWAY if the ${this.entity.name} win the ${finalTxt}. `;
             }
             else if(this.tradeType===4){
-                retTxt = `You are buying back ${this.quantity} units of an existing short position for the ${this.entity.name}. `;
+                retTxt = `You are buying back ${this.quantity} unit(s) of an existing short position for the ${this.entity.name}. `;
             } 
             return retTxt + "Below are your order details.";
         },

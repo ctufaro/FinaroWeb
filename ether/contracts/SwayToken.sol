@@ -234,7 +234,7 @@ contract SwayToken is ERC20Interface, Owned {
         } else if (destorigin == 2) {
             margin[from] = margin[from].sub(tokens);
             margin[to] = margin[to].add(tokens);
-        }        
+        } else {}       
         emit Margin(from, to, tokens, destorigin);
         return true;
     }

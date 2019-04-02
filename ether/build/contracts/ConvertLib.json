@@ -22,7 +22,8 @@
       ],
       "payable": false,
       "stateMutability": "pure",
-      "type": "function"
+      "type": "function",
+      "signature": "0x96e4ee3d"
     }
   ],
   "metadata": "{\"compiler\":{\"version\":\"0.5.0+commit.1d4f565a\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"constant\":true,\"inputs\":[{\"name\":\"amount\",\"type\":\"uint256\"},{\"name\":\"conversionRate\",\"type\":\"uint256\"}],\"name\":\"convert\",\"outputs\":[{\"name\":\"convertedAmount\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"pure\",\"type\":\"function\"}],\"devdoc\":{\"methods\":{}},\"userdoc\":{\"methods\":{}}},\"settings\":{\"compilationTarget\":{\"/C/Users/Chris/My Projects/FinaroWeb/ether/contracts/ConvertLib.sol\":\"ConvertLib\"},\"evmVersion\":\"byzantium\",\"libraries\":{},\"optimizer\":{\"enabled\":false,\"runs\":200},\"remappings\":[]},\"sources\":{\"/C/Users/Chris/My Projects/FinaroWeb/ether/contracts/ConvertLib.sol\":{\"keccak256\":\"0xd3104a275fe9a71f71013a944d99b3e7f7a3161de59de12b32668429913b711d\",\"urls\":[\"bzzr://8712e376cdbc1a0767d0625abeddfad30ea6679c0c672e69dc6f432ad2ad5a3c\"]}},\"version\":1}",
@@ -456,18 +457,24 @@
     "3": {
       "events": {},
       "links": {},
-      "address": "0xCA1E2867924e04073B4a3e4022469bB5188a2f2C",
-      "transactionHash": "0x8a89e2cc5b0aeb2279a22c21fbcbb790c025ed1f64d609bd8156e7d59712bc7d"
+      "address": "0xd7d1557c2F090fb1D635A4ee21e3Cf608568093E",
+      "transactionHash": "0x4bebd0ef8d65fd6aef13798b61ba0e29270dba72946bde2dd6403a33530f3810"
     },
     "4447": {
       "events": {},
       "links": {},
       "address": "0x345fA310766fDfa6A6adCEC2f3e2D5Dcc4Bd90bE",
       "transactionHash": "0xe78a528ddf48c6ba81b196e644a894d8c10ee4d7f75ecec44874dc23158b47d2"
+    },
+    "5777": {
+      "events": {},
+      "links": {},
+      "address": "0x1f1149b1010f8ae8B3512Ebb962B7B3b54f3fFA4",
+      "transactionHash": "0xb3856019c2f458d4ec93f884353f30cc370e77654583ead603c0df1d3162e1d7"
     }
   },
   "schemaVersion": "3.0.6",
-  "updatedAt": "2019-03-30T14:25:15.716Z",
+  "updatedAt": "2019-04-02T15:40:49.614Z",
   "devdoc": {
     "methods": {}
   },

@@ -210,15 +210,15 @@ const vm = new Vue({
             switch(uId){
                 case(1):
                     this.user.name = "Chris Tufaro";
-                    this.user.address = "0xD64c013d4676F832D9BC69b4D65412dF6a393a76";
+                    this.user.address = "0x2f7E50C572b51c2352636ca0Be931Ce5B26b95e4";
                     break;
                 case(2):
                     this.user.name = "Mark Finn";
-                    this.user.address = "0x8E86638C68BB5342F281D96f772f1447A40425D5";
+                    this.user.address = "0xfD1F298A6B5dB4E9dAedd7098De056Bc62e693e9";
                     break;
                 case(3):
-                    this.user.name = "Ari Case";
-                    this.user.address = "0xBDa95DF358DdCF8FFDBA7e5D01ee14eEb10f6F58";
+                    this.user.name = "Rosie Tufaro";
+                    this.user.address = "0xAd8E1425ed2EbC20d242e3c91d6EF2e8655040AC";
                     break;                                        
             }
             User.setUserId(this.user);

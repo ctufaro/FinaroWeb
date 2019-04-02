@@ -110,7 +110,7 @@ const vm = new Vue({
                 retTxt = `You are selling ${this.quantity} unit(s) of an existing long position for the ${this.entity.name}. `;
             }
             else if(this.tradeType===3){
-                retTxt = `You are selling ${this.quantity} unit(s) to earn ${this.price} SWAY. You will owe ${this.quantity * 10000} SWAY if the ${this.entity.name} win the ${finalTxt}. `;
+                retTxt = `You are selling ${this.quantity} unit(s) to earn ${this.price} SWAY per unit. You will owe ${this.quantity * 10000} SWAY if the ${this.entity.name} win the ${finalTxt}. `;
             }
             else if(this.tradeType===4){
                 retTxt = `You are buying back ${this.quantity} unit(s) of an existing short position for the ${this.entity.name}. `;

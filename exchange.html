@@ -488,11 +488,11 @@
                                 <div class="form-group modal-form">
                                     <div class="input-group m-b-5">
                                         <div class="input-group-addon"><span class="glyphicon glyphicon-user"></span></div>
-                                        <input type="text" class="form-control" placeholder="Username">
+                                        <input v-model="login.username" type="text" class="form-control" placeholder="Username">
                                     </div>                                    
                                     <div class="input-group">
                                         <div class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></div>
-                                        <input type="text" class="form-control" placeholder="Password">
+                                        <input v-model="login.password" type="text" class="form-control" placeholder="Password">
                                     </div>                                    
                                 </div>
                             </div>
@@ -518,7 +518,7 @@
                         </form>
                     </div>
                     <div class="modal-footer" style="text-align: center;">
-                        <button type="button" class="btn btn-primary btn-lg" v-on:click.prevent="setUserId(1)">Login</button>
+                        <button type="button" class="btn btn-primary btn-lg" v-on:click.prevent="logInto">Login</button>
                     </div>
                 </div>
             </div>
@@ -561,7 +561,7 @@
                             <div class="table-responsive" style="text-align:left;">
                                 <table style="width:100%">
                                     <tr>
-                                        <td width="50%">Gas Fees:</td>
+                                        <td width="50%">Miner Fees:</td>
                                         <td>FREE</td>
                                     </tr>
                                     <tr>

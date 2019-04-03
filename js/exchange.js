@@ -30,6 +30,7 @@ const vm = new Vue({
         marketPrice:null,
         futures:{name:'',id:null},
         teamPlayer:{name:'',id:null},
+        login:{username:null, password: null},
         entity:{name:null, id: null, units: 0},
         user:{id:localStorage.swayUserId,name:localStorage.swayUserName,address:localStorage.swayAddress}
     },
@@ -104,13 +105,13 @@ const vm = new Vue({
             let retTxt = '';
             let finalTxt = Utility.getLeagueFinal(this.teamPlayer.id);
             if(this.tradeType===1){
-                retTxt = `You are buying ${this.quantity} unit(s) for ${this.price} SWAY. You will earn ${this.quantity * 10000} SWAY if the ${this.entity.name} win the ${finalTxt}. `;
+                retTxt = `You are buying ${this.quantity} unit(s) for ${this.price} SWAY. You will earn ${this.quantity * 100} SWAY if the ${this.entity.name} win the ${finalTxt}. `;
             }
             else if(this.tradeType===2){
                 retTxt = `You are selling ${this.quantity} unit(s) of an existing long position for the ${this.entity.name}. `;
             }
             else if(this.tradeType===3){
-                retTxt = `You are selling ${this.quantity} unit(s) to earn ${this.price} SWAY per unit. You will owe ${this.quantity * 10000} SWAY if the ${this.entity.name} win the ${finalTxt}. `;
+                retTxt = `You are selling ${this.quantity} unit(s) to earn ${this.price} SWAY per unit. You will owe ${this.quantity * 100} SWAY if the ${this.entity.name} win the ${finalTxt}. `;
             }
             else if(this.tradeType===4){
                 retTxt = `You are buying back ${this.quantity} unit(s) of an existing short position for the ${this.entity.name}. `;
@@ -205,21 +206,19 @@ const vm = new Vue({
                 this.lastPrice = retdata.LastTradePrice === null ? null : retdata.LastTradePrice.toFixed(2);              
             }
         },
-        setUserId:function(uId){
-            this.user.id = uId;
-            switch(uId){
-                case(1):
-                    this.user.name = "Chris Tufaro";
-                    this.user.address = "0x2f7E50C572b51c2352636ca0Be931Ce5B26b95e4";
-                    break;
-                case(2):
-                    this.user.name = "Mark Finn";
-                    this.user.address = "0xfD1F298A6B5dB4E9dAedd7098De056Bc62e693e9";
-                    break;
-                case(3):
-                    this.user.name = "Rosie Tufaro";
-                    this.user.address = "0xAd8E1425ed2EbC20d242e3c91d6EF2e8655040AC";
-                    break;                                        
+        logInto:function(){          
+            if(this.login.username.toLowerCase() === 'chris'){
+                this.user.id = 1;
+                this.user.name = "Chris Tufaro";
+                this.user.address = "0x2f7E50C572b51c2352636ca0Be931Ce5B26b95e4";
+            } else if(this.login.username.toLowerCase() === 'mark'){
+                this.user.id = 2;
+                this.user.name = "Mark Finn";
+                this.user.address = "0xfD1F298A6B5dB4E9dAedd7098De056Bc62e693e9";
+            } else if(this.login.username.toLowerCase() === 'rosie'){
+                this.user.id = 3;
+                this.user.name = "Rosie Tufaro";
+                this.user.address = "0xAd8E1425ed2EbC20d242e3c91d6EF2e8655040AC";
             }
             User.setUserId(this.user);
             DTMyOrders.init(apiBaseUrl, this.user.id, this.postLogin, etherUrl);
@@ -244,9 +243,12 @@ const vm = new Vue({
             this.selectTeamPlayer('MLB',1)
 
             //GET THE CURRENT PRICE OF USDC
-            axios.get(`https://min-api.cryptocompare.com/data/price?fsym=USDC&tsyms=USD`).then((retdata)=>{
-                this.quote = (parseFloat(retdata.data.USD)/100).toFixed(2);
-            });            
+            /* axios.get(`https://min-api.cryptocompare.com/data/price?fsym=USDC&tsyms=USD`).then((retdata)=>{
+                this.quote = (parseFloat(retdata.data.USD)).toFixed(2);
+            }); */
+            
+            //UPDATE: PEGGING SWAY TO A BUCK
+            this.quote = (parseFloat(1)).toFixed(2);
         },
         postLogin:function(){
             //CLOSE LOADING SPINNER

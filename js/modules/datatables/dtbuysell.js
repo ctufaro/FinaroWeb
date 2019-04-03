@@ -40,8 +40,10 @@ export default class DTBuySell{
                 "render": function ( data, type, row, meta ) {
                     switch(data){
                         case(1):
+                        case(4):
                             return 'BUY ORDERS'
                         case(2):
+                        case(3):
                             return 'SALE ORDERS'                                             
                     }
                 }
@@ -65,10 +67,10 @@ export default class DTBuySell{
             "bDestroy": true,
             "order": [[ 3, 'desc' ],[ 2, srtorder ]],
             "createdRow": function( row, data, dataIndex){
-                if (data['TradeTypeId'] == '1' ) {
+                if (data['TradeTypeId'] == '1' || data['TradeTypeId'] == '3') {
                     $(row).addClass('gains');
                 }
-                else if (data['TradeTypeId'] == '2' ) {
+                else if (data['TradeTypeId'] == '2' || data['TradeTypeId'] == '4') {
                     $(row).addClass('losses');
                 }
             },

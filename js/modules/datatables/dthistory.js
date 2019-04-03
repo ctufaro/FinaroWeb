@@ -25,10 +25,10 @@ export default class DTHistory{
                 "bDestroy": true,
                 "order": [[ 2, 'desc' ]],
                 "createdRow": function(row, data, dataIndex){
-                    if (data['TradeTypeId'] == '1' ) {
+                    if (data['TradeTypeId'] == '1' || data['TradeTypeId'] == '3') {
                         $(row).addClass('gains');
                     }
-                    else if (data['TradeTypeId'] == '2' ) {
+                    else if (data['TradeTypeId'] == '2' || data['TradeTypeId'] == '4') {
                         $(row).addClass('losses');
                     }
                 },

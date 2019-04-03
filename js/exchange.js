@@ -167,9 +167,9 @@ const vm = new Vue({
             axios.get(`${apiBaseUrl}/api/orders/${this.user.id}/${this.entity.id}`).then((retdata)=>
             {         
                 // BUYS
-                DTBuySell.init('tblsells', retdata.data.filter(v => v.TradeTypeId === 2), 'desc');
+                DTBuySell.init('tblsells', retdata.data.filter(v => v.TradeTypeId === 2 || v.TradeTypeId === 4), 'desc');
                 // SELLS
-                DTBuySell.init('tblbuys', retdata.data.filter(v => v.TradeTypeId === 1), 'asc');            
+                DTBuySell.init('tblbuys', retdata.data.filter(v => v.TradeTypeId === 1 || v.TradeTypeId === 3), 'asc');            
                 // LAST PRICE
                 Utility.initStaticDataTable('tbllastprice',null,null,[{"targets": 1, "width": "50%"}],true);
                 // TRADE HISTORY

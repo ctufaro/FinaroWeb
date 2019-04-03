@@ -28,7 +28,7 @@ export default class Websocket{
             order.Name = vm.entity.name;
 
             // DETERMINING IF BUY/SELL
-            (order.TradeTypeId === 1) ? (dt = $('#tblbuys').DataTable(), cls='newbuy') : (dt = $('#tblsells').DataTable(), cls='newsell');
+            (order.TradeTypeId === 1 || order.TradeTypeId === 4) ? (dt = $('#tblbuys').DataTable(), cls='newbuy') : (dt = $('#tblsells').DataTable(), cls='newsell');
 
             // CHECKING IF THIS IS A NEW ORDER
             if(order.Id === null) {

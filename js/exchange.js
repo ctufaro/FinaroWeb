@@ -118,7 +118,8 @@ const vm = new Vue({
             } 
             return retTxt + "Below are your order details.";
         },
-        sendOrder: function () {          
+        sendOrder: function () {    
+            $('#bePatient').show();      
             axios.post(`${apiBaseUrl}/api/orders`,
             {
                 userId: this.user.id,
@@ -129,6 +130,7 @@ const vm = new Vue({
                 unsetQuantity: this.quantity,
                 publicKey: this.user.address                        
             }).then(()=>{
+                $('#bePatient').hide(); 
                 $("#prevOrderModal").modal('hide');
             });
         },

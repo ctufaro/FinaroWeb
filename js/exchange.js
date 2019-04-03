@@ -219,6 +219,10 @@ const vm = new Vue({
                 this.user.id = 3;
                 this.user.name = "Rosie Tufaro";
                 this.user.address = "0xAd8E1425ed2EbC20d242e3c91d6EF2e8655040AC";
+            } else if(this.login.username.toLowerCase() === 'mitch'){
+                this.user.id = 4;
+                this.user.name = "Mitch Finn";
+                this.user.address = "0xFB98a1F2Cd831Bb0879305B223b15F99F0F61A80";
             }
             User.setUserId(this.user);
             DTMyOrders.init(apiBaseUrl, this.user.id, this.postLogin, etherUrl);

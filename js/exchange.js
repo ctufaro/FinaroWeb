@@ -32,7 +32,8 @@ const vm = new Vue({
         teamPlayer:{name:'',id:null},
         login:{username:null, password: null},
         entity:{name:null, id: null, units: 0},
-        user:{id:localStorage.swayUserId,name:localStorage.swayUserName,address:localStorage.swayAddress}
+        user:{id:localStorage.swayUserId,name:localStorage.swayUserName,address:localStorage.swayAddress},
+        toggle:true
     },
     created: function(){
         if(useWebSockets)
@@ -119,7 +120,7 @@ const vm = new Vue({
             return retTxt + "Below are your order details.";
         },
         sendOrder: function () {    
-            $('#bePatient').show();      
+            this.toggle = false;
             axios.post(`${apiBaseUrl}/api/orders`,
             {
                 userId: this.user.id,
@@ -129,9 +130,9 @@ const vm = new Vue({
                 quantity: this.quantity,
                 unsetQuantity: this.quantity,
                 publicKey: this.user.address                        
-            }).then(()=>{
-                $('#bePatient').hide(); 
+            }).then(()=>{                
                 $("#prevOrderModal").modal('hide');
+                this.toggle = true;
             });
         },
         openOrders: function(){          

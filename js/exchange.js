@@ -8,7 +8,7 @@ import DTMyOrders from './modules/datatables/dtmyorders.js';
 import DTBuySell from './modules/datatables/dtbuysell.js';
 
 const etherUrl = "https://ropsten.etherscan.io";
-const useLocalHost = false;
+const useLocalHost = true;
 const useWebSockets = true;
 const apiBaseUrl = useLocalHost ? "http://localhost:7071" : "https://finarofunc.azurewebsites.net";
 
@@ -30,7 +30,7 @@ const vm = new Vue({
         marketPrice:null,
         futures:{name:'',id:null},
         teamPlayer:{name:'',id:null},
-        login:{username:null, password: null},
+        login:{username:null, password: null, errormsg:null},
         entity:{name:null, id: null, units: 0},
         user:{id:localStorage.swayUserId,name:localStorage.swayUserName,address:localStorage.swayAddress},
         toggle:true
@@ -75,6 +75,13 @@ const vm = new Vue({
         else
         {
             DTMyOrders.init(apiBaseUrl, this.user.id, this.postLogin, etherUrl);
+        }
+
+        //TEST METHOD REMOVE THIS
+        document.body.onkeyup = function(e){
+            if(e.keyCode == 32){
+                $('#splashModal').modal('show');
+            }
         }
         
     },    
@@ -209,7 +216,8 @@ const vm = new Vue({
                 this.lastPrice = retdata.LastTradePrice === null ? null : retdata.LastTradePrice.toFixed(2);              
             }
         },
-        logInto:function(){          
+        logInto:function(){ 
+            this.login.username = (this.login.username == null) ? "" : this.login.username;         
             if(this.login.username.toLowerCase() === 'chris'){
                 this.user.id = 1;
                 this.user.name = "Chris Tufaro";
@@ -226,9 +234,13 @@ const vm = new Vue({
                 this.user.id = 4;
                 this.user.name = "Mitch Finn";
                 this.user.address = "0xFB98a1F2Cd831Bb0879305B223b15F99F0F61A80";
+            } else {
+                this.login.errormsg = "Incorrect username or password";
+                return;
             }
             User.setUserId(this.user);
             DTMyOrders.init(apiBaseUrl, this.user.id, this.postLogin, etherUrl);
+            $('#splashModal').modal('show');
             $('#loginModal').modal('hide');
         },
         getUserBalance:function(){
@@ -246,13 +258,8 @@ const vm = new Vue({
             window.location.href = 'index.html';
         },
         preLogin:function(){
-            //DEFAULT TO NFL
+            //DEFAULT TO MLB
             this.selectTeamPlayer('MLB',1)
-
-            //GET THE CURRENT PRICE OF USDC
-            /* axios.get(`https://min-api.cryptocompare.com/data/price?fsym=USDC&tsyms=USD`).then((retdata)=>{
-                this.quote = (parseFloat(retdata.data.USD)).toFixed(2);
-            }); */
             
             //UPDATE: PEGGING SWAY TO A BUCK
             this.quote = (parseFloat(1)).toFixed(2);

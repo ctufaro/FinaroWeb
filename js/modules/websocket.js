@@ -6,25 +6,32 @@ export default class Websocket{
         .then(resp => resp.data);
     }
 
-    static wsNewOrders(orders, vm) {  
-
-        let rowNode = null, dt = null, cls = null;
-        let dthist = $('#tblhistory').DataTable(); 
-        let dtmyorders = $('#tblmyorders').DataTable();  
-        let dtleagueplayer = $('#tblleagueplayers').DataTable();     
+    static wsNewOrders(orders, vm) {
         const neworders = JSON.parse(orders).Orders;  
         const newmarket = JSON.parse(orders).MarketData;  
         
-        // TODO: UPDATE LEAGUE/PLAYER TABLE HERE
+        // UPDATE LEAGUE/PLAYER TABLE
+        let dtleagueplayer = $('#tblleagueplayers').DataTable(); 
+        let selRow = dtleagueplayer.row(`#id_${newmarket.EntityId}`).data();
+        [selRow.currentBid,selRow.currentAsk,selRow.lastPrice] = [newmarket.CurrentBid,newmarket.CurrentAsk,newmarket.LastTradePrice];        
+        dtleagueplayer.row(`#id_${newmarket.EntityId}`).data(selRow).draw();
+
+        //UPDATE MARKET DATA HEADER
+        vm.setMarketData(newmarket);
 
         // CHECK IF THE ENTITY ID IS DIFFERENT THAN THE SELECTED
-        if(!vm.entity.id === newmarket.EntityId) return;
-   
-        neworders.forEach(function (order, index) {
-            // IS THIS MY ORDER? NO - PEACE
-            if(order.UserId != vm.user.id) return;
+        if((vm.entity.id == null) || (vm.entity.id != newmarket.EntityId)) return;
 
-            //MY ORDERS DONT HAVE THE TEAM NAME
+        // ITERATE THROUGH ORDERS
+        let dthist = $('#tblhistory').DataTable(); 
+        let dtmyorders = $('#tblmyorders').DataTable(); 
+        let rowNode = null, dt = null, cls = null, myOrders = null;
+
+        neworders.forEach(function (order, index) {
+            // ARE THESE MY ORDERS COMING DOWN?
+            myOrders = (order.UserId == vm.user.id);
+
+            // ORDERS DONT HAVE THE TEAM NAME
             order.Name = vm.entity.name;
 
             // DETERMINING IF BUY/SELL
@@ -40,9 +47,9 @@ export default class Websocket{
                 else if(order.Status === 3){
                     rowNode = dthist.row.add(order).draw(false).node();
                 }
-                // GO TO MY ORDERS                
-                dtmyorders.row.add(order).draw(false).node();
-            } 
+                // ADD TO MY ORDERS
+                if(myOrders) dtmyorders.row.add(order).draw(false).node();
+            }             
             // EXISTING ORDER RESIDING IN THE BOOK
             else {
                 // EXISTING TRADE PARTIALLY FILLED UPDATE B/S
@@ -55,14 +62,14 @@ export default class Websocket{
                     dt.row(`#id_${order.OrderId}`).remove().draw();
                 }
                 // UPDATE MY ORDERS
-                dtmyorders.row(`#id_${order.OrderId}`).data(order).draw().node();
+                if(myOrders) dtmyorders.row(`#id_${order.OrderId}`).data(order).draw().node();
             }
 
-            // SORT THIS OUT
+            // APPLY CSS RED/GREEN EFFECT ON ROWS
             GUI.applyRem(rowNode,cls, 1);
-            GUI.showToast(order.Id, order.Status);
-        });
 
-        vm.setMarketData(newmarket);
+            // SHOW FUN POPUPS ON MY ORDERS
+            if(myOrders) GUI.showToast(order.Id, order.Status);
+        });        
     }
 }

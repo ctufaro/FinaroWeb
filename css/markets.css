@@ -441,9 +441,40 @@
     margin-right: 25%; 
     margin-left:25%;
 }
-
 /*END MODAL LOGIN*/
- 
+
+/*MODAL SPLASH*/
+.card-bdr {
+    border-width: 1px;
+    border-style: solid;
+    border-radius: 3px;
+    margin:8px;
+    padding:3px;
+    text-align: center;
+    cursor: pointer;
+}
+
+.card-bdr i{
+    padding:10px;
+}
+
+.flex-container {
+    display: flex;
+}
+
+.space-evenly { 
+    justify-content: space-evenly; 
+}
+
+.fnt-icn{
+    font-size:50px;
+}
+
+.fnt-txt{
+    font-size:25px;
+}
+/*MODAL SPLASH*/
+
 /* MODAL PREVIEW ORDER */
 .vertical-alignment-helper {
     display:table;
@@ -548,3 +579,4 @@
             -webkit-transform: rotate(359deg);
     }
 }
+

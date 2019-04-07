@@ -11,7 +11,7 @@ import Splash from '../js/modules/splash.js';
 const etherUrl = "https://ropsten.etherscan.io";
 const useLocalHost = false;
 const useWebSockets = true;
-const apiBaseUrl = useLocalHost ? "http://localhost:7071" : "https://finarofunc.azurewebsites.net";
+const apiBaseUrl = useLocalHost ? "http://192.168.1.5:7071" : "https://finarofunc.azurewebsites.net";
 
 const vm = new Vue({
     el: '#app',    

@@ -531,30 +531,43 @@
             <div class="modal-dialog" role="document">
               <div class="modal-content">
                 <div class="modal-header" style="background-color:#293039; border-bottom:0px !important;">
-                    <span style="font-weight: bold; font-size: 25px; color:white; font-family: 'Shrikhand'; letter-spacing: .5px;">
-                        Select a League
+                    <span v-cloak style="font-weight: bold; font-size: 25px; color:white; font-family: 'Shrikhand'; letter-spacing: .5px;">
+                        {{splash.title}}
+                        <span class="pull-right" style="cursor: pointer;" v-on:click.prevent="splash.instance.restart()">
+                            <i class="fas fa-undo"></i>
+                        </span>
                     </span>
                 </div>
                 <div class="modal-body" style="background-color: #212831; color:white;">
                     <div>
-                        <div class="flex-container space-evenly">
-                            <div class="card-bdr" v-on:click.prevent="selectTeamPlayer('MLB',1)">
+                        <div class="slide1 flex-container space-evenly">
+                            <div class="card-bdr" v-on:click.prevent="splash.instance.start('MLB',1)">
                                 <i class="fas fa-baseball-ball fnt-icn"></i>
                                 <div class="fnt-txt">MLB</div>
                             </div>
-                            <div class="card-bdr" v-on:click.prevent="selectTeamPlayer('NFL',2)">
+                            <div class="card-bdr" v-on:click.prevent="splash.instance.start('NFL',2)">
                                 <i class="fas fa-football-ball fnt-icn"></i>
                                 <div class="fnt-txt">NFL</div>
                             </div>
-                            <div class="card-bdr" v-on:click.prevent="selectTeamPlayer('NHL',3)">
+                            <div class="card-bdr" v-on:click.prevent="splash.instance.start('NHL',3)">
                                 <i class="fas fa-hockey-puck fnt-icn"></i>
                                 <div class="fnt-txt">NHL</div>
                             </div>
-                            <div class="card-bdr" v-on:click.prevent="selectTeamPlayer('NBA',4)">
+                            <div class="card-bdr" v-on:click.prevent="splash.instance.start('NBA',4)">
                                 <i class="fas fa-basketball-ball fnt-icn"></i>
                                 <div class="fnt-txt">NBA</div>
                             </div>                            
                         </div>
+                        <div class="slide2 flex-container space-evenly">
+                            <div class="card-bdr" v-on:click.prevent="splash.instance.close('TEAM',1)">
+                                <i class="fas fa-users fnt-icn"></i>
+                                <div class="fnt-txt">Team</div>
+                            </div>
+                            <div class="card-bdr" v-on:click.prevent="splash.instance.close('PLAYER',2)">
+                                <i class="fas fa-user fnt-icn"></i>
+                                <div class="fnt-txt">Player</div>
+                            </div>                                                       
+                        </div>                        
                     </div>
                 </div>
               </div>
@@ -656,6 +669,6 @@
     <script src="https://cdn.jsdelivr.net/npm/@aspnet/signalr@1.0.3/dist/browser/signalr.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios@0.18.0/dist/axios.min.js"></script>
     <script src="https://www.chartjs.org/dist/2.7.3/Chart.bundle.js"></script>
-    <script src="js/exchange.js" type="module"></script>    
+    <script src="js/exchange.js" type="module"></script>      
 </body>
 </html>

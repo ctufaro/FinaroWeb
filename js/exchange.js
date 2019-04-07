@@ -6,6 +6,7 @@ import DTLeaguePlayer from './modules/datatables/dtleagueplayer.js';
 import DTHistory from './modules/datatables/dthistory.js';
 import DTMyOrders from './modules/datatables/dtmyorders.js';
 import DTBuySell from './modules/datatables/dtbuysell.js';
+import Splash from './modules/splash.js';
 
 const etherUrl = "https://ropsten.etherscan.io";
 const useLocalHost = true;
@@ -33,6 +34,7 @@ const vm = new Vue({
         login:{username:null, password: null, errormsg:null},
         entity:{name:null, id: null, units: 0},
         user:{id:localStorage.swayUserId,name:localStorage.swayUserName,address:localStorage.swayAddress},
+        splash:{instance:Splash, title: null},
         toggle:true
     },
     created: function(){
@@ -80,7 +82,7 @@ const vm = new Vue({
         //TEST METHOD REMOVE THIS
         document.body.onkeyup = function(e){
             if(e.keyCode == 32){
-                $('#splashModal').modal('show');
+                Splash.init(vm);
             }
         }
         

@@ -34,7 +34,7 @@ const vm = new Vue({
         login:{username:null, password: null, errormsg:null},
         entity:{name:null, id: null, units: 0},
         user:{id:localStorage.swayUserId,name:localStorage.swayUserName,address:localStorage.swayAddress},
-        
+        splash:{inst:Splash, title: null},
         toggle:true
     },
     created: function(){

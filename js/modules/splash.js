@@ -16,7 +16,7 @@ export default class Splash{
         $('.slide1').hide();
         $('.slide2').show();
         $('.slide2').addClass("animated bounceInLeft");
-        Splash.vm.splash.title = "Select a team or player";
+        Splash.vm.splash.title = "Select team/player";
     }
 
     static restart(){

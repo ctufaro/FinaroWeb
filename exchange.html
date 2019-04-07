@@ -561,11 +561,25 @@
                                 <i class="fas fa-users fnt-icn"></i>
                                 <div class="fnt-txt">Team</div>
                             </div>
-                            <div class="card-bdr" v-on:click.prevent="splash.inst.close('PLAYER',2)">
+                            <div class="card-bdr" v-on:click.prevent="splash.inst.player">
                                 <i class="fas fa-user fnt-icn"></i>
                                 <div class="fnt-txt">Player</div>
                             </div>                                                       
-                        </div>                        
+                        </div>
+                        <div class="slide3 flex-container space-evenly">
+                            <div class="card-bdr" v-on:click.prevent="splash.inst.close('PLAYER',2)">
+                                <i class="fas fa-trophy fnt-icn"></i>
+                                <div class="fnt-txt">MVP</div>
+                            </div>
+                            <div class="card-bdr" v-on:click.prevent="splash.inst.close('PLAYER',2)">
+                                <i class="fas fa-award fnt-icn"></i>
+                                <div class="fnt-txt">Rookie</div>
+                            </div> 
+                            <div class="card-bdr" v-on:click.prevent="splash.inst.close('PLAYER',2)">
+                                <i class="fas fa-running fnt-icn"></i>
+                                <div class="fnt-txt">Rusher</div>
+                            </div>                                                                                     
+                        </div>                                                  
                     </div>
                 </div>
               </div>

@@ -281,7 +281,7 @@
                                 </div>                                
                                 <label v-cloak class="control-label" v-on:click="quantity=entity.units">Units ({{entity.units}})</label>
                                 <div class="m-b-5">
-                                    <input v-model="quantity" type="number" placeholder="0" class="form-control text-right">
+                                    <input v-model="quantity" type="number" placeholder="0" min="0" class="form-control text-right">
                                 </div>
                                 <label class="control-label">Price (SWAY)</label>
                                 <div>
@@ -486,11 +486,11 @@
                                 <div class="form-group modal-form" style="margin-bottom:5px !important;">
                                     <div class="input-group m-b-5">
                                         <div class="input-group-addon"><span class="glyphicon glyphicon-user"></span></div>
-                                        <input v-model="login.username" type="text" class="form-control" placeholder="Username">
+                                        <input v-model="login.username" type="text" class="form-control input-lg" placeholder="Username">
                                     </div>                                    
                                     <div class="input-group">
                                         <div class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></div>
-                                        <input v-model="login.password" type="text" class="form-control" placeholder="Password">
+                                        <input v-model="login.password" type="password" class="form-control input-lg" placeholder="Password">
                                     </div>                                    
                                 </div>
                             </div>

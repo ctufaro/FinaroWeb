@@ -27,7 +27,7 @@ export default class Splash{
     }
 
     static close(teamPlayer,id){
-        Splash.vm.selectFutures(teamPlayer,id)
+        Splash.vm.selectFutures(teamPlayer,id);
         $('#splashModal').modal('hide'); 
     }
 }

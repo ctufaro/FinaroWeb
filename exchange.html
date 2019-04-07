@@ -464,7 +464,7 @@
             </section>
         </section>
         <!-- Modal Login-->
-        <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginModalLabel" aria-hidden="true">
+        <div class="modal fade mob" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">                        
@@ -485,7 +485,7 @@
                     <div class="modal-body">
                         <form>
                             <div class="row">
-                                <div class="form-group modal-form">
+                                <div class="form-group modal-form" style="margin-bottom:5px !important;">
                                     <div class="input-group m-b-5">
                                         <div class="input-group-addon"><span class="glyphicon glyphicon-user"></span></div>
                                         <input v-model="login.username" type="text" class="form-control" placeholder="Username">
@@ -517,10 +517,60 @@
                             </div>
                         </form>
                     </div>
-                    <div class="modal-footer" style="text-align: center;">
+                    <div class="modal-footer" style="text-align: center; padding: 0px !important;">
+                        <div style="margin-bottom:9px;">
+                            <span vcloak style="font-weight: bold; color:#d9534f;font-size:16px;">{{login.errormsg}}</span>
+                        </div>
                         <button type="button" class="btn btn-primary btn-lg" v-on:click.prevent="logInto">Login</button>
                     </div>
                 </div>
+            </div>
+        </div>
+        <!-- Modal Post Login Splash-->
+        <div class="modal fade mob" id="splashModal" tabindex="-1" role="dialog" aria-labelledby="splashModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header" style="background-color:#293039; border-bottom:0px !important;">
+                    <span v-cloak style="font-weight: bold; font-size: 25px; color:white; font-family: 'Shrikhand'; letter-spacing: .5px;">
+                        {{splash.title}}
+                        <span class="pull-right" style="cursor: pointer;" v-on:click.prevent="splash.instance.restart()">
+                            <i class="fas fa-undo"></i>
+                        </span>
+                    </span>
+                </div>
+                <div class="modal-body" style="background-color: #212831; color:white;">
+                    <div>
+                        <div class="slide1 flex-container space-evenly">
+                            <div class="card-bdr" v-on:click.prevent="splash.instance.start('MLB',1)">
+                                <i class="fas fa-baseball-ball fnt-icn"></i>
+                                <div class="fnt-txt">MLB</div>
+                            </div>
+                            <div class="card-bdr" v-on:click.prevent="splash.instance.start('NFL',2)">
+                                <i class="fas fa-football-ball fnt-icn"></i>
+                                <div class="fnt-txt">NFL</div>
+                            </div>
+                            <div class="card-bdr" v-on:click.prevent="splash.instance.start('NHL',3)">
+                                <i class="fas fa-hockey-puck fnt-icn"></i>
+                                <div class="fnt-txt">NHL</div>
+                            </div>
+                            <div class="card-bdr" v-on:click.prevent="splash.instance.start('NBA',4)">
+                                <i class="fas fa-basketball-ball fnt-icn"></i>
+                                <div class="fnt-txt">NBA</div>
+                            </div>                            
+                        </div>
+                        <div class="slide2 flex-container space-evenly">
+                            <div class="card-bdr" v-on:click.prevent="splash.instance.close('TEAM',1)">
+                                <i class="fas fa-users fnt-icn"></i>
+                                <div class="fnt-txt">Team</div>
+                            </div>
+                            <div class="card-bdr" v-on:click.prevent="splash.instance.close('PLAYER',2)">
+                                <i class="fas fa-user fnt-icn"></i>
+                                <div class="fnt-txt">Player</div>
+                            </div>                                                       
+                        </div>                        
+                    </div>
+                </div>
+              </div>
             </div>
         </div>
         <!-- Modal Preview Order-->
@@ -575,9 +625,15 @@
                                 </table>                               
                             </div> 
                             <div style="text-align:center; margin-top:20px;">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">CANCEL</button>
-                                <button type="button" class="btn btn-primary" v-on:click.prevent="sendOrder">PLACE ORDER</button>
-                                <div style="display:none;" id="bePatient"><strong>Writing to BlockChain, Be Patient Finn</strong></div>
+                                <div v-show="toggle">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">CANCEL</button>
+                                    <button type="button" class="btn btn-primary" v-on:click.prevent="sendOrder">PLACE ORDER</button>
+                                </div>
+                                <div v-cloak v-show="!toggle">
+                                    <div v-bind:class="{ cloader: !toggle }">
+                                        <span></span>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -613,6 +669,6 @@
     <script src="https://cdn.jsdelivr.net/npm/@aspnet/signalr@1.0.3/dist/browser/signalr.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios@0.18.0/dist/axios.min.js"></script>
     <script src="https://www.chartjs.org/dist/2.7.3/Chart.bundle.js"></script>
-    <script src="js/exchange.js" type="module"></script>    
+    <script src="js/exchange.js" type="module"></script>      
 </body>
 </html>

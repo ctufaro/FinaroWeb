@@ -68,6 +68,12 @@
         display: none;
     }
 
+    /*MODALS*/
+    .mob {
+        margin-top:calc(100% - 250px);
+    }
+    /*END MODALS*/
+
     /*MODAL LOGIN*/
     #loginModal .modal-form{
         margin-right: 12%; 
@@ -82,4 +88,13 @@
     }
     /* END MODAL PREVIEW ORDER */
 
+    /*SPLASH MODAL*/
+    .fnt-icn{
+        font-size:30px;
+    }
+    
+    .fnt-txt{
+        font-size:15px;
+    }
+    /* END MODAL PREVIEW ORDER */
 }

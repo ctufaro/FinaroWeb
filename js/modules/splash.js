@@ -1,6 +1,4 @@
-export default class Splash{
-
-    static vm = null;
+export default class Splash{    
 
     static init(vm) {
         $('.slide2').hide();

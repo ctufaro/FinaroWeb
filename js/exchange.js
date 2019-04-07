@@ -6,7 +6,7 @@ import DTLeaguePlayer from './modules/datatables/dtleagueplayer.js';
 import DTHistory from './modules/datatables/dthistory.js';
 import DTMyOrders from './modules/datatables/dtmyorders.js';
 import DTBuySell from './modules/datatables/dtbuysell.js';
-
+import Splash from './modules/splash.js';
 
 const etherUrl = "https://ropsten.etherscan.io";
 const useLocalHost = false;

@@ -242,7 +242,7 @@ const vm = new Vue({
             }
             User.setUserId(this.user);
             DTMyOrders.init(apiBaseUrl, this.user.id, this.postLogin, etherUrl);
-            $('#splashModal').modal('show');
+            Splash.init(vm);
             $('#loginModal').modal('hide');
         },
         getUserBalance:function(){

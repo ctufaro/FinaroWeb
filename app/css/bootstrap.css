@@ -2748,6 +2748,16 @@ select[multiple].input-sm {
   line-height: 1.3333333;
   border-radius: 6px;
 }
+.input-xlg {
+  height: 46px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-right: 5px;
+  padding-left: 16px;
+  font-size: 22px;
+  line-height: 1.3333333;
+  border-radius: 6px;
+}
 select.input-lg {
   height: 46px;
   line-height: 46px;

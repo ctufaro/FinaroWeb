@@ -325,7 +325,7 @@
 .dark input {
     background-color: #232323;
     border: 2px solid #232323;
-    color: #D5D6D8;
+    color: white;
 }
 
 .dark select{

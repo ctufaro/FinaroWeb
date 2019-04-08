@@ -322,6 +322,9 @@
     color:#D5D6D8 !important;
 }
 
+.lg-lbl{
+    font-size: 16px;
+}
 .dark input {
     background-color: #232323;
     border: 2px solid #232323;

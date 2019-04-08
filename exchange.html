@@ -263,7 +263,7 @@
                                         <!-- <label class="control-label">Order Type</label> -->
                                         <div class="btn-group btn-block col-xs-6">
                                             <div class="team-title m-b-5" v-cloak>{{entity.name}}</div>
-                                            <label class="control-label">Order Type</label>
+                                            <label class="control-label lg-lbl">ORDER TYPE</label>
                                             <button class="btn btn-secondary dropdown-toggle btn-block" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                 <strong v-cloak>{{tradeTypeText}}</strong>
                                                 <span class="pull-right">
@@ -279,11 +279,11 @@
                                         </div>                                        
                                 </div>                                    
                                 </div>                                
-                                <label v-cloak class="control-label" v-on:click="quantity=entity.units">Units ({{entity.units}})</label>
+                                <label v-cloak class="control-label lg-lbl" v-on:click="quantity=entity.units">UNITS ({{entity.units}})</label>
                                 <div class="m-b-5">
                                     <input v-model="quantity" type="number" placeholder="0" min="0" class="form-control text-right input-xlg">
                                 </div>
-                                <label class="control-label">Price (SWAY)</label>
+                                <label class="control-label lg-lbl">PRICE (SWAY)</label>
                                 <div>
                                     <input v-model="price" type="number" placeholder="0.00" step=".01" class="form-control text-right input-xlg">
                                 </div>
@@ -291,7 +291,7 @@
                                     <div class="btn-group m-t-9 col-md-12 col-sm-12 col-xs-12">
                                         <div class="row">
                                             <div class="col-xs-12">
-                                                <button type="button" class="btn btn-success btn-block" v-cloak v-on:click.prevent="previewOrder()">PREVIEW ORDER</button>                                                
+                                                <button type="button" class="btn btn-success btn-block btn-lg" v-cloak v-on:click.prevent="previewOrder()">PREVIEW ORDER</button>                                                
                                             </div>
                                         </div>
                                     </div>
@@ -638,8 +638,8 @@
                             </div> 
                             <div style="text-align:center; margin-top:20px;">
                                 <div v-show="toggle">
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">CANCEL</button>
-                                    <button type="button" class="btn btn-primary" v-on:click.prevent="sendOrder">PLACE ORDER</button>
+                                    <button type="button" class="btn btn-secondary btn-lg" data-dismiss="modal">CANCEL</button>
+                                    <button type="button" class="btn btn-primary btn-lg" v-on:click.prevent="sendOrder">PLACE ORDER</button>
                                 </div>
                                 <div v-cloak v-show="!toggle">
                                     <div v-bind:class="{ cloader: !toggle }">

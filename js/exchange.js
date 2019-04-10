@@ -177,13 +177,16 @@ const vm = new Vue({
             if(!submit) {
                 $("#feedbackModal").modal();
                 this.feedbackTxt = '';
+                this.toggle = true;
             } else {
+                this.toggle = false;
                 axios.post(`${apiBaseUrl}/api/feedback`,
                 {
                     userId: this.user.id,
                     feedBack: this.feedbackTxt
                 }).then(()=>{                
                     $("#feedbackModal").modal('hide');
+                    this.toggle = true;
                 });
             }
         },

@@ -609,9 +609,14 @@
                             <label for="comment">We appreciate it!</label>
                             <textarea class="form-control" rows="5" v-model="feedbackTxt" style="font-size: 16px;"></textarea>                                   
                         </div>
-                        <div style="text-align: center; padding: 0px !important;">
+                        <div style="text-align: center; padding: 0px !important;" v-show="toggle">
                             <button type="button" class="btn btn-primary" v-on:click.prevent="feedBack(true)">SUBMIT</button>
-                        </div>                         
+                        </div>
+                        <div v-cloak v-show="!toggle">
+                            <div v-bind:class="{ cloader: !toggle }">
+                                <span></span>
+                            </div>
+                        </div>                        
                     </div>                                   
                 </div>
             </div>

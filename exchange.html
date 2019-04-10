@@ -597,14 +597,17 @@
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header" style="background-color:#293039; border-bottom:0px !important;">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span style="color:white;font-size: 25px;"ria-hidden="true">&times;</span>
+                        </button>
                         <span v-cloak style="font-weight: bold; font-size: 21px; color:white; font-family: 'Shrikhand'; letter-spacing: .5px;">
                             Feedback
                         </span>
                     </div>
                     <div class="modal-body" style="background-color: #212831; color:white;">
                         <div class="form-group">
-                            <label for="comment">We appreciate the feedback..</label>
-                            <textarea class="form-control" rows="5" v-model="feedbackTxt"></textarea>                                   
+                            <label for="comment">We appreciate it!</label>
+                            <textarea class="form-control" rows="5" v-model="feedbackTxt" style="font-size: 16px;"></textarea>                                   
                         </div>
                         <div style="text-align: center; padding: 0px !important;">
                             <button type="button" class="btn btn-primary" v-on:click.prevent="feedBack(true)">SUBMIT</button>

@@ -35,7 +35,8 @@ const vm = new Vue({
         entity:{name:null, id: null, units: 0},
         user:{id:localStorage.swayUserId,name:localStorage.swayUserName,address:localStorage.swayAddress},
         splash:{inst:Splash, title: null},
-        toggle:true
+        toggle:true,
+        feedbackTxt:''
     },
     created: function(){
         if(useWebSockets)
@@ -172,6 +173,27 @@ const vm = new Vue({
             this.futures.id = typeid;
             DTLeaguePlayer.init(apiBaseUrl, this.futures.id, this.teamPlayer.id, this.reloadFunc);
         },
+        feedBack:function(submit){
+            if(!submit) {
+                $("#feedbackModal").modal();
+                this.feedbackTxt = '';
+            } else {
+                //SEND TO GOOGLE FORM
+                axios.post(`https://sheets.googleapis.com/v4/spreadsheets/1--lekZI4W8X4-U6pxdS5Z_iYHQCnZFwiK_yiwdIEg60/values/Feedback!A1:D5?valueInputOption=USER_ENTERED`,
+                {
+                    "range": "Feedback!A1:D5",
+                    "majorDimension": "ROWS",
+                    "values": [
+                      ["Item", "Cost", "Stocked", "Ship Date"],
+                      ["Wheel", "$20.50", "4", "3/1/2016"],
+                      ["Door", "$15", "2", "3/15/2016"],
+                      ["Engine", "$100", "1", "30/20/2016"]
+                    ],
+                }).then(()=>{                
+                    $("#feedbackModal").modal('hide');
+                });                
+            }
+        },
         reloadFunc:function(data){
             this.entity.name = data.name.toUpperCase();
             this.entity.id = data.id;
@@ -218,27 +240,31 @@ const vm = new Vue({
                 this.lastPrice = retdata.LastTradePrice === null ? null : retdata.LastTradePrice.toFixed(2);              
             }
         },
-        logInto:function(){ 
-            this.login.username = (this.login.username == null) ? "" : this.login.username;         
-            if(this.login.username.toLowerCase() === 'chris'){
-                this.user.id = 1;
-                this.user.name = "Chris Tufaro";
-                this.user.address = "0x2f7E50C572b51c2352636ca0Be931Ce5B26b95e4";
-            } else if(this.login.username.toLowerCase() === 'mark'){
-                this.user.id = 2;
-                this.user.name = "Mark Finn";
-                this.user.address = "0xfD1F298A6B5dB4E9dAedd7098De056Bc62e693e9";
-            } else if(this.login.username.toLowerCase() === 'rosie'){
+        logInto:function(test){
+            if(test){
                 this.user.id = 3;
-                this.user.name = "Rosie Tufaro";
+                this.user.name = "Beta Tester";
                 this.user.address = "0xAd8E1425ed2EbC20d242e3c91d6EF2e8655040AC";
-            } else if(this.login.username.toLowerCase() === 'mitch'){
-                this.user.id = 4;
-                this.user.name = "Mitch Finn";
-                this.user.address = "0xFB98a1F2Cd831Bb0879305B223b15F99F0F61A80";
             } else {
-                this.login.errormsg = "Incorrect username or password";
-                return;
+                this.login.username = (this.login.username == null) ? "" : this.login.username;         
+                if(this.login.username.toLowerCase() === 'chris'){
+                    this.user.id = 1;
+                    this.user.name = "Chris Tufaro";
+                    this.user.address = "0x2f7E50C572b51c2352636ca0Be931Ce5B26b95e4";
+                } else if(this.login.username.toLowerCase() === 'mark'){
+                    this.user.id = 2;
+                    this.user.name = "Mark Finn";
+                    this.user.address = "0xfD1F298A6B5dB4E9dAedd7098De056Bc62e693e9";
+                } else if(this.login.username.toLowerCase() === 'rosie'){
+                    
+                } else if(this.login.username.toLowerCase() === 'mitch'){
+                    this.user.id = 4;
+                    this.user.name = "Mitch Finn";
+                    this.user.address = "0xFB98a1F2Cd831Bb0879305B223b15F99F0F61A80";
+                } else {
+                    this.login.errormsg = "Incorrect username or password";
+                    return;
+                }
             }
             User.setUserId(this.user);
             DTMyOrders.init(apiBaseUrl, this.user.id, this.postLogin, etherUrl);

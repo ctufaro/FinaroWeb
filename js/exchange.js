@@ -178,20 +178,13 @@ const vm = new Vue({
                 $("#feedbackModal").modal();
                 this.feedbackTxt = '';
             } else {
-                //SEND TO GOOGLE FORM
-                axios.post(`https://sheets.googleapis.com/v4/spreadsheets/1--lekZI4W8X4-U6pxdS5Z_iYHQCnZFwiK_yiwdIEg60/values/Feedback!A1:D5?valueInputOption=USER_ENTERED`,
+                axios.post(`${apiBaseUrl}/api/feedback`,
                 {
-                    "range": "Feedback!A1:D5",
-                    "majorDimension": "ROWS",
-                    "values": [
-                      ["Item", "Cost", "Stocked", "Ship Date"],
-                      ["Wheel", "$20.50", "4", "3/1/2016"],
-                      ["Door", "$15", "2", "3/15/2016"],
-                      ["Engine", "$100", "1", "30/20/2016"]
-                    ],
+                    userId: this.user.id,
+                    feedBack: this.feedbackTxt
                 }).then(()=>{                
                     $("#feedbackModal").modal('hide');
-                });                
+                });
             }
         },
         reloadFunc:function(data){

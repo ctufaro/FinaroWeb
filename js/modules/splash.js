@@ -1,42 +1,54 @@
 export default class Splash{    
 
     static init(vm) {
-        $('.slide2').hide();
-        $('.slide3').hide();
-        $('#splashModal').modal('show');  
-        $('.slide1').show();      
-        $('.slide1').addClass("animated bounceInLeft");
+        $('#splashModal').modal('show');        
         Splash.vm = vm;
-        vm.splash.title = "Select a league";
+        Splash.restart();
     }
 
-    static start(teamLeague,id){
-        Splash.vm.selectTeamPlayer(teamLeague,id);
-        $('.slide1').hide();
-        $('.slide3').hide();
-        $('.slide2').show();
-        $('.slide2').addClass("animated bounceInLeft");
-        Splash.vm.splash.title = "Select team/player";
+    static start(name,id){
+        Splash.vm.selectLeague(name,id);
+        Splash.vm.selectPlayerGroup(0, false);
+        // IF NBA OR NHL, CLOSE MODAL RESET TO TEAM AND GROUP 0 (NO PLAYER CATS YET)
+        if (id == 3 || id == 4){
+            $('#splashModal').modal('hide');
+            Splash.vm.selectTeamPlayer('TEAM',1);            
+        } else {
+            Splash.toggleSlide(2, "animated bounceInLeft");
+            Splash.vm.splash.title = "Select team/player";
+        }
     }
 
     static player(){
-        $('.slide1').hide();
-        $('.slide2').hide();        
-        $('.slide3').show();      
-        $('.slide3').addClass("animated bounceInLeft");         
-        Splash.vm.splash.title = "Player Stat";
+        Splash.vm.selectTeamPlayer('PLAYER',2);
+        if(Splash.vm.league.id == 1){
+            Splash.toggleSlide(4, "animated bounceInLeft");
+        } else if(Splash.vm.league.id == 2){
+            Splash.toggleSlide(3, "animated bounceInLeft");
+        }        
+        Splash.vm.splash.title = "Player Category";
     }    
 
-    static restart(){
-        $('.slide2').hide();  
-        $('.slide3').hide();      
-        $('.slide1').show();      
-        $('.slide1').addClass("animated bounceInLeft"); 
+    static restart(){        
+        Splash.toggleSlide(1, "animated bounceInLeft");
         Splash.vm.splash.title = "Select a league";
     }
 
-    static close(teamPlayer,id){
-        Splash.vm.selectFutures(teamPlayer,id);
+    static close(id,name){
+        Splash.vm.selectPlayerGroup(id,name, true);
         $('#splashModal').modal('hide'); 
+    }
+
+    static toggleSlide(show, css){
+        let i;
+        let slideCount = 4;
+        for (i = 1; i < slideCount + 1; i++) { 
+            if(i == show){
+                $(`.slide${i}`).show();      
+                $(`.slide${i}`).addClass(css);
+            } else {
+                $(`.slide${i}`).hide();
+            }
+        }
     }
 }

@@ -29,8 +29,8 @@ const vm = new Vue({
         unitBalance:null,
         balanceUSD:null,
         marketPrice:null,
-        futures:{name:'',id:null},
-        teamPlayer:{name:'',id:null},
+        teamPlayer:{name:'',id:null, group:0},
+        league:{name:'',id:null},
         login:{username:null, password: null, errormsg:null},
         entity:{name:null, id: null, units: 0},
         user:{id:localStorage.swayUserId,name:localStorage.swayUserName,address:localStorage.swayAddress},
@@ -80,12 +80,8 @@ const vm = new Vue({
             DTMyOrders.init(apiBaseUrl, this.user.id, this.postLogin, etherUrl);
         }
 
-        //TEST METHOD REMOVE THIS
-/*         document.body.onkeyup = function(e){
-            if(e.keyCode == 32){
-                Splash.init(vm);
-            }
-        } */
+        // TEST METHOD REMOVE THIS
+        // document.body.onkeyup = function(e){if(e.keyCode == 32){Splash.init(vm); }} 
         
     },    
     methods: {
@@ -114,7 +110,7 @@ const vm = new Vue({
         },
         orderLanguage : function(){
             let retTxt = '';
-            let finalTxt = Utility.getLeagueFinal(this.teamPlayer.id);
+            let finalTxt = Utility.getLeagueFinal(this.league.id);
             if(this.tradeType===1){
                 retTxt = `You are buying ${this.quantity} unit(s) for ${this.price} SWAY. You will earn ${this.quantity * 100} SWAY if the ${this.entity.name} win the ${finalTxt}. `;
             }
@@ -171,10 +167,24 @@ const vm = new Vue({
             }           
             
         },
-        selectFutures:function(type,typeid){
-            this.futures.name = type;
-            this.futures.id = typeid;
-            DTLeaguePlayer.init(apiBaseUrl, this.futures.id, this.teamPlayer.id, this.reloadFunc);
+        selectLeague:function(name,id){
+            this.league.name = name;
+            this.league.id = id;
+            //DEFAULT TO TEAM
+            if (this.teamPlayer.id === null) this.teamPlayer = {name:'TEAM',id:1, group:0};
+            DTLeaguePlayer.init(apiBaseUrl, this.teamPlayer.id, this.league.id, this.teamPlayer.group, this.reloadFunc);
+        },        
+        selectTeamPlayer:function(name,id){
+            this.teamPlayer.name = name;
+            this.teamPlayer.id = id;
+            DTLeaguePlayer.init(apiBaseUrl, this.teamPlayer.id, this.league.id, this.teamPlayer.group, this.reloadFunc);
+        },
+        selectPlayerGroup:function(id,name,refresh){
+            this.teamPlayer.group = id;
+            //APPENDING GROUP NAME
+            this.league.name = (name.length > 0 ) ? name + " " + this.league.name : this.league.name;
+            if(refresh)
+                DTLeaguePlayer.init(apiBaseUrl, this.teamPlayer.id, this.league.id, this.teamPlayer.group, this.reloadFunc);
         },
         feedBack:function(submit){
             if(!submit) {
@@ -222,13 +232,6 @@ const vm = new Vue({
             }).then(()=>{
                 $('.tbl-overlay-loader').toggle();
             });            
-        },
-        selectTeamPlayer:function(type,typeid){
-            this.teamPlayer.name = type;
-            this.teamPlayer.id = typeid;
-            //DEFAULT TO TEAM FUTURES
-            if (this.futures.id === null) this.futures = {name:'TEAM',id:1};
-            DTLeaguePlayer.init(apiBaseUrl, this.futures.id, this.teamPlayer.id, this.reloadFunc);
         },
         setMarketData:function(retdata) {
             if(retdata !== null){
@@ -286,7 +289,7 @@ const vm = new Vue({
         },
         preLogin:function(){
             //DEFAULT TO MLB
-            this.selectTeamPlayer('MLB',1)
+            this.selectLeague('MLB',1)
             
             //UPDATE: PEGGING SWAY TO A BUCK
             this.quote = (parseFloat(1)).toFixed(2);

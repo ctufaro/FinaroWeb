@@ -2,10 +2,10 @@ import Utility from '../utility.js';
 
 export default class DTLeaguePlayer{
 
-    static init(apiBaseUrl, futuresId, teamPlayerId, reloadFunc){
-        if(futuresId === null || teamPlayerId === null) return;
+    static init(apiBaseUrl, teamPlayerId, leagueId, groupId, reloadFunc){
+        if(teamPlayerId === null || leagueId === null) return;
         $('.tbl-overlay-loader').toggle();
-        axios.get(`${apiBaseUrl}/api/teamplayers/${futuresId}/${teamPlayerId}`).then(resp=>{
+        axios.get(`${apiBaseUrl}/api/league/${teamPlayerId}/${leagueId}/${groupId}`).then(resp=>{
             $('#tblleagueplayers').DataTable({
                 searching: false, paging: false, info: false,autoWidth: false,        
                 "data":resp.data,

@@ -15,7 +15,7 @@ export default class Splash{
         if (id == 3 || id == 4){
             $('#splashModal').modal('hide');                        
         } else {
-            Splash.toggleSlide(2, "animated bounceInLeft");
+            Splash.toggleSlide(2, "animated fadeIn");
             Splash.vm.splash.title = "Select team/player";
         }
     }
@@ -23,15 +23,15 @@ export default class Splash{
     static player(){
         Splash.vm.selectTeamPlayer('PLAYER',2, true);
         if(Splash.vm.league.id == 1){
-            Splash.toggleSlide(4, "animated bounceInLeft");
+            Splash.toggleSlide(4, "animated fadeIn");
         } else if(Splash.vm.league.id == 2){
-            Splash.toggleSlide(3, "animated bounceInLeft");
+            Splash.toggleSlide(3, "animated fadeIn");
         }        
         Splash.vm.splash.title = "Player Category";
     }    
 
     static restart(){        
-        Splash.toggleSlide(1, "animated bounceInLeft");
+        Splash.toggleSlide(1, "animated fadeIn");
         Splash.vm.splash.title = "Select a league";
     }
 

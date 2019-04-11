@@ -70,7 +70,10 @@
 
     /*MODALS*/
     .mob {
-        margin-top:calc(100% - 250px);
+        /*margin-top:calc(100% - 250px);*/
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
     }
     /*END MODALS*/
 

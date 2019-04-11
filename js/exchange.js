@@ -152,6 +152,9 @@ const vm = new Vue({
                 $('body').addClass('aside-toggled');
             }
         },
+        openSplash: function(){
+            Splash.init(vm);
+        },
         changeTranType:function(type){
             this.tradeType = type;
             if(type===1){

@@ -6,13 +6,14 @@ export default class Splash{
         Splash.restart();
     }
 
-    static start(name,id){
-        Splash.vm.selectLeague(name,id);
+    static start(name,id){        
+        // RESET
         Splash.vm.selectPlayerGroup(0, false);
+        Splash.vm.selectTeamPlayer('TEAM',1, false);        
+        Splash.vm.selectLeague(name,id);
         // IF NBA OR NHL, CLOSE MODAL RESET TO TEAM AND GROUP 0 (NO PLAYER CATS YET)
         if (id == 3 || id == 4){
-            $('#splashModal').modal('hide');
-            Splash.vm.selectTeamPlayer('TEAM',1);            
+            $('#splashModal').modal('hide');                        
         } else {
             Splash.toggleSlide(2, "animated bounceInLeft");
             Splash.vm.splash.title = "Select team/player";
@@ -20,7 +21,7 @@ export default class Splash{
     }
 
     static player(){
-        Splash.vm.selectTeamPlayer('PLAYER',2);
+        Splash.vm.selectTeamPlayer('PLAYER',2, true);
         if(Splash.vm.league.id == 1){
             Splash.toggleSlide(4, "animated bounceInLeft");
         } else if(Splash.vm.league.id == 2){

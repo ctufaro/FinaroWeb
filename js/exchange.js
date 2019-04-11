@@ -174,10 +174,11 @@ const vm = new Vue({
             if (this.teamPlayer.id === null) this.teamPlayer = {name:'TEAM',id:1, group:0};
             DTLeaguePlayer.init(apiBaseUrl, this.teamPlayer.id, this.league.id, this.teamPlayer.group, this.reloadFunc);
         },        
-        selectTeamPlayer:function(name,id){
+        selectTeamPlayer:function(name,id,refresh){
             this.teamPlayer.name = name;
             this.teamPlayer.id = id;
-            DTLeaguePlayer.init(apiBaseUrl, this.teamPlayer.id, this.league.id, this.teamPlayer.group, this.reloadFunc);
+            if(refresh)
+                DTLeaguePlayer.init(apiBaseUrl, this.teamPlayer.id, this.league.id, this.teamPlayer.group, this.reloadFunc);
         },
         selectPlayerGroup:function(id,name,refresh){
             this.teamPlayer.group = id;

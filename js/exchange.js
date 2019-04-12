@@ -112,13 +112,13 @@ const vm = new Vue({
             let retTxt = '';
             let finalTxt = Utility.getLeagueFinal(this.league.id);
             if(this.tradeType===1){
-                retTxt = `You are buying ${this.quantity} unit(s) for ${this.price} SWAY. You will earn ${this.quantity * 100} SWAY if the selected team/player win the ${finalTxt}. `;
+                retTxt = `You are buying ${this.quantity} unit(s) for ${this.price} SWAY. You will earn ${this.quantity * 100} SWAY if the selected team/player wins the ${finalTxt}. `;
             }
             else if(this.tradeType===2){
                 retTxt = `You are selling ${this.quantity} unit(s) of an existing long position for the selected team/player. `;
             }
             else if(this.tradeType===3){
-                retTxt = `You are selling ${this.quantity} unit(s) to earn ${this.price} SWAY per unit. You will owe ${this.quantity * 100} SWAY if the selected team/player win the ${finalTxt}. `;
+                retTxt = `You are selling ${this.quantity} unit(s) to earn ${this.price} SWAY per unit. You will owe ${this.quantity * 100} SWAY if the selected team/player wins the ${finalTxt}. `;
             }
             else if(this.tradeType===4){
                 retTxt = `You are buying back ${this.quantity} unit(s) of an existing short position for the selected team/player. `;
